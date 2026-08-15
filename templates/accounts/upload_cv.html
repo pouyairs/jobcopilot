@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <h1>
+        Upload CV
+    </h1>
+
+    <p>
+        Upload your German or English CV.
+        Supported formats: PDF and DOCX.
+    </p>
+
+
+    {% if error %}
+
+        <div
+            style="
+                background:#fef2f2;
+                color:#991b1b;
+                padding:14px;
+                border-radius:8px;
+                margin-bottom:20px;
+            "
+        >
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+
+        {{ form.cv_file.errors }}
+
+        <label>
+            CV File
+        </label>
+
+        {{ form.cv_file }}
+
+
+        <div style="margin-top:20px;">
+
+            <button type="submit">
+                Read CV with AI
+            </button>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="btn btn-secondary"
+            >
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

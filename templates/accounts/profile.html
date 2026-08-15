@@ -1,0 +1,2590 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .profile-page {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px 16px 70px;
+        box-sizing: border-box;
+    }
+
+
+    .profile-page * {
+        box-sizing: border-box;
+        min-width: 0;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 20px;
+        flex-wrap: wrap;
+
+        margin-bottom: 18px;
+    }
+
+
+    .profile-heading-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 7px;
+        padding: 6px 10px;
+
+        border-radius: 999px;
+
+        background: #f1edff;
+        color: #6547d8;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+
+    .profile-header h1 {
+        margin: 0 0 5px;
+
+        color: #18141f;
+
+        font-size: 29px;
+        line-height: 1.2;
+    }
+
+
+    .profile-header p {
+        margin: 0;
+
+        color: #817a87;
+
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+
+    .profile-header-actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+
+    .profile-btn-primary,
+    .profile-btn-secondary {
+        min-height: 40px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+
+        padding: 0 15px;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+
+    .profile-btn-primary {
+        color: #ffffff;
+
+        background: linear-gradient(
+            135deg,
+            #7557f5,
+            #6243df
+        );
+
+        border: 1px solid #6748e5;
+    }
+
+
+    .profile-btn-primary:hover {
+        color: #ffffff;
+        background: #6042dd;
+    }
+
+
+    .profile-btn-secondary {
+        color: #5940c3;
+        background: #ffffff;
+
+        border: 1px solid #d7cff4;
+    }
+
+
+    .profile-btn-secondary:hover {
+        color: #4f36b7;
+        background: #faf8ff;
+    }
+
+
+    /* =====================================================
+       STATS
+    ===================================================== */
+
+    .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        gap: 10px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .profile-stat {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        min-height: 68px;
+
+        padding: 13px 14px;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 13px;
+    }
+
+
+    .profile-stat-icon {
+        flex: 0 0 36px;
+
+        width: 36px;
+        height: 36px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 10px;
+
+        background: #f0ecff;
+        color: #6749df;
+
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+
+    .profile-stat-number {
+        margin-bottom: 2px;
+
+        color: #29232e;
+
+        font-size: 20px;
+        font-weight: 850;
+        line-height: 1;
+    }
+
+
+    .profile-stat-label {
+        color: #908995;
+
+        font-size: 8px;
+        font-weight: 750;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+
+    /* =====================================================
+       NAV
+    ===================================================== */
+
+    .profile-nav {
+        display: flex;
+        align-items: center;
+
+        gap: 6px;
+        flex-wrap: wrap;
+
+        margin-bottom: 18px;
+        padding: 8px;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 12px;
+    }
+
+
+    .profile-nav a {
+        padding: 7px 10px;
+
+        color: #665f6c;
+        background: #faf9fb;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 750;
+    }
+
+
+    .profile-nav a:hover {
+        color: #5d40ca;
+        background: #f0ecff;
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    .profile-card {
+        width: 100%;
+
+        margin-bottom: 17px;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 15px;
+
+        overflow: hidden;
+    }
+
+
+    .profile-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+        flex-wrap: wrap;
+
+        padding: 17px 19px;
+
+        border-bottom: 1px solid #efebf2;
+    }
+
+
+    .section-heading {
+        display: flex;
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+
+    .section-heading-icon {
+        flex: 0 0 34px;
+
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background: #f0ecff;
+        color: #6748df;
+
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+
+    .section-heading h2 {
+        margin: 0 0 3px;
+
+        color: #2b2530;
+
+        font-size: 15px;
+    }
+
+
+    .section-heading p {
+        margin: 0;
+
+        color: #928b97;
+
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+
+    .add-btn {
+        min-height: 33px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 11px;
+
+        color: #5d40ca;
+        background: #ffffff;
+
+        border: 1px solid #cfc5f5;
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 800;
+    }
+
+
+    .add-btn:hover {
+        background: #faf8ff;
+        color: #5234bc;
+    }
+
+
+    /* =====================================================
+       SUCCESS
+    ===================================================== */
+
+    .profile-success {
+        margin-bottom: 17px;
+
+        padding: 12px 14px;
+
+        color: #167844;
+        background: #eaf8ef;
+
+        border: 1px solid #ccebd8;
+        border-radius: 10px;
+
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+
+    /* =====================================================
+       PERSONAL
+    ===================================================== */
+
+    .personal-content {
+        padding: 18px 19px;
+    }
+
+
+    .personal-grid {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.3fr)
+            minmax(0, 0.8fr)
+            minmax(0, 0.8fr)
+            minmax(0, 0.8fr);
+
+        gap: 12px;
+    }
+
+
+    .profile-field label,
+    .summary-field label {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #6c6572;
+
+        font-size: 8px;
+        font-weight: 800;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+
+    .profile-field input,
+    .summary-field textarea {
+        width: 100%;
+        max-width: 100%;
+
+        padding: 9px 10px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 8px;
+
+        background: #fbfafc;
+        color: #302a35;
+
+        font: inherit;
+        font-size: 10px;
+    }
+
+
+    .profile-field input:focus,
+    .summary-field textarea:focus {
+        outline: none;
+
+        border-color: #8972ec;
+
+        background: #ffffff;
+
+        box-shadow:
+            0 0 0 3px rgba(116,84,243,0.08);
+    }
+
+
+    .summary-field {
+        margin-top: 13px;
+    }
+
+
+    .summary-field textarea {
+        min-height: 90px;
+
+        resize: vertical;
+
+        line-height: 1.6;
+    }
+
+
+    .relocation-box {
+        min-height: 36px;
+
+        display: flex;
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 8px 10px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 8px;
+
+        background: #fbfafc;
+
+        color: #4f4854;
+
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+
+    .relocation-box input {
+        width: auto;
+        margin: 0;
+    }
+
+
+    .personal-footer {
+        display: flex;
+        justify-content: flex-end;
+
+        margin-top: 13px;
+    }
+
+
+    .save-btn {
+        min-height: 36px;
+
+        padding: 0 16px;
+
+        border: 0;
+        border-radius: 8px;
+
+        color: #ffffff;
+
+        background: linear-gradient(
+            135deg,
+            #7556f4,
+            #6243de
+        );
+
+        font-size: 9px;
+        font-weight: 800;
+
+        cursor: pointer;
+    }
+
+
+    /* =====================================================
+       EXPERIENCE / EDUCATION
+    ===================================================== */
+
+    .experience-list,
+    .education-list {
+        display: grid;
+        gap: 9px;
+
+        padding: 12px 18px 18px;
+    }
+
+
+    .experience-item,
+    .education-item {
+        display: grid;
+
+        grid-template-columns:
+            38px
+            minmax(0, 1fr)
+            auto;
+
+        gap: 12px;
+        align-items: flex-start;
+
+        padding: 14px;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 11px;
+
+        background: #ffffff;
+    }
+
+
+    .experience-icon,
+    .education-icon {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 11px;
+
+        background: #f0ecff;
+        color: #6749df;
+
+        font-size: 14px;
+        font-weight: 900;
+    }
+
+
+    .item-main-title {
+        margin-bottom: 3px;
+
+        color: #29232e;
+
+        font-size: 11px;
+        font-weight: 850;
+    }
+
+
+    .item-company {
+        color: #504955;
+
+        font-size: 9px;
+        font-weight: 750;
+    }
+
+
+    .item-meta {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+
+        margin-top: 4px;
+
+        color: #918a96;
+
+        font-size: 8px;
+    }
+
+
+    .item-date {
+        min-width: 110px;
+
+        color: #544d59;
+
+        text-align: right;
+
+        font-size: 8px;
+        font-weight: 750;
+
+        white-space: nowrap;
+    }
+
+
+    .item-description {
+        margin-top: 9px;
+
+        color: #625b67;
+
+        font-size: 9px;
+        line-height: 1.6;
+
+        white-space: pre-line;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .item-tools {
+        margin-top: 9px;
+    }
+
+
+    .item-tools-label {
+        margin-bottom: 5px;
+
+        color: #837b88;
+
+        font-size: 7px;
+        font-weight: 800;
+
+        text-transform: uppercase;
+    }
+
+
+    .tech-chips {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 5px;
+    }
+
+
+    .tech-chip {
+        display: inline-flex;
+
+        max-width: 100%;
+
+        padding: 4px 7px;
+
+        border-radius: 999px;
+
+        background: #f1eff6;
+        color: #5e5766;
+
+        font-size: 7px;
+        font-weight: 700;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =====================================================
+       ACTIONS
+    ===================================================== */
+
+    .item-actions {
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+        flex-wrap: wrap;
+
+        margin-top: 8px;
+    }
+
+
+    .edit-btn,
+    .delete-btn {
+        min-height: 27px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 8px;
+
+        border-radius: 6px;
+
+        font-size: 7px;
+        font-weight: 800;
+    }
+
+
+    .edit-btn {
+        color: #5640b9;
+        background: #f3efff;
+
+        border: 1px solid #e0d8fb;
+
+        text-decoration: none;
+    }
+
+
+    .delete-form {
+        margin: 0;
+    }
+
+
+    .delete-btn {
+        color: #ab3e3e;
+        background: #fff3f3;
+
+        border: 1px solid #f1dada;
+
+        cursor: pointer;
+    }
+
+
+    /* =====================================================
+       SKILLS
+    ===================================================== */
+
+    .skills-toolbar {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.5fr)
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        gap: 8px;
+
+        padding: 12px 18px;
+
+        border-bottom: 1px solid #efebf2;
+
+        background: #faf9fb;
+    }
+
+
+    .skills-toolbar input,
+    .skills-toolbar select {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: 33px;
+
+        padding: 7px 9px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 7px;
+
+        background: #ffffff;
+        color: #49424f;
+
+        font-size: 8px;
+    }
+
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+        gap: 7px;
+
+        padding: 13px 18px 18px;
+    }
+
+
+    .skill-item {
+        display: grid;
+
+        grid-template-columns:
+            minmax(90px, 1fr)
+            auto
+            minmax(90px, auto)
+            auto;
+
+        gap: 6px;
+        align-items: center;
+
+        min-height: 44px;
+
+        padding: 8px;
+
+        border: 1px solid #ebe7ef;
+        border-radius: 9px;
+
+        background: #ffffff;
+
+        overflow: hidden;
+    }
+
+
+    .skill-name {
+        color: #39323f;
+
+        font-size: 8px;
+        font-weight: 800;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    .skill-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        max-width: 100%;
+
+        padding: 4px 6px;
+
+        border-radius: 999px;
+
+        font-size: 6.5px;
+        line-height: 1.2;
+        font-weight: 800;
+
+        white-space: normal;
+        text-align: center;
+    }
+
+
+    .skill-level-unclassified {
+        color: #6d6671;
+        background: #f0eef2;
+    }
+
+
+    .skill-level-basic {
+        color: #936416;
+        background: #fff2d8;
+    }
+
+
+    .skill-level-intermediate {
+        color: #147d4b;
+        background: #e6f7ed;
+    }
+
+
+    .skill-level-advanced {
+        color: #265ead;
+        background: #e7f0ff;
+    }
+
+
+    .skill-level-expert {
+        color: #7142c7;
+        background: #f0e8ff;
+    }
+
+
+    .skill-source {
+        color: #4261b3;
+        background: #e9efff;
+    }
+
+
+    .skill-restricted {
+        display: block;
+
+        margin-top: 3px;
+
+        color: #a33b3b;
+        background: #ffeded;
+    }
+
+
+    .skill-actions {
+        display: flex;
+        justify-content: flex-end;
+
+        gap: 3px;
+    }
+
+
+    .skill-edit,
+    .skill-delete {
+        flex: 0 0 24px;
+
+        width: 24px;
+        height: 24px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0;
+
+        border-radius: 6px;
+
+        font-size: 8px;
+        font-weight: 850;
+    }
+
+
+    .skill-edit {
+        color: #5440b8;
+        background: #f4f1ff;
+
+        border: 1px solid #e2dcf8;
+
+        text-decoration: none;
+    }
+
+
+    .skill-delete {
+        color: #b13e3e;
+        background: #fff2f2;
+
+        border: 1px solid #f0dada;
+
+        cursor: pointer;
+    }
+
+
+    .skill-empty-filter {
+        display: none;
+
+        padding: 24px;
+
+        text-align: center;
+
+        color: #99929d;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       BOTTOM GRID
+    ===================================================== */
+
+    .profile-bottom-grid {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 0.85fr)
+            minmax(0, 1.15fr);
+
+        gap: 17px;
+    }
+
+
+    .compact-list {
+        padding: 3px 17px 15px;
+    }
+
+
+    .compact-item {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+
+        gap: 10px;
+        align-items: center;
+
+        padding: 10px 0;
+
+        border-bottom: 1px solid #efecf1;
+    }
+
+
+    .compact-item:last-child {
+        border-bottom: 0;
+    }
+
+
+    .compact-title {
+        color: #332d39;
+
+        font-size: 8px;
+        font-weight: 800;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .compact-subtitle {
+        margin-top: 3px;
+
+        color: #928b97;
+
+        font-size: 7px;
+        line-height: 1.45;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .language-content {
+        display: flex;
+        align-items: center;
+
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+
+    .language-level {
+        display: inline-flex;
+
+        padding: 4px 7px;
+
+        border-radius: 999px;
+
+        color: #2a60a6;
+        background: #e7f0ff;
+
+        font-size: 7px;
+        font-weight: 850;
+    }
+
+
+    .language-native {
+        color: #ffffff;
+        background: #4352a0;
+    }
+
+
+    /* =====================================================
+       EMPTY
+    ===================================================== */
+
+    .profile-empty {
+        padding: 26px 18px;
+
+        text-align: center;
+
+        color: #938c98;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1050px) {
+
+        .profile-stats {
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+        }
+
+
+        .personal-grid {
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+        }
+
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+        .profile-page {
+            padding:
+                14px
+                10px
+                60px;
+        }
+
+
+        .profile-header {
+            align-items: flex-start;
+        }
+
+
+        .profile-stats {
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+        }
+
+
+        .personal-grid,
+        .skills-toolbar,
+        .profile-bottom-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .experience-item,
+        .education-item {
+            grid-template-columns:
+                36px
+                minmax(0, 1fr);
+        }
+
+
+        .item-date {
+            grid-column: 2;
+
+            min-width: 0;
+
+            text-align: left;
+        }
+
+
+        .skill-item {
+            grid-template-columns:
+                minmax(0, 1fr)
+                auto;
+        }
+
+
+        .skill-item > div:nth-child(3) {
+            grid-column: 1;
+        }
+
+
+        .skill-actions {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .profile-stats {
+            grid-template-columns: 1fr;
+        }
+
+
+        .profile-header-actions {
+            width: 100%;
+        }
+
+
+        .profile-btn-primary,
+        .profile-btn-secondary {
+            flex: 1;
+        }
+
+
+        .profile-card-header {
+            align-items: flex-start;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="profile-page">
+
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+
+    <div class="profile-header">
+
+        <div>
+
+            <div class="profile-heading-badge">
+                ✦ Career Profile
+            </div>
+
+
+            <h1>
+                {{ t.profile_title }}
+            </h1>
+
+
+            <p>
+                {{ t.profile_help }}
+            </p>
+
+        </div>
+
+
+        <div class="profile-header-actions">
+
+            <a
+                href="{% url 'analyze_job' %}"
+                class="profile-btn-secondary"
+            >
+                ✦ Analyze Job
+            </a>
+
+
+            <a
+                href="{% url 'upload_cv' %}"
+                class="profile-btn-primary"
+            >
+                ↑ Upload CV
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         STATS
+    =================================================== -->
+
+    <div class="profile-stats">
+
+
+        <div class="profile-stat">
+
+            <div class="profile-stat-icon">
+                ▣
+            </div>
+
+            <div>
+
+                <div class="profile-stat-number">
+                    {{ profile.experiences.count }}
+                </div>
+
+                <div class="profile-stat-label">
+                    Experiences
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat">
+
+            <div class="profile-stat-icon">
+                ◇
+            </div>
+
+            <div>
+
+                <div class="profile-stat-number">
+                    {{ profile.educations.count }}
+                </div>
+
+                <div class="profile-stat-label">
+                    Education
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat">
+
+            <div class="profile-stat-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <div class="profile-stat-number">
+                    {{ profile.skills.count }}
+                </div>
+
+                <div class="profile-stat-label">
+                    Skills
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat">
+
+            <div class="profile-stat-icon">
+                A
+            </div>
+
+            <div>
+
+                <div class="profile-stat-number">
+                    {{ profile.language_entries.count }}
+                </div>
+
+                <div class="profile-stat-label">
+                    Languages
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-stat">
+
+            <div class="profile-stat-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <div class="profile-stat-number">
+                    {{ profile.certifications.count }}
+                </div>
+
+                <div class="profile-stat-label">
+                    Certifications
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         NAV
+    =================================================== -->
+
+    <nav class="profile-nav">
+
+        <a href="#personal">
+            Personal
+        </a>
+
+        <a href="#experience">
+            Experience
+        </a>
+
+        <a href="#education">
+            Education
+        </a>
+
+        <a href="#skills">
+            Skills
+        </a>
+
+        <a href="#languages">
+            Languages
+        </a>
+
+        <a href="#certifications">
+            Certifications
+        </a>
+
+    </nav>
+
+
+
+    {% if saved %}
+
+        <div class="profile-success">
+            ✓ {{ t.saved }}
+        </div>
+
+    {% endif %}
+
+
+
+    <!-- ==================================================
+         PERSONAL
+    =================================================== -->
+
+    <section
+        class="profile-card"
+        id="personal"
+    >
+
+        <div class="profile-card-header">
+
+            <div class="section-heading">
+
+                <div class="section-heading-icon">
+                    ♙
+                </div>
+
+                <div>
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+                    <p>
+                        Core information used during job analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="personal-content">
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+
+                <div class="personal-grid">
+
+
+                    <div class="profile-field">
+
+                        <label>
+                            {{ t.full_name }}
+                        </label>
+
+                        {{ form.full_name }}
+
+                    </div>
+
+
+
+                    <div class="profile-field">
+
+                        <label>
+                            {{ t.city }}
+                        </label>
+
+                        {{ form.city }}
+
+                    </div>
+
+
+
+                    <div class="profile-field">
+
+                        <label>
+                            {{ t.country }}
+                        </label>
+
+                        {{ form.country }}
+
+                    </div>
+
+
+
+                    <div class="profile-field">
+
+                        <label>
+                            Relocation
+                        </label>
+
+
+                        <div class="relocation-box">
+
+                            {{ form.relocation }}
+
+                            <span>
+                                {{ t.relocation }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-field">
+
+                    <label>
+                        Professional Summary
+                    </label>
+
+                    {{ form.professional_summary }}
+
+                </div>
+
+
+
+                <div class="personal-footer">
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         EXPERIENCE
+    =================================================== -->
+
+    <section
+        class="profile-card"
+        id="experience"
+    >
+
+        <div class="profile-card-header">
+
+            <div class="section-heading">
+
+                <div class="section-heading-icon">
+                    ▣
+                </div>
+
+                <div>
+
+                    <h2>
+                        Work Experience
+                    </h2>
+
+                    <p>
+                        Professional experience is the strongest matching evidence.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'profile_item_add' 'experience' %}"
+                class="add-btn"
+            >
+                + Add Experience
+            </a>
+
+        </div>
+
+
+
+        <div class="experience-list">
+
+
+            {% for item in profile.experiences.all %}
+
+                <div class="experience-item">
+
+
+                    <div class="experience-icon">
+                        ▥
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="item-main-title">
+                            {{ item.job_title }}
+                        </div>
+
+
+                        <div class="item-company">
+                            {{ item.company }}
+                        </div>
+
+
+                        {% if item.location %}
+
+                            <div class="item-meta">
+                                {{ item.location }}
+                            </div>
+
+                        {% endif %}
+
+
+
+                        {% if item.description %}
+
+                            <div class="item-description">
+                                {{ item.description }}
+                            </div>
+
+                        {% endif %}
+
+
+
+                        {% if item.technologies %}
+
+                            <div class="item-tools">
+
+                                <div class="item-tools-label">
+                                    Technologies / Tools
+                                </div>
+
+
+                                <div
+                                    class="tech-chips"
+                                    data-tech="{{ item.technologies|escape }}"
+                                ></div>
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <div class="item-actions">
+
+                            <a
+                                href="{% url 'profile_item_edit' 'experience' item.id %}"
+                                class="edit-btn"
+                            >
+                                ✎ Edit
+                            </a>
+
+
+                            <form
+                                method="post"
+                                action="{% url 'profile_item_delete' 'experience' item.id %}"
+                                class="delete-form"
+                                onsubmit="return confirm('Delete this experience?');"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <button
+                                    type="submit"
+                                    class="delete-btn"
+                                >
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="item-date">
+
+                        {{ item.start_date|default:"-" }}
+                        —
+                        {{ item.end_date|default:"Present" }}
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+                <div class="profile-empty">
+                    No work experience added yet.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         EDUCATION
+    =================================================== -->
+
+    <section
+        class="profile-card"
+        id="education"
+    >
+
+        <div class="profile-card-header">
+
+            <div class="section-heading">
+
+                <div class="section-heading-icon">
+                    ◇
+                </div>
+
+                <div>
+
+                    <h2>
+                        Education
+                    </h2>
+
+                    <p>
+                        Degrees and academic qualifications.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'profile_item_add' 'education' %}"
+                class="add-btn"
+            >
+                + Add Education
+            </a>
+
+        </div>
+
+
+
+        <div class="education-list">
+
+
+            {% for item in profile.educations.all %}
+
+                <div class="education-item">
+
+
+                    <div class="education-icon">
+                        ◇
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="item-main-title">
+                            {{ item.degree }}
+                        </div>
+
+
+                        <div class="item-company">
+                            {{ item.institution }}
+                        </div>
+
+
+                        {% if item.location %}
+
+                            <div class="item-meta">
+                                {{ item.location }}
+                            </div>
+
+                        {% endif %}
+
+
+
+                        {% if item.details %}
+
+                            <div class="item-description">
+                                {{ item.details }}
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <div class="item-actions">
+
+                            <a
+                                href="{% url 'profile_item_edit' 'education' item.id %}"
+                                class="edit-btn"
+                            >
+                                ✎ Edit
+                            </a>
+
+
+                            <form
+                                method="post"
+                                action="{% url 'profile_item_delete' 'education' item.id %}"
+                                class="delete-form"
+                                onsubmit="return confirm('Delete this education?');"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <button
+                                    type="submit"
+                                    class="delete-btn"
+                                >
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="item-date">
+
+                        {{ item.start_date|default:"-" }}
+                        —
+                        {{ item.end_date|default:"-" }}
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+                <div class="profile-empty">
+                    No education added yet.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         SKILLS
+    =================================================== -->
+
+    <section
+        class="profile-card"
+        id="skills"
+    >
+
+        <div class="profile-card-header">
+
+            <div class="section-heading">
+
+                <div class="section-heading-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h2>
+                        Skills
+                    </h2>
+
+                    <p>
+                        Skill level and evidence source influence job matching.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'profile_item_add' 'skill' %}"
+                class="add-btn"
+            >
+                + Add Skill
+            </a>
+
+        </div>
+
+
+
+        <div class="skills-toolbar">
+
+
+            <input
+                type="text"
+                id="skillSearch"
+                placeholder="Search skills..."
+            >
+
+
+            <select id="skillLevelFilter">
+
+                <option value="">
+                    All Levels
+                </option>
+
+                <option value="unclassified">
+                    Not Classified
+                </option>
+
+                <option value="basic">
+                    Basic
+                </option>
+
+                <option value="intermediate">
+                    Intermediate
+                </option>
+
+                <option value="advanced">
+                    Advanced
+                </option>
+
+                <option value="expert">
+                    Expert
+                </option>
+
+            </select>
+
+
+            <select id="skillSourceFilter">
+
+                <option value="">
+                    All Sources
+                </option>
+
+                <option value="professional">
+                    Professional Experience
+                </option>
+
+                <option value="education">
+                    Education
+                </option>
+
+                <option value="project">
+                    Personal Project
+                </option>
+
+                <option value="course">
+                    Course / Certification
+                </option>
+
+                <option value="self_taught">
+                    Self-taught
+                </option>
+
+                <option value="unspecified">
+                    Not Specified
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div
+            class="skills-grid"
+            id="skillsGrid"
+        >
+
+
+            {% for item in profile.skills.all %}
+
+                <div
+                    class="skill-item"
+                    data-name="{{ item.name|lower }}"
+                    data-level="{{ item.level }}"
+                    data-source="{{ item.source }}"
+                >
+
+
+                    <div
+                        class="skill-name"
+                        title="{{ item.name }}"
+                    >
+                        {{ item.name }}
+                    </div>
+
+
+
+                    <div>
+
+                        <span
+                            class="
+                                skill-badge
+
+                                {% if item.level == 'basic' %}
+                                    skill-level-basic
+                                {% elif item.level == 'intermediate' %}
+                                    skill-level-intermediate
+                                {% elif item.level == 'advanced' %}
+                                    skill-level-advanced
+                                {% elif item.level == 'expert' %}
+                                    skill-level-expert
+                                {% else %}
+                                    skill-level-unclassified
+                                {% endif %}
+                            "
+                        >
+                            {{ item.get_level_display }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <span class="skill-badge skill-source">
+                            {{ item.get_source_display }}
+                        </span>
+
+
+                        {% if item.do_not_claim %}
+
+                            <span class="skill-badge skill-restricted">
+                                Do Not Claim
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <div class="skill-actions">
+
+                        <a
+                            href="{% url 'profile_item_edit' 'skill' item.id %}"
+                            class="skill-edit"
+                            title="Edit"
+                        >
+                            ✎
+                        </a>
+
+
+                        <form
+                            method="post"
+                            action="{% url 'profile_item_delete' 'skill' item.id %}"
+                            class="delete-form"
+                            onsubmit="return confirm('Delete this skill?');"
+                        >
+
+                            {% csrf_token %}
+
+
+                            <button
+                                type="submit"
+                                class="skill-delete"
+                                title="Delete"
+                            >
+                                ×
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+                <div class="profile-empty">
+                    No skills added yet.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div
+            class="skill-empty-filter"
+            id="skillEmptyFilter"
+        >
+            No skills match these filters.
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         LANGUAGES + CERTIFICATIONS
+    =================================================== -->
+
+    <div class="profile-bottom-grid">
+
+
+        <!-- LANGUAGES -->
+
+        <section
+            class="profile-card"
+            id="languages"
+        >
+
+            <div class="profile-card-header">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-icon">
+                        A
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Languages
+                        </h2>
+
+                        <p>
+                            CEFR language levels.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'profile_item_add' 'language' %}"
+                    class="add-btn"
+                >
+                    + Add
+                </a>
+
+            </div>
+
+
+
+            <div class="compact-list">
+
+
+                {% for item in profile.language_entries.all %}
+
+                    <div class="compact-item">
+
+
+                        <div>
+
+                            <div class="language-content">
+
+                                <span class="compact-title">
+                                    {{ item.language }}
+                                </span>
+
+
+                                <span
+                                    class="
+                                        language-level
+
+                                        {% if item.level == 'native' %}
+                                            language-native
+                                        {% endif %}
+                                    "
+                                >
+                                    {{ item.get_level_display }}
+                                </span>
+
+                            </div>
+
+
+                            {% if item.original_level %}
+
+                                <div class="compact-subtitle">
+                                    Original: {{ item.original_level }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="item-actions">
+
+                            <a
+                                href="{% url 'profile_item_edit' 'language' item.id %}"
+                                class="edit-btn"
+                            >
+                                ✎
+                            </a>
+
+
+                            <form
+                                method="post"
+                                action="{% url 'profile_item_delete' 'language' item.id %}"
+                                class="delete-form"
+                                onsubmit="return confirm('Delete this language?');"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <button
+                                    type="submit"
+                                    class="delete-btn"
+                                >
+                                    ×
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                {% empty %}
+
+                    <div class="profile-empty">
+                        No languages added yet.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CERTIFICATIONS -->
+
+        <section
+            class="profile-card"
+            id="certifications"
+        >
+
+            <div class="profile-card-header">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Certifications
+                        </h2>
+
+                        <p>
+                            Certifications and learning records.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'profile_item_add' 'certification' %}"
+                    class="add-btn"
+                >
+                    + Add
+                </a>
+
+            </div>
+
+
+
+            <div class="compact-list">
+
+
+                {% for item in profile.certifications.all %}
+
+                    <div class="compact-item">
+
+
+                        <div>
+
+                            <div class="compact-title">
+                                {{ item.name }}
+                            </div>
+
+
+                            <div class="compact-subtitle">
+
+                                {% if item.issuer %}
+                                    {{ item.issuer }}
+                                {% endif %}
+
+
+                                {% if item.date %}
+
+                                    {% if item.issuer %}
+                                        ·
+                                    {% endif %}
+
+                                    {{ item.date }}
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="item-actions">
+
+                            <a
+                                href="{% url 'profile_item_edit' 'certification' item.id %}"
+                                class="edit-btn"
+                            >
+                                ✎
+                            </a>
+
+
+                            <form
+                                method="post"
+                                action="{% url 'profile_item_delete' 'certification' item.id %}"
+                                class="delete-form"
+                                onsubmit="return confirm('Delete this certification?');"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <button
+                                    type="submit"
+                                    class="delete-btn"
+                                >
+                                    ×
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                {% empty %}
+
+                    <div class="profile-empty">
+                        No certifications added yet.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =====================================================
+       TECHNOLOGY CHIPS
+    ===================================================== */
+
+    document.querySelectorAll(
+        ".tech-chips"
+    ).forEach(
+        function(container) {
+
+            let raw =
+                container.dataset.tech || "";
+
+
+            raw = raw
+                .replace(/^\[/, "")
+                .replace(/\]$/, "")
+                .replace(/['"]/g, "");
+
+
+            const items = raw
+                .split(/,|\n/)
+                .map(
+                    function(item) {
+                        return item.trim();
+                    }
+                )
+                .filter(
+                    function(item) {
+                        return item.length > 0;
+                    }
+                );
+
+
+            items.forEach(
+                function(item) {
+
+                    const chip =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    chip.className =
+                        "tech-chip";
+
+
+                    chip.textContent =
+                        item;
+
+
+                    container.appendChild(
+                        chip
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       SKILL FILTER
+    ===================================================== */
+
+    const skillSearch =
+        document.getElementById(
+            "skillSearch"
+        );
+
+
+    const skillLevelFilter =
+        document.getElementById(
+            "skillLevelFilter"
+        );
+
+
+    const skillSourceFilter =
+        document.getElementById(
+            "skillSourceFilter"
+        );
+
+
+    const skillItems =
+        document.querySelectorAll(
+            ".skill-item"
+        );
+
+
+    const skillEmptyFilter =
+        document.getElementById(
+            "skillEmptyFilter"
+        );
+
+
+    function filterSkills() {
+
+        const searchValue =
+            skillSearch
+                ? skillSearch.value
+                    .toLowerCase()
+                    .trim()
+                : "";
+
+
+        const levelValue =
+            skillLevelFilter
+                ? skillLevelFilter.value
+                : "";
+
+
+        const sourceValue =
+            skillSourceFilter
+                ? skillSourceFilter.value
+                : "";
+
+
+        let visibleCount = 0;
+
+
+        skillItems.forEach(
+            function(item) {
+
+                const name =
+                    item.dataset.name || "";
+
+
+                const level =
+                    item.dataset.level || "";
+
+
+                const source =
+                    item.dataset.source || "";
+
+
+                const visible =
+                    (
+                        !searchValue ||
+                        name.includes(
+                            searchValue
+                        )
+                    )
+                    &&
+                    (
+                        !levelValue ||
+                        level === levelValue
+                    )
+                    &&
+                    (
+                        !sourceValue ||
+                        source === sourceValue
+                    );
+
+
+                item.style.display =
+                    visible
+                        ? ""
+                        : "none";
+
+
+                if (visible) {
+                    visibleCount++;
+                }
+
+            }
+        );
+
+
+        if (skillEmptyFilter) {
+
+            skillEmptyFilter.style.display =
+                (
+                    skillItems.length > 0
+                    &&
+                    visibleCount === 0
+                )
+                    ? "block"
+                    : "none";
+
+        }
+
+    }
+
+
+    if (skillSearch) {
+
+        skillSearch.addEventListener(
+            "input",
+            filterSkills
+        );
+
+    }
+
+
+    if (skillLevelFilter) {
+
+        skillLevelFilter.addEventListener(
+            "change",
+            filterSkills
+        );
+
+    }
+
+
+    if (skillSourceFilter) {
+
+        skillSourceFilter.addEventListener(
+            "change",
+            filterSkills
+        );
+
+    }
+
+</script>
+
+
+{% endblock %}

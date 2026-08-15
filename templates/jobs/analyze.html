@@ -1,0 +1,1594 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .analyze-page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 0 75px;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .analyze-hero {
+        position: relative;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 30px;
+
+        margin-bottom: 22px;
+        padding: 35px 40px;
+
+        border-radius: 22px;
+
+        background:
+            radial-gradient(
+                circle at 86% 10%,
+                rgba(129, 97, 255, 0.23),
+                transparent 34%
+            ),
+            linear-gradient(
+                135deg,
+                #17131e 0%,
+                #211933 100%
+            );
+
+        color: #ffffff;
+    }
+
+
+    .analyze-hero::after {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        right: -70px;
+        bottom: -120px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.035);
+    }
+
+
+    .analyze-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .analyze-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+
+        color: #b9acff;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .analyze-hero h1 {
+        margin: 0 0 9px;
+
+        color: #ffffff;
+
+        font-size: 34px;
+        letter-spacing: -0.8px;
+    }
+
+
+    .analyze-hero p {
+        max-width: 650px;
+
+        margin: 0;
+
+        color: #bbb5c1;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    .hero-profile-link {
+        position: relative;
+        z-index: 2;
+
+        min-height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 16px;
+
+        color: #ffffff;
+
+        background: rgba(255,255,255,0.06);
+
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 10px;
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .hero-profile-link:hover {
+        color: #ffffff;
+        background: rgba(255,255,255,0.11);
+    }
+
+
+    /* =====================================================
+       WORKFLOW STRIP
+    ===================================================== */
+
+    .analyze-flow {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        margin-bottom: 22px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 15px;
+
+        overflow: hidden;
+    }
+
+
+    .flow-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+
+        padding: 17px 19px;
+
+        border-right: 1px solid #eeeaf1;
+    }
+
+
+    .flow-item:last-child {
+        border-right: 0;
+    }
+
+
+    .flow-number {
+        flex: 0 0 31px;
+
+        width: 31px;
+        height: 31px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background: #f0ecff;
+        color: #6748de;
+
+        font-size: 11px;
+        font-weight: 850;
+    }
+
+
+    .flow-content strong {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: #37313c;
+
+        font-size: 11px;
+    }
+
+
+    .flow-content span {
+        display: block;
+
+        color: #958e99;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       GRID
+    ===================================================== */
+
+    .analyze-grid {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.55fr)
+            minmax(270px, 0.65fr);
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    .analyze-card {
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 18px;
+
+        overflow: hidden;
+    }
+
+
+    .analyze-card-header {
+        padding: 21px 24px;
+
+        border-bottom: 1px solid #efebf1;
+    }
+
+
+    .analyze-card-header h2 {
+        margin: 0 0 5px;
+
+        color: #28222d;
+
+        font-size: 17px;
+    }
+
+
+    .analyze-card-header p {
+        margin: 0;
+
+        color: #918a96;
+
+        font-size: 11px;
+        line-height: 1.55;
+    }
+
+
+    .analyze-card-body {
+        padding: 24px;
+    }
+
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    .analyze-form-group {
+        margin-bottom: 20px;
+    }
+
+
+    .analyze-form-group:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .analyze-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 7px;
+
+        color: #504954;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .optional-label {
+        color: #aaa3ad;
+
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+
+    .analyze-page textarea,
+    .analyze-page input[type="text"],
+    .analyze-page input[type="url"],
+    .analyze-page select {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 11px 12px;
+
+        border: 1px solid #dcd7e1;
+        border-radius: 10px;
+
+        background: #ffffff;
+
+        color: #302a35;
+
+        font: inherit;
+        font-size: 13px;
+    }
+
+
+    .analyze-page textarea {
+        min-height: 390px;
+
+        resize: vertical;
+
+        line-height: 1.65;
+    }
+
+
+    .analyze-page textarea:focus,
+    .analyze-page input:focus,
+    .analyze-page select:focus {
+        outline: none;
+
+        border-color: #8b74ed;
+
+        box-shadow:
+            0 0 0 3px rgba(116, 84, 243, 0.09);
+    }
+
+
+    .job-text-wrapper {
+        position: relative;
+    }
+
+
+    .job-character-count {
+        position: absolute;
+
+        right: 12px;
+        bottom: 10px;
+
+        padding: 4px 7px;
+
+        background: rgba(255,255,255,0.92);
+
+        border-radius: 6px;
+
+        color: #aaa3ae;
+
+        font-size: 9px;
+
+        pointer-events: none;
+    }
+
+
+    .analyze-help {
+        margin-top: 6px;
+
+        color: #9b949f;
+
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 0.65fr 1.35fr;
+
+        gap: 15px;
+    }
+
+
+    /* =====================================================
+       ERROR
+    ===================================================== */
+
+    .analyze-error {
+        margin-bottom: 20px;
+
+        padding: 13px 15px;
+
+        color: #a23c3c;
+        background: #fff2f2;
+
+        border: 1px solid #f1d5d5;
+        border-radius: 10px;
+
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+
+    .field-error {
+        margin-top: 6px;
+
+        color: #ad4141;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
+
+    .analyze-submit {
+        width: 100%;
+
+        min-height: 49px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        margin-top: 23px;
+
+        border: 0;
+        border-radius: 11px;
+
+        background: #7052ef;
+        color: #ffffff;
+
+        font-size: 13px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+
+    .analyze-submit:hover {
+        background: #6042dd;
+
+        transform: translateY(-1px);
+    }
+
+
+    .analyze-submit:disabled {
+        opacity: 0.7;
+        cursor: wait;
+
+        transform: none;
+    }
+
+
+    .analyze-spinner {
+        display: none;
+
+        width: 14px;
+        height: 14px;
+
+        border: 2px solid rgba(255,255,255,0.35);
+        border-top-color: #ffffff;
+        border-radius: 50%;
+
+        animation: analyzeSpin 0.7s linear infinite;
+    }
+
+
+    @keyframes analyzeSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+
+    /* =====================================================
+       SIDE INFORMATION
+    ===================================================== */
+
+    .side-stack {
+        display: grid;
+        gap: 18px;
+    }
+
+
+    .side-card {
+        padding: 22px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 17px;
+    }
+
+
+    .side-card h3 {
+        margin: 0 0 14px;
+
+        color: #2d2732;
+
+        font-size: 15px;
+    }
+
+
+    .analysis-output-list {
+        display: grid;
+        gap: 10px;
+    }
+
+
+    .analysis-output-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+
+        padding: 10px;
+
+        background: #faf9fb;
+
+        border: 1px solid #efebf1;
+        border-radius: 10px;
+    }
+
+
+    .analysis-output-icon {
+        flex: 0 0 27px;
+
+        width: 27px;
+        height: 27px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 8px;
+
+        background: #f0ecff;
+        color: #6748df;
+
+        font-size: 11px;
+        font-weight: 850;
+    }
+
+
+    .analysis-output-text strong {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: #514a56;
+
+        font-size: 10px;
+    }
+
+
+    .analysis-output-text span {
+        display: block;
+
+        color: #928b97;
+
+        font-size: 9px;
+        line-height: 1.45;
+    }
+
+
+    /* =====================================================
+       HONESTY CARD
+    ===================================================== */
+
+    .honesty-card {
+        padding: 22px;
+
+        color: #ffffff;
+
+        border-radius: 17px;
+
+        background:
+            radial-gradient(
+                circle at 85% 0%,
+                rgba(125, 92, 255, 0.20),
+                transparent 36%
+            ),
+            #19151f;
+    }
+
+
+    .honesty-card h3 {
+        margin: 0 0 10px;
+
+        color: #ffffff;
+
+        font-size: 15px;
+    }
+
+
+    .honesty-card p {
+        margin: 0;
+
+        color: #bcb6c2;
+
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+
+    .honesty-list {
+        display: grid;
+        gap: 8px;
+
+        margin-top: 15px;
+    }
+
+
+    .honesty-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+
+        color: #c9c3ce;
+
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+
+    .honesty-check {
+        color: #a896ff;
+
+        font-weight: 900;
+    }
+
+
+    /* =====================================================
+       PROFILE REMINDER
+    ===================================================== */
+
+    .profile-reminder {
+        padding: 18px;
+
+        border: 1px solid #e4ddfb;
+        border-radius: 14px;
+
+        background: #f8f6ff;
+    }
+
+
+    .profile-reminder strong {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #50465d;
+
+        font-size: 11px;
+    }
+
+
+    .profile-reminder p {
+        margin: 0 0 11px;
+
+        color: #82798c;
+
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+
+    .profile-reminder a {
+        color: #6244d5;
+
+        font-size: 10px;
+        font-weight: 750;
+
+        text-decoration: none;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 950px) {
+
+        .analyze-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .analyze-flow {
+            grid-template-columns: 1fr;
+        }
+
+        .flow-item {
+            border-right: 0;
+            border-bottom: 1px solid #eeeaf1;
+        }
+
+        .flow-item:last-child {
+            border-bottom: 0;
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .analyze-page {
+            padding-top: 12px;
+        }
+
+        .analyze-hero {
+            grid-template-columns: 1fr;
+
+            padding: 28px 24px;
+        }
+
+        .analyze-hero h1 {
+            font-size: 29px;
+        }
+
+        .hero-profile-link {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .analyze-page textarea {
+            min-height: 320px;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="analyze-page">
+
+
+    <!-- ==================================================
+         HERO
+    =================================================== -->
+
+    <section class="analyze-hero">
+
+        <div class="analyze-hero-content">
+
+            <div class="analyze-eyebrow">
+                ✦ AI Job Analysis
+            </div>
+
+
+            <h1>
+
+                {% if ui_lang == "fa" %}
+                    این شغل واقعاً مناسب تو هست؟
+                {% else %}
+                    Is this job worth applying for?
+                {% endif %}
+
+            </h1>
+
+
+            <p>
+
+                {% if ui_lang == "fa" %}
+
+                    متن کامل آگهی را وارد کن. JobCopilot آن را با
+                    پروفایل تأییدشده تو مقایسه می‌کند و Match Score،
+                    نقاط قوت، Gapها و تصمیم Apply / Stretch / Skip می‌دهد.
+
+                {% else %}
+
+                    Paste the full vacancy and JobCopilot will compare it
+                    with your verified career profile to identify your
+                    realistic match, strengths, gaps and application risks.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'profile' %}"
+            class="hero-profile-link"
+        >
+            {% if ui_lang == "fa" %}
+                مشاهده پروفایل
+            {% else %}
+                Review My Profile
+            {% endif %}
+        </a>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FLOW
+    =================================================== -->
+
+    <section class="analyze-flow">
+
+        <div class="flow-item">
+
+            <div class="flow-number">
+                1
+            </div>
+
+            <div class="flow-content">
+
+                <strong>
+                    {% if ui_lang == "fa" %}
+                        آگهی را Paste کن
+                    {% else %}
+                        Paste the vacancy
+                    {% endif %}
+                </strong>
+
+                <span>
+                    {% if ui_lang == "fa" %}
+                        متن کامل بهتر است
+                    {% else %}
+                        Full job descriptions work best
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow-item">
+
+            <div class="flow-number">
+                2
+            </div>
+
+            <div class="flow-content">
+
+                <strong>
+                    {% if ui_lang == "fa" %}
+                        AI مقایسه می‌کند
+                    {% else %}
+                        AI compares your profile
+                    {% endif %}
+                </strong>
+
+                <span>
+                    {% if ui_lang == "fa" %}
+                        تجربه، مهارت، زبان و مدارک
+                    {% else %}
+                        Experience, skills, languages & education
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow-item">
+
+            <div class="flow-number">
+                3
+            </div>
+
+            <div class="flow-content">
+
+                <strong>
+                    {% if ui_lang == "fa" %}
+                        تصمیم واقعی بگیر
+                    {% else %}
+                        Make a realistic decision
+                    {% endif %}
+                </strong>
+
+                <span>
+                    Match Score · APPLY · STRETCH · SKIP
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         MAIN GRID
+    =================================================== -->
+
+    <div class="analyze-grid">
+
+
+        <!-- ==================================================
+             FORM
+        =================================================== -->
+
+        <section class="analyze-card">
+
+            <div class="analyze-card-header">
+
+                <h2>
+
+                    {% if ui_lang == "fa" %}
+                        Job Description
+                    {% else %}
+                        Analyze a Job
+                    {% endif %}
+
+                </h2>
+
+
+                <p>
+
+                    {% if ui_lang == "fa" %}
+
+                        متن آگهی را همان‌طور که در LinkedIn، StepStone،
+                        Indeed یا سایت شرکت می‌بینی وارد کن.
+
+                    {% else %}
+
+                        Paste the vacancy exactly as it appears on LinkedIn,
+                        StepStone, Indeed or the employer's website.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <div class="analyze-card-body">
+
+
+                {% if error %}
+
+                    <div class="analyze-error">
+                        {{ error }}
+                    </div>
+
+                {% endif %}
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="analyze-error">
+                        {{ form.non_field_errors }}
+                    </div>
+
+                {% endif %}
+
+
+
+                <form
+                    method="post"
+                    id="analyzeJobForm"
+                >
+
+                    {% csrf_token %}
+
+
+
+                    <!-- JOB DESCRIPTION -->
+
+                    <div class="analyze-form-group">
+
+                        <div class="analyze-label">
+
+                            <span>
+
+                                {% if ui_lang == "fa" %}
+                                    متن کامل آگهی
+                                {% else %}
+                                    Job Description
+                                {% endif %}
+
+                            </span>
+
+                            <span class="optional-label">
+                                REQUIRED
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-text-wrapper">
+
+                            {{ form.job_description }}
+
+                            <div
+                                class="job-character-count"
+                                id="jobCharacterCount"
+                            >
+                                0 characters
+                            </div>
+
+                        </div>
+
+
+                        <div class="analyze-help">
+
+                            {% if ui_lang == "fa" %}
+
+                                برای نتیجه بهتر، بخش‌های Aufgaben،
+                                Profil / Requirements و اطلاعات شرکت را حذف نکن.
+
+                            {% else %}
+
+                                For the best result, include responsibilities,
+                                requirements and employer information.
+
+                            {% endif %}
+
+                        </div>
+
+
+                        {% if form.job_description.errors %}
+
+                            <div class="field-error">
+                                {{ form.job_description.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- SOURCE + URL -->
+
+                    <div class="form-row">
+
+
+                        <!-- SOURCE -->
+
+                        <div class="analyze-form-group">
+
+                            <div class="analyze-label">
+
+                                <span>
+                                    {% if ui_lang == "fa" %}
+                                        منبع
+                                    {% else %}
+                                        Source
+                                    {% endif %}
+                                </span>
+
+                            </div>
+
+
+                            {{ form.source }}
+
+
+                            {% if form.source.errors %}
+
+                                <div class="field-error">
+                                    {{ form.source.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- URL -->
+
+                        <div class="analyze-form-group">
+
+                            <div class="analyze-label">
+
+                                <span>
+                                    Job URL
+                                </span>
+
+                                <span class="optional-label">
+                                    OPTIONAL
+                                </span>
+
+                            </div>
+
+
+                            {{ form.job_url }}
+
+
+                            <div class="analyze-help">
+
+                                {% if ui_lang == "fa" %}
+                                    برای اینکه بعداً بتوانی آگهی اصلی را باز کنی.
+                                {% else %}
+                                    Keep the original vacancy link with the analysis.
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if form.job_url.errors %}
+
+                                <div class="field-error">
+                                    {{ form.job_url.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="analyze-submit"
+                        id="analyzeSubmitButton"
+                    >
+
+                        <span
+                            class="analyze-spinner"
+                            id="analyzeSpinner"
+                        ></span>
+
+                        <span id="analyzeButtonText">
+
+                            {% if ui_lang == "fa" %}
+                                ✦ تحلیل آگهی
+                            {% else %}
+                                ✦ Analyze Job
+                            {% endif %}
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             RIGHT SIDE
+        =================================================== -->
+
+        <aside class="side-stack">
+
+
+            <!-- OUTPUT -->
+
+            <section class="side-card">
+
+                <h3>
+
+                    {% if ui_lang == "fa" %}
+                        چه چیزی دریافت می‌کنی؟
+                    {% else %}
+                        What you'll get
+                    {% endif %}
+
+                </h3>
+
+
+                <div class="analysis-output-list">
+
+
+                    <div class="analysis-output-item">
+
+                        <div class="analysis-output-icon">
+                            8.2
+                        </div>
+
+                        <div class="analysis-output-text">
+
+                            <strong>
+                                Match Score
+                            </strong>
+
+                            <span>
+                                {% if ui_lang == "fa" %}
+                                    امتیاز واقعی از ۱ تا ۱۰
+                                {% else %}
+                                    Realistic fit from 1 to 10
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="analysis-output-item">
+
+                        <div class="analysis-output-icon">
+                            ✓
+                        </div>
+
+                        <div class="analysis-output-text">
+
+                            <strong>
+                                APPLY / STRETCH / SKIP
+                            </strong>
+
+                            <span>
+                                {% if ui_lang == "fa" %}
+                                    تصمیم سریع برای اپلای
+                                {% else %}
+                                    Clear application recommendation
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="analysis-output-item">
+
+                        <div class="analysis-output-icon">
+                            +
+                        </div>
+
+                        <div class="analysis-output-text">
+
+                            <strong>
+                                Strong Matches
+                            </strong>
+
+                            <span>
+                                {% if ui_lang == "fa" %}
+                                    نقاط قوت واقعی پروفایل تو
+                                {% else %}
+                                    Your strongest verified advantages
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="analysis-output-item">
+
+                        <div class="analysis-output-icon">
+                            !
+                        </div>
+
+                        <div class="analysis-output-text">
+
+                            <strong>
+                                Gaps & Risks
+                            </strong>
+
+                            <span>
+                                {% if ui_lang == "fa" %}
+                                    کمبودها و ریسک‌های مهم
+                                {% else %}
+                                    Important missing or weaker requirements
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="analysis-output-item">
+
+                        <div class="analysis-output-icon">
+                            CV
+                        </div>
+
+                        <div class="analysis-output-text">
+
+                            <strong>
+                                CV Direction
+                            </strong>
+
+                            <span>
+                                {% if ui_lang == "fa" %}
+                                    چه چیزهایی را در رزومه برجسته کنی
+                                {% else %}
+                                    What verified experience to emphasize
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- HONESTY -->
+
+            <section class="honesty-card">
+
+                <h3>
+
+                    {% if ui_lang == "fa" %}
+                        تحلیل بدون اغراق
+                    {% else %}
+                        Realistic, not flattering
+                    {% endif %}
+
+                </h3>
+
+
+                <p>
+
+                    {% if ui_lang == "fa" %}
+
+                        JobCopilot قرار نیست برای هر شغلی به تو بگوید
+                        عالی هستی. هدف این است که بفهمی کجا واقعاً
+                        شانس داری و کجا بهتر است وقتت را صرف نکنی.
+
+                    {% else %}
+
+                        JobCopilot is designed to identify realistic fit,
+                        not to give every vacancy an artificially high score.
+
+                    {% endif %}
+
+                </p>
+
+
+                <div class="honesty-list">
+
+                    <div class="honesty-item">
+
+                        <span class="honesty-check">
+                            ✓
+                        </span>
+
+                        {% if ui_lang == "fa" %}
+                            سطح مهارت‌ها بالا برده نمی‌شود
+                        {% else %}
+                            Skill levels are not upgraded
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="honesty-item">
+
+                        <span class="honesty-check">
+                            ✓
+                        </span>
+
+                        {% if ui_lang == "fa" %}
+                            Course به‌عنوان تجربه کاری حساب نمی‌شود
+                        {% else %}
+                            Courses are not treated as work experience
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="honesty-item">
+
+                        <span class="honesty-check">
+                            ✓
+                        </span>
+
+                        {% if ui_lang == "fa" %}
+                            Gapهای مهم پنهان نمی‌شوند
+                        {% else %}
+                            Important gaps stay visible
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROFILE REMINDER -->
+
+            <div class="profile-reminder">
+
+                <strong>
+
+                    {% if ui_lang == "fa" %}
+                        نتیجه به کیفیت پروفایل بستگی دارد.
+                    {% else %}
+                        Better profile data = better analysis.
+                    {% endif %}
+
+                </strong>
+
+
+                <p>
+
+                    {% if ui_lang == "fa" %}
+
+                        قبل از تحلیل مطمئن شو تجربه، Skill Level و
+                        Language Levelهای پروفایل درست هستند.
+
+                    {% else %}
+
+                        Make sure your experience, skill levels and
+                        language levels are accurate before analyzing jobs.
+
+                    {% endif %}
+
+                </p>
+
+
+                <a href="{% url 'profile' %}">
+
+                    {% if ui_lang == "fa" %}
+                        بررسی My Profile →
+                    {% else %}
+                        Review My Profile →
+                    {% endif %}
+
+                </a>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    const analyzeForm = document.getElementById(
+        "analyzeJobForm"
+    );
+
+    const analyzeButton = document.getElementById(
+        "analyzeSubmitButton"
+    );
+
+    const analyzeButtonText = document.getElementById(
+        "analyzeButtonText"
+    );
+
+    const analyzeSpinner = document.getElementById(
+        "analyzeSpinner"
+    );
+
+
+    /* =====================================================
+       CHARACTER COUNT
+    ===================================================== */
+
+    const jobDescription =
+        document.getElementById(
+            "id_job_description"
+        );
+
+    const characterCounter =
+        document.getElementById(
+            "jobCharacterCount"
+        );
+
+
+    function updateCharacterCount() {
+
+        if (
+            !jobDescription ||
+            !characterCounter
+        ) {
+            return;
+        }
+
+
+        const count =
+            jobDescription.value.length;
+
+
+        characterCounter.textContent =
+            count.toLocaleString()
+            + " characters";
+
+    }
+
+
+    if (jobDescription) {
+
+        updateCharacterCount();
+
+
+        jobDescription.addEventListener(
+            "input",
+            updateCharacterCount
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SUBMIT LOADING STATE
+    ===================================================== */
+
+    if (analyzeForm) {
+
+        analyzeForm.addEventListener(
+            "submit",
+            function() {
+
+                if (!analyzeButton) {
+                    return;
+                }
+
+
+                analyzeButton.disabled = true;
+
+
+                if (analyzeSpinner) {
+                    analyzeSpinner.style.display =
+                        "inline-block";
+                }
+
+
+                if (analyzeButtonText) {
+
+                    {% if ui_lang == "fa" %}
+
+                        analyzeButtonText.textContent =
+                            "در حال تحلیل...";
+
+                    {% else %}
+
+                        analyzeButtonText.textContent =
+                            "Analyzing job...";
+
+                    {% endif %}
+
+                }
+
+            }
+        );
+
+    }
+
+</script>
+
+
+{% endblock %}

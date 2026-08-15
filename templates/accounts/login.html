@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="auth-box">
+
+    <div class="card">
+
+        <h1>
+            {{ t.login }}
+        </h1>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+
+            <label>
+                {{ t.email }}
+            </label>
+
+            {{ form.username }}
+
+            {{ form.username.errors }}
+
+
+            <label>
+                {{ t.password }}
+            </label>
+
+            {{ form.password }}
+
+            {{ form.password.errors }}
+
+
+            <button type="submit">
+                {{ t.login }}
+            </button>
+
+        </form>
+
+
+        <p>
+            {{ t.no_account }}
+
+            <a href="{% url 'register' %}">
+                {{ t.register }}
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

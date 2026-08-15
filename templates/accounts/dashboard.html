@@ -1,0 +1,1560 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .dashboard-page {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 28px 0 70px;
+    }
+
+
+    /* =====================================================
+       WELCOME
+    ===================================================== */
+
+    .dashboard-hero {
+        position: relative;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 30px;
+
+        padding: 36px 40px;
+        margin-bottom: 24px;
+
+        border-radius: 22px;
+
+        background:
+            radial-gradient(
+                circle at 85% 10%,
+                rgba(134, 104, 255, 0.22),
+                transparent 35%
+            ),
+            linear-gradient(
+                135deg,
+                #17131e 0%,
+                #211933 100%
+            );
+
+        color: #ffffff;
+    }
+
+
+    .dashboard-hero::after {
+        content: "";
+
+        position: absolute;
+
+        width: 190px;
+        height: 190px;
+
+        right: -55px;
+        bottom: -90px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.035);
+    }
+
+
+    .dashboard-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 11px;
+
+        color: #b8aaff;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .dashboard-hero h1 {
+        margin: 0 0 10px;
+
+        font-size: 34px;
+        letter-spacing: -0.8px;
+
+        color: #ffffff;
+    }
+
+
+    .dashboard-hero p {
+        max-width: 650px;
+
+        margin: 0;
+
+        color: #bbb5c1;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    .dashboard-hero-actions {
+        position: relative;
+        z-index: 2;
+
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+
+    .dash-primary,
+    .dash-secondary {
+        min-height: 44px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 18px;
+
+        border-radius: 10px;
+
+        text-decoration: none;
+        font-weight: 750;
+        font-size: 13px;
+
+        transition: 0.2s ease;
+    }
+
+
+    .dash-primary {
+        background: #7558ff;
+        border: 1px solid #7558ff;
+
+        color: #ffffff;
+    }
+
+
+    .dash-primary:hover {
+        background: #6547ed;
+        color: #ffffff;
+
+        transform: translateY(-1px);
+    }
+
+
+    .dash-secondary {
+        background: rgba(255,255,255,0.06);
+
+        border: 1px solid rgba(255,255,255,0.13);
+
+        color: #ffffff;
+    }
+
+
+    .dash-secondary:hover {
+        background: rgba(255,255,255,0.11);
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       STAT CARDS
+    ===================================================== */
+
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+
+        margin-bottom: 24px;
+    }
+
+
+    .stat-card {
+        padding: 21px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 16px;
+    }
+
+
+    .stat-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 12px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .stat-icon {
+        width: 39px;
+        height: 39px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 11px;
+
+        background: #f1edff;
+        color: #6749df;
+
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+
+    .stat-label {
+        color: #8b8591;
+
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+
+    .stat-number {
+        margin-bottom: 4px;
+
+        color: #211c26;
+
+        font-size: 30px;
+        line-height: 1;
+        font-weight: 820;
+    }
+
+
+    .stat-note {
+        color: #98929d;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       MAIN GRID
+    ===================================================== */
+
+    .dashboard-grid {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.55fr)
+            minmax(280px, 0.75fr);
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    .dashboard-card {
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 18px;
+
+        overflow: hidden;
+    }
+
+
+    .dashboard-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+
+        padding: 21px 23px;
+
+        border-bottom: 1px solid #efebf1;
+    }
+
+
+    .dashboard-card-header h2 {
+        margin: 0 0 4px;
+
+        color: #28222d;
+
+        font-size: 17px;
+    }
+
+
+    .dashboard-card-header p {
+        margin: 0;
+
+        color: #918a96;
+
+        font-size: 12px;
+    }
+
+
+    .small-link {
+        color: #6647df;
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 750;
+
+        white-space: nowrap;
+    }
+
+
+    .small-link:hover {
+        text-decoration: underline;
+    }
+
+
+    /* =====================================================
+       RECENT APPLICATIONS
+    ===================================================== */
+
+    .recent-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+
+    .recent-table {
+        width: 100%;
+        min-width: 700px;
+
+        border-collapse: collapse;
+    }
+
+
+    .recent-table th {
+        padding: 12px 20px;
+
+        text-align: left;
+
+        background: #faf9fb;
+
+        border-bottom: 1px solid #eeeaf1;
+
+        color: #908a95;
+
+        font-size: 10px;
+        font-weight: 750;
+
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
+    }
+
+
+    .recent-table td {
+        padding: 15px 20px;
+
+        border-bottom: 1px solid #f0edf2;
+
+        color: #56505b;
+
+        font-size: 12px;
+
+        vertical-align: middle;
+    }
+
+
+    .recent-table tr:last-child td {
+        border-bottom: 0;
+    }
+
+
+    .recent-company {
+        color: #28222d;
+
+        font-weight: 750;
+
+        margin-bottom: 3px;
+    }
+
+
+    .recent-title {
+        max-width: 250px;
+
+        color: #8b8490;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        font-size: 11px;
+    }
+
+
+    .score-pill {
+        display: inline-flex;
+
+        min-width: 42px;
+
+        justify-content: center;
+
+        padding: 6px 8px;
+
+        border-radius: 999px;
+
+        background: #f1edff;
+        color: #6142d4;
+
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+
+    .status-pill {
+        display: inline-flex;
+
+        padding: 6px 9px;
+
+        border-radius: 999px;
+
+        background: #f4f2f6;
+        color: #5e5863;
+
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+
+    .status-applied {
+        background: #edf3ff;
+        color: #315fa7;
+    }
+
+
+    .status-interview {
+        background: #fff5dc;
+        color: #946418;
+    }
+
+
+    .status-offer {
+        background: #eaf8ef;
+        color: #167846;
+    }
+
+
+    .status-rejected {
+        background: #fff0f0;
+        color: #aa3d3d;
+    }
+
+
+    .status-withdrawn {
+        background: #f1eff3;
+        color: #706975;
+    }
+
+
+    .table-view-link {
+        color: #6849dd;
+
+        text-decoration: none;
+
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+
+    /* =====================================================
+       EMPTY APPLICATIONS
+    ===================================================== */
+
+    .dashboard-empty {
+        padding: 50px 25px;
+
+        text-align: center;
+    }
+
+
+    .empty-icon {
+        width: 50px;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 14px;
+
+        border-radius: 14px;
+
+        background: #f2efff;
+        color: #6748db;
+
+        font-size: 21px;
+    }
+
+
+    .dashboard-empty h3 {
+        margin: 0 0 7px;
+
+        color: #342e39;
+
+        font-size: 15px;
+    }
+
+
+    .dashboard-empty p {
+        max-width: 380px;
+
+        margin: 0 auto 17px;
+
+        color: #8e8793;
+
+        line-height: 1.6;
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       RIGHT COLUMN
+    ===================================================== */
+
+    .side-stack {
+        display: grid;
+        gap: 20px;
+    }
+
+
+    /* PROFILE */
+
+    .profile-panel {
+        padding: 22px;
+    }
+
+
+    .profile-panel-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 20px;
+    }
+
+
+    .profile-panel-title h3 {
+        margin: 0;
+
+        color: #2a252f;
+
+        font-size: 16px;
+    }
+
+
+    .profile-status {
+        padding: 5px 8px;
+
+        border-radius: 999px;
+
+        background: #eaf8ef;
+        color: #187a46;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+
+    .profile-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+
+        padding: 12px 0;
+
+        border-bottom: 1px solid #f0edf2;
+    }
+
+
+    .profile-row:last-of-type {
+        border-bottom: 0;
+    }
+
+
+    .profile-row-label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        color: #5d5762;
+
+        font-size: 12px;
+    }
+
+
+    .profile-row-icon {
+        width: 28px;
+        height: 28px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 8px;
+
+        background: #f5f2fb;
+        color: #7253e2;
+
+        font-size: 11px;
+    }
+
+
+    .profile-row-count {
+        color: #28232d;
+
+        font-weight: 800;
+        font-size: 12px;
+    }
+
+
+    .profile-button {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 42px;
+
+        margin-top: 17px;
+
+        border: 1px solid #ddd7e3;
+        border-radius: 10px;
+
+        color: #433c48;
+        background: #ffffff;
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .profile-button:hover {
+        background: #faf9fc;
+        color: #433c48;
+    }
+
+
+    /* =====================================================
+       QUICK ACTIONS
+    ===================================================== */
+
+    .quick-actions {
+        padding: 22px;
+    }
+
+
+    .quick-actions h3 {
+        margin: 0 0 16px;
+
+        color: #29232e;
+
+        font-size: 16px;
+    }
+
+
+    .quick-action {
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 12px;
+
+        margin-bottom: 9px;
+
+        border: 1px solid #ece8ef;
+        border-radius: 11px;
+
+        text-decoration: none;
+
+        transition: 0.18s ease;
+    }
+
+
+    .quick-action:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .quick-action:hover {
+        border-color: #d8cff9;
+
+        background: #faf8ff;
+
+        transform: translateX(2px);
+    }
+
+
+    .quick-action-icon {
+        flex: 0 0 36px;
+
+        width: 36px;
+        height: 36px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 10px;
+
+        background: #f0ecff;
+        color: #6949e0;
+
+        font-size: 15px;
+        font-weight: 850;
+    }
+
+
+    .quick-action-content strong {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: #38313d;
+
+        font-size: 12px;
+    }
+
+
+    .quick-action-content span {
+        display: block;
+
+        color: #958e9a;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       WORKFLOW TIP
+    ===================================================== */
+
+    .dashboard-tip {
+        margin-top: 22px;
+
+        display: grid;
+        grid-template-columns: auto 1fr;
+
+        align-items: center;
+
+        gap: 16px;
+
+        padding: 20px 22px;
+
+        border: 1px solid #e7e1fa;
+        border-radius: 16px;
+
+        background: #f8f6ff;
+    }
+
+
+    .tip-icon {
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 11px;
+
+        background: #7355ef;
+        color: #ffffff;
+
+        font-size: 17px;
+    }
+
+
+    .dashboard-tip strong {
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #3c3446;
+
+        font-size: 12px;
+    }
+
+
+    .dashboard-tip span {
+        color: #81798b;
+
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1000px) {
+
+        .dashboard-stats {
+            grid-template-columns: 1fr 1fr;
+        }
+
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+        .dashboard-page {
+            padding-top: 12px;
+        }
+
+
+        .dashboard-hero {
+            grid-template-columns: 1fr;
+
+            padding: 29px 25px;
+        }
+
+
+        .dashboard-hero h1 {
+            font-size: 29px;
+        }
+
+
+        .dashboard-hero-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+
+        .dashboard-stats {
+            grid-template-columns: 1fr 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 520px) {
+
+        .dashboard-stats {
+            grid-template-columns: 1fr;
+        }
+
+
+        .dashboard-card-header {
+            align-items: flex-start;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="dashboard-page">
+
+
+    <!-- ==================================================
+         WELCOME
+    =================================================== -->
+
+    <section class="dashboard-hero">
+
+        <div>
+
+            <div class="dashboard-eyebrow">
+                ✦ JobCopilot Dashboard
+            </div>
+
+
+            <h1>
+
+                {% if ui_lang == "fa" %}
+
+                    سلام {{ user.first_name|default:user.username }} 👋
+
+                {% else %}
+
+                    Welcome back{% if user.profile.full_name %},
+                    {{ user.profile.full_name }}{% endif %}.
+
+                {% endif %}
+
+            </h1>
+
+
+            <p>
+
+                {% if ui_lang == "fa" %}
+
+                    پروفایل شغلی، تحلیل آگهی‌ها و Applicationهای خودت
+                    را از یک جا مدیریت کن.
+
+                {% else %}
+
+                    Keep your career profile, job analyses and applications
+                    organized in one place.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-hero-actions">
+
+            <a
+                href="{% url 'analyze_job' %}"
+                class="dash-primary"
+            >
+                + Analyze Job
+            </a>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="dash-secondary"
+            >
+                My Profile
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         STATS
+    =================================================== -->
+
+    <section class="dashboard-stats">
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Applications
+                </span>
+
+                <span class="stat-icon">
+                    ◫
+                </span>
+
+            </div>
+
+            <div class="stat-number">
+                {{ user.jobapplication_set.count|default:"0" }}
+            </div>
+
+            <div class="stat-note">
+                Jobs analyzed & tracked
+            </div>
+
+        </div>
+
+
+
+        <!-- EXPERIENCE -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Experience
+                </span>
+
+                <span class="stat-icon">
+                    ◇
+                </span>
+
+            </div>
+
+            <div class="stat-number">
+                {{ user.profile.experiences.count|default:"0" }}
+            </div>
+
+            <div class="stat-note">
+                Work experience entries
+            </div>
+
+        </div>
+
+
+
+        <!-- SKILLS -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Skills
+                </span>
+
+                <span class="stat-icon">
+                    ✦
+                </span>
+
+            </div>
+
+            <div class="stat-number">
+                {{ user.profile.skills.count|default:"0" }}
+            </div>
+
+            <div class="stat-note">
+                Verified profile skills
+            </div>
+
+        </div>
+
+
+
+        <!-- LANGUAGES -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Languages
+                </span>
+
+                <span class="stat-icon">
+                    A
+                </span>
+
+            </div>
+
+            <div class="stat-number">
+                {{ user.profile.language_entries.count|default:"0" }}
+            </div>
+
+            <div class="stat-note">
+                Languages in your profile
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         CONTENT
+    =================================================== -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- ==================================================
+             LEFT COLUMN
+        =================================================== -->
+
+        <div>
+
+
+            <!-- RECENT APPLICATIONS -->
+
+            <section class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Applications
+                        </h2>
+
+                        <p>
+                            Your latest analyzed and tracked jobs.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'applications' %}"
+                        class="small-link"
+                    >
+                        View all →
+                    </a>
+
+                </div>
+
+
+
+                {% with recent_jobs=user.jobapplication_set.all|slice:":5" %}
+
+                    {% if recent_jobs %}
+
+                        <div class="recent-table-wrap">
+
+                            <table class="recent-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Job
+                                        </th>
+
+                                        <th>
+                                            Score
+                                        </th>
+
+                                        <th>
+                                            Decision
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th>
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    {% for job in recent_jobs %}
+
+                                        <tr>
+
+                                            <td>
+
+                                                <div class="recent-company">
+                                                    {{ job.company|default:"Unknown Company" }}
+                                                </div>
+
+                                                <div class="recent-title">
+                                                    {{ job.job_title|default:"Job Analysis" }}
+                                                </div>
+
+                                            </td>
+
+
+                                            <td>
+
+                                                <span class="score-pill">
+                                                    {{ job.score|default:"-" }}
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+
+                                                {% if job.decision == "APPLY" %}
+
+                                                    <span style="
+                                                        color:#178148;
+                                                        font-weight:800;
+                                                    ">
+                                                        APPLY
+                                                    </span>
+
+                                                {% elif job.decision == "STRETCH" %}
+
+                                                    <span style="
+                                                        color:#ad7117;
+                                                        font-weight:800;
+                                                    ">
+                                                        STRETCH
+                                                    </span>
+
+                                                {% elif job.decision == "SKIP" %}
+
+                                                    <span style="
+                                                        color:#b54040;
+                                                        font-weight:800;
+                                                    ">
+                                                        SKIP
+                                                    </span>
+
+                                                {% else %}
+
+                                                    —
+
+                                                {% endif %}
+
+                                            </td>
+
+
+                                            <td>
+
+                                                <span
+                                                    class="
+                                                        status-pill
+
+                                                        {% if job.status == 'applied' %}
+                                                            status-applied
+                                                        {% elif job.status == 'interview' %}
+                                                            status-interview
+                                                        {% elif job.status == 'offer' %}
+                                                            status-offer
+                                                        {% elif job.status == 'rejected' %}
+                                                            status-rejected
+                                                        {% elif job.status == 'withdrawn' %}
+                                                            status-withdrawn
+                                                        {% endif %}
+                                                    "
+                                                >
+                                                    {{ job.get_status_display }}
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+
+                                                <a
+                                                    href="{% url 'job_result' job.id %}"
+                                                    class="table-view-link"
+                                                >
+                                                    View
+                                                </a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="dashboard-empty">
+
+                            <div class="empty-icon">
+                                ✦
+                            </div>
+
+                            <h3>
+                                No job analyses yet
+                            </h3>
+
+                            <p>
+                                Paste your first vacancy and find out
+                                whether it is realistically worth applying for.
+                            </p>
+
+                            <a
+                                href="{% url 'analyze_job' %}"
+                                class="dash-primary"
+                            >
+                                Analyze Your First Job
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </section>
+
+
+
+            <!-- TIP -->
+
+            <div class="dashboard-tip">
+
+                <div class="tip-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <strong>
+                        Better profile data = better job analysis
+                    </strong>
+
+                    <span>
+                        Keep experience, skill levels and languages accurate.
+                        JobCopilot uses them directly when evaluating vacancies.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             RIGHT COLUMN
+        =================================================== -->
+
+        <div class="side-stack">
+
+
+            <!-- PROFILE OVERVIEW -->
+
+            <section class="dashboard-card">
+
+                <div class="profile-panel">
+
+                    <div class="profile-panel-title">
+
+                        <h3>
+                            Profile Overview
+                        </h3>
+
+
+                        {% if user.profile %}
+
+                            <span class="profile-status">
+                                Active
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <div class="profile-row">
+
+                        <div class="profile-row-label">
+
+                            <span class="profile-row-icon">
+                                ◇
+                            </span>
+
+                            Experience
+
+                        </div>
+
+                        <span class="profile-row-count">
+                            {{ user.profile.experiences.count|default:"0" }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-row">
+
+                        <div class="profile-row-label">
+
+                            <span class="profile-row-icon">
+                                ◫
+                            </span>
+
+                            Education
+
+                        </div>
+
+                        <span class="profile-row-count">
+                            {{ user.profile.educations.count|default:"0" }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-row">
+
+                        <div class="profile-row-label">
+
+                            <span class="profile-row-icon">
+                                ✦
+                            </span>
+
+                            Skills
+
+                        </div>
+
+                        <span class="profile-row-count">
+                            {{ user.profile.skills.count|default:"0" }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-row">
+
+                        <div class="profile-row-label">
+
+                            <span class="profile-row-icon">
+                                A
+                            </span>
+
+                            Languages
+
+                        </div>
+
+                        <span class="profile-row-count">
+                            {{ user.profile.language_entries.count|default:"0" }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-row">
+
+                        <div class="profile-row-label">
+
+                            <span class="profile-row-icon">
+                                ✓
+                            </span>
+
+                            Certifications
+
+                        </div>
+
+                        <span class="profile-row-count">
+                            {{ user.profile.certifications.count|default:"0" }}
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'profile' %}"
+                        class="profile-button"
+                    >
+                        Manage Profile
+                    </a>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <section class="dashboard-card">
+
+                <div class="quick-actions">
+
+                    <h3>
+                        Quick Actions
+                    </h3>
+
+
+                    <a
+                        href="{% url 'analyze_job' %}"
+                        class="quick-action"
+                    >
+
+                        <div class="quick-action-icon">
+                            ✦
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <strong>
+                                Analyze a Job
+                            </strong>
+
+                            <span>
+                                Check your realistic match
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a
+                        href="{% url 'profile' %}"
+                        class="quick-action"
+                    >
+
+                        <div class="quick-action-icon">
+                            ◇
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <strong>
+                                Update Profile
+                            </strong>
+
+                            <span>
+                                Keep career information accurate
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a
+                        href="{% url 'applications' %}"
+                        class="quick-action"
+                    >
+
+                        <div class="quick-action-icon">
+                            ◫
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <strong>
+                                My Applications
+                            </strong>
+
+                            <span>
+                                Track jobs and follow-ups
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

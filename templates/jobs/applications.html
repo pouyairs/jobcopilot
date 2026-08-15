@@ -1,0 +1,2365 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .apps-page {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 24px 14px 70px;
+        box-sizing: border-box;
+    }
+
+    .apps-page * {
+        box-sizing: border-box;
+        min-width: 0;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .apps-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        margin-bottom: 18px;
+    }
+
+    .apps-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 7px;
+        padding: 6px 10px;
+
+        color: #6548d7;
+        background: #f0ecff;
+
+        border-radius: 999px;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .apps-header h1 {
+        margin: 0 0 5px;
+
+        color: #1d1823;
+
+        font-size: 29px;
+        line-height: 1.2;
+    }
+
+    .apps-header p {
+        margin: 0;
+
+        color: #817a87;
+
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+    .btn-main,
+    .btn-light {
+        min-height: 40px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 15px;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .btn-main {
+        color: #ffffff;
+
+        background:
+            linear-gradient(
+                135deg,
+                #7557f5,
+                #6243df
+            );
+
+        border: 1px solid #6748e5;
+    }
+
+    .btn-main:hover {
+        color: #ffffff;
+        background: #6042dd;
+    }
+
+    .btn-light {
+        color: #5940c3;
+        background: #ffffff;
+
+        border: 1px solid #d9d1f4;
+    }
+
+    .btn-light:hover {
+        color: #4e35b5;
+        background: #faf8ff;
+    }
+
+
+    /* =====================================================
+       SUMMARY
+    ===================================================== */
+
+    .apps-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+
+        margin-bottom: 18px;
+    }
+
+    .summary-card {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+
+        min-height: 70px;
+
+        padding: 13px 15px;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 13px;
+    }
+
+    .summary-icon {
+        flex: 0 0 38px;
+
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+
+        color: #6748df;
+        background: #f0ecff;
+
+        font-size: 14px;
+        font-weight: 900;
+    }
+
+    .summary-value {
+        margin-bottom: 2px;
+
+        color: #29232e;
+
+        font-size: 19px;
+        line-height: 1.1;
+        font-weight: 850;
+    }
+
+    .summary-label {
+        color: #908995;
+
+        font-size: 8px;
+        font-weight: 750;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    .filter-card {
+        margin-bottom: 18px;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 15px;
+
+        overflow: hidden;
+    }
+
+    .filter-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 15px 18px;
+
+        border-bottom: 1px solid #efebf2;
+    }
+
+    .filter-icon {
+        flex: 0 0 34px;
+
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 9px;
+
+        color: #6748df;
+        background: #f0ecff;
+
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .filter-header h2 {
+        margin: 0 0 2px;
+
+        color: #302a35;
+
+        font-size: 14px;
+    }
+
+    .filter-header p {
+        margin: 0;
+
+        color: #958e9a;
+
+        font-size: 8px;
+    }
+
+    .filter-body {
+        padding: 14px 18px 16px;
+    }
+
+    .filter-grid {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.45fr)
+            repeat(3, minmax(0, 0.85fr));
+
+        gap: 9px;
+    }
+
+    .filter-grid-second {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 9px;
+
+        margin-top: 9px;
+    }
+
+    .filter-group label {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #6c6572;
+
+        font-size: 7px;
+        font-weight: 800;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .filter-group input,
+    .filter-group select {
+        width: 100%;
+        min-height: 34px;
+
+        padding: 7px 9px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 8px;
+
+        color: #49424f;
+        background: #ffffff;
+
+        font-size: 9px;
+    }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+        outline: none;
+
+        border-color: #8870eb;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(116,84,243,0.07);
+    }
+
+    .filter-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 12px;
+        flex-wrap: wrap;
+
+        margin-top: 13px;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+    }
+
+    .filter-submit,
+    .filter-clear {
+        min-height: 34px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 12px;
+
+        border-radius: 8px;
+
+        font-size: 8px;
+        font-weight: 800;
+    }
+
+    .filter-submit {
+        border: 0;
+
+        color: #ffffff;
+        background: #7052ef;
+
+        cursor: pointer;
+    }
+
+    .filter-submit:hover {
+        background: #6042dd;
+    }
+
+    .filter-clear {
+        color: #5d5562;
+        background: #ffffff;
+
+        border: 1px solid #ddd7e3;
+
+        text-decoration: none;
+    }
+
+    .filter-result-count {
+        color: #918a96;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       APPLICATIONS CARD
+    ===================================================== */
+
+    .table-card {
+        width: 100%;
+
+        background: #ffffff;
+
+        border: 1px solid #e8e4ed;
+        border-radius: 15px;
+
+        overflow: hidden;
+    }
+
+    .table-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 15px 18px;
+
+        border-bottom: 1px solid #efebf2;
+    }
+
+    .table-icon {
+        flex: 0 0 34px;
+
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 9px;
+
+        color: #6748df;
+        background: #f0ecff;
+
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .table-card-header h2 {
+        margin: 0 0 2px;
+
+        color: #302a35;
+
+        font-size: 14px;
+    }
+
+    .table-card-header p {
+        margin: 0;
+
+        color: #958e9a;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       TABLE
+    ===================================================== */
+
+    .apps-table {
+        width: 100%;
+
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .apps-table th {
+        padding: 10px 7px;
+
+        text-align: left;
+
+        color: #89828f;
+        background: #faf9fb;
+
+        border-bottom: 1px solid #ebe7ef;
+
+        font-size: 7px;
+        font-weight: 850;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .apps-table td {
+        padding: 11px 7px;
+
+        color: #5a535f;
+
+        border-bottom: 1px solid #f0edf2;
+
+        font-size: 8.5px;
+        line-height: 1.4;
+
+        vertical-align: middle;
+
+        overflow-wrap: anywhere;
+    }
+
+    .apps-table tbody tr:hover {
+        background: #fcfbfe;
+    }
+
+    .apps-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+
+    /* =====================================================
+       COLUMN WIDTHS
+    ===================================================== */
+
+    .c-company {
+        width: 11%;
+    }
+
+    .c-title {
+        width: 17%;
+    }
+
+    .c-city {
+        width: 8%;
+    }
+
+    .c-score {
+        width: 6%;
+    }
+
+    .c-decision {
+        width: 8%;
+    }
+
+    .c-applied {
+        width: 8%;
+    }
+
+    .c-source {
+        width: 8%;
+    }
+
+    .c-status {
+        width: 12%;
+    }
+
+    .c-followup {
+        width: 13%;
+    }
+
+    .c-actions {
+        width: 9%;
+    }
+
+
+    /* =====================================================
+       COMPANY / TITLE / CITY
+    ===================================================== */
+
+    .company-name {
+        color: #302a35;
+
+        font-size: 9px;
+        font-weight: 850;
+    }
+
+    .title-link {
+        color: #49414f;
+
+        text-decoration: none;
+
+        font-size: 9px;
+        font-weight: 750;
+
+        line-height: 1.4;
+    }
+
+    .title-link:hover {
+        color: #6042ce;
+    }
+
+    .missing-title {
+        color: #a099a4;
+
+        font-size: 8px;
+        font-style: italic;
+    }
+
+    .city-name {
+        color: #716a76;
+
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       SCORE
+    ===================================================== */
+
+    .score-badge {
+        min-width: 38px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 5px 7px;
+
+        border-radius: 999px;
+
+        color: #5c43c2;
+        background: #eeeaff;
+
+        font-size: 8px;
+        font-weight: 850;
+    }
+
+
+    /* =====================================================
+       DECISION
+    ===================================================== */
+
+    .decision-badge {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 5px 7px;
+
+        border-radius: 999px;
+
+        font-size: 7px;
+        font-weight: 850;
+
+        white-space: nowrap;
+    }
+
+    .decision-apply {
+        color: #177947;
+        background: #e6f7ed;
+    }
+
+    .decision-stretch {
+        color: #946315;
+        background: #fff2da;
+    }
+
+    .decision-skip {
+        color: #a33e3e;
+        background: #ffeded;
+    }
+
+
+    /* =====================================================
+       SOURCE
+    ===================================================== */
+
+    .source-badge {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 4px 6px;
+
+        border-radius: 999px;
+
+        color: #4960a5;
+        background: #edf1ff;
+
+        font-size: 7px;
+        font-weight: 750;
+
+        text-align: center;
+    }
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    .status-form {
+        margin: 0;
+    }
+
+    .status-select {
+        width: 100%;
+        min-height: 32px;
+
+        padding: 5px 7px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 8px;
+
+        color: #45404a;
+        background: #ffffff;
+
+        font-size: 8px;
+        font-weight: 700;
+
+        cursor: pointer;
+    }
+
+    .status-select:focus {
+        outline: none;
+
+        border-color: #8570e8;
+    }
+
+    .status-not-applied {
+        background: #f5f3f6;
+        color: #68616d;
+    }
+
+    .status-applied {
+        background: #edf3ff;
+        color: #315fa7;
+
+        border-color: #dce6fb;
+    }
+
+    .status-interview {
+        background: #fff5dd;
+        color: #976518;
+
+        border-color: #f2e4bf;
+    }
+
+    .status-offer {
+        background: #e9f8ef;
+        color: #177947;
+
+        border-color: #cfe9d9;
+    }
+
+    .status-rejected {
+        background: #fff0f0;
+        color: #a63f3f;
+
+        border-color: #f2d7d7;
+    }
+
+
+    /* =====================================================
+       FOLLOW-UP
+    ===================================================== */
+
+    .follow-form {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            28px;
+
+        gap: 4px;
+
+        margin: 0;
+    }
+
+    .follow-date {
+        width: 100%;
+        min-height: 30px;
+
+        padding: 4px 5px;
+
+        border: 1px solid #ddd8e2;
+        border-radius: 7px;
+
+        color: #4e4753;
+        background: #ffffff;
+
+        font-size: 7px;
+    }
+
+    .follow-save {
+        width: 28px;
+        height: 30px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0;
+
+        border: 0;
+        border-radius: 7px;
+
+        color: #6042ce;
+        background: #f0ecff;
+
+        font-size: 10px;
+        font-weight: 900;
+
+        cursor: pointer;
+    }
+
+    .follow-save:hover {
+        background: #e6dfff;
+    }
+
+
+    /* =====================================================
+       ACTIONS
+    ===================================================== */
+
+    .actions {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    .action-view,
+    .action-edit,
+    .action-delete {
+        min-height: 27px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 7px;
+
+        border-radius: 6px;
+
+        font-size: 7px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        text-decoration: none;
+    }
+
+    .action-view {
+        color: #5840bd;
+        background: #f2efff;
+
+        border: 1px solid #ded7f9;
+    }
+
+    .action-edit {
+        color: #3564a3;
+        background: #edf4ff;
+
+        border: 1px solid #dae7f8;
+    }
+
+    .action-delete {
+        color: #a93d3d;
+        background: #fff2f2;
+
+        border: 1px solid #efd7d7;
+    }
+
+    .delete-form {
+        margin: 0;
+    }
+
+
+    /* =====================================================
+       EDIT ROW
+    ===================================================== */
+
+    .edit-row {
+        display: none;
+
+        background: #f8f6ff;
+    }
+
+    .edit-row.active {
+        display: table-row;
+    }
+
+    .edit-cell {
+        padding: 13px 16px !important;
+    }
+
+    .edit-form {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1.5fr)
+            minmax(0, 0.8fr)
+            auto;
+
+        gap: 8px;
+        align-items: end;
+    }
+
+    .edit-field label {
+        display: block;
+
+        margin-bottom: 4px;
+
+        color: #736c78;
+
+        font-size: 7px;
+        font-weight: 800;
+
+        text-transform: uppercase;
+    }
+
+    .edit-field input {
+        width: 100%;
+        min-height: 33px;
+
+        padding: 7px 8px;
+
+        border: 1px solid #dcd6e2;
+        border-radius: 7px;
+
+        color: #49424f;
+        background: #ffffff;
+
+        font-size: 8px;
+    }
+
+    .edit-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .edit-save,
+    .edit-cancel {
+        min-height: 33px;
+
+        padding: 0 10px;
+
+        border-radius: 7px;
+
+        font-size: 8px;
+        font-weight: 800;
+
+        cursor: pointer;
+    }
+
+    .edit-save {
+        color: #ffffff;
+        background: #7052ef;
+
+        border: 1px solid #7052ef;
+    }
+
+    .edit-cancel {
+        color: #615a66;
+        background: #ffffff;
+
+        border: 1px solid #dcd6e2;
+    }
+
+
+    /* =====================================================
+       EMPTY
+    ===================================================== */
+
+    .empty-state {
+        padding: 50px 20px;
+
+        text-align: center;
+    }
+
+    .empty-icon {
+        width: 48px;
+        height: 48px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 12px;
+
+        border-radius: 13px;
+
+        color: #6748db;
+        background: #f1edff;
+
+        font-size: 18px;
+    }
+
+    .empty-state h3 {
+        margin: 0 0 5px;
+
+        color: #332d38;
+
+        font-size: 14px;
+    }
+
+    .empty-state p {
+        margin: 0 0 15px;
+
+        color: #918a96;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       PAGINATION
+    ===================================================== */
+
+    .pagination-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 13px 17px;
+
+        border-top: 1px solid #efebf1;
+
+        background: #faf9fb;
+    }
+
+    .pagination-info {
+        color: #8f8894;
+
+        font-size: 8px;
+    }
+
+    .pagination-actions {
+        display: flex;
+        gap: 6px;
+    }
+
+    .page-btn {
+        min-height: 30px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 9px;
+
+        border: 1px solid #ddd7e3;
+        border-radius: 7px;
+
+        color: #5d5562;
+        background: #ffffff;
+
+        text-decoration: none;
+
+        font-size: 7px;
+        font-weight: 800;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 1000px) {
+
+        .filter-grid,
+        .filter-grid-second {
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+        }
+
+        .apps-table th,
+        .apps-table td {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        .edit-form {
+            grid-template-columns:
+                1fr
+                1fr;
+        }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+        .apps-page {
+            padding:
+                14px
+                10px
+                60px;
+        }
+
+        .apps-summary {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-grid,
+        .filter-grid-second {
+            grid-template-columns: 1fr;
+        }
+
+        .table-card {
+            border: 0;
+            background: transparent;
+            overflow: visible;
+        }
+
+        .table-card-header {
+            margin-bottom: 10px;
+
+            background: #ffffff;
+
+            border: 1px solid #e8e4ed;
+            border-radius: 13px;
+        }
+
+        .apps-table,
+        .apps-table tbody,
+        .apps-table tr,
+        .apps-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .apps-table colgroup,
+        .apps-table thead {
+            display: none;
+        }
+
+        .apps-table tbody {
+            display: grid;
+            gap: 10px;
+        }
+
+        .apps-table tr.application-data-row {
+            padding: 10px;
+
+            background: #ffffff;
+
+            border: 1px solid #e8e4ed;
+            border-radius: 12px;
+        }
+
+        .apps-table td {
+            display: grid;
+
+            grid-template-columns:
+                95px
+                minmax(0, 1fr);
+
+            gap: 8px;
+
+            padding: 7px 2px;
+
+            border-bottom: 1px solid #f0edf2;
+
+            font-size: 9px;
+        }
+
+        .apps-table td:last-child {
+            border-bottom: 0;
+        }
+
+        .apps-table td::before {
+            content: attr(data-label);
+
+            color: #928b97;
+
+            font-size: 7px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+        .edit-row {
+            display: none !important;
+        }
+
+        .edit-row.active {
+            display: block !important;
+
+            padding: 10px;
+
+            border: 1px solid #ded6f9;
+            border-radius: 12px;
+
+            background: #f8f6ff;
+        }
+
+        .edit-row td {
+            display: block;
+        }
+
+        .edit-row td::before {
+            display: none;
+        }
+
+        .edit-form {
+            grid-template-columns: 1fr;
+        }
+
+        .status-select {
+            max-width: 190px;
+        }
+
+        .follow-form {
+            max-width: 190px;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="apps-page">
+
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+
+    <div class="apps-header">
+
+        <div>
+
+            <div class="apps-eyebrow">
+                ◫ Application Tracker
+            </div>
+
+            <h1>
+                My Applications
+            </h1>
+
+            <p>
+                Track analyzed jobs, status, follow-ups and application progress.
+            </p>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a
+                href="{% url 'profile' %}"
+                class="btn-light"
+            >
+                My Profile
+            </a>
+
+            <a
+                href="{% url 'analyze_job' %}"
+                class="btn-main"
+            >
+                ✦ Analyze Job
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         SUMMARY
+    =================================================== -->
+
+    <div class="apps-summary">
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                ◫
+            </div>
+
+            <div>
+
+                <div class="summary-value">
+
+                    {% if page_obj %}
+                        {{ page_obj.paginator.count }}
+                    {% else %}
+                        {{ jobs|length }}
+                    {% endif %}
+
+                </div>
+
+                <div class="summary-label">
+                    Applications
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                ≡
+            </div>
+
+            <div>
+
+                <div class="summary-value">
+
+                    {% if filters.rows == "all" %}
+                        All
+                    {% else %}
+                        {{ filters.rows|default:"50" }}
+                    {% endif %}
+
+                </div>
+
+                <div class="summary-label">
+                    Rows
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                ↕
+            </div>
+
+            <div>
+
+                <div
+                    class="summary-value"
+                    style="font-size:13px;"
+                >
+
+                    {% if filters.sort == "score_high" %}
+                        Highest Score
+
+                    {% elif filters.sort == "score_low" %}
+                        Lowest Score
+
+                    {% elif filters.sort == "oldest" %}
+                        Oldest
+
+                    {% elif filters.sort == "company" %}
+                        Company A-Z
+
+                    {% else %}
+                        Newest
+
+                    {% endif %}
+
+                </div>
+
+                <div class="summary-label">
+                    Sort
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         FILTERS
+    =================================================== -->
+
+    <section class="filter-card">
+
+
+        <div class="filter-header">
+
+            <div class="filter-icon">
+                ⌕
+            </div>
+
+            <div>
+
+                <h2>
+                    Filters
+                </h2>
+
+                <p>
+                    Search and narrow down your application history.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="filter-body">
+
+            <form method="get">
+
+
+                <div class="filter-grid">
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Search
+                        </label>
+
+                        <input
+                            type="text"
+                            name="q"
+                            value="{{ filters.q }}"
+                            placeholder="Company or job title"
+                        >
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            name="city"
+                            value="{{ filters.city }}"
+                            placeholder="City"
+                        >
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Source
+                        </label>
+
+                        <select name="source">
+
+                            <option value="">
+                                All Sources
+                            </option>
+
+                            {% for value, label in source_choices %}
+
+                                <option
+                                    value="{{ value }}"
+                                    {% if filters.source == value %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ label }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select name="status">
+
+                            <option value="">
+                                All Statuses
+                            </option>
+
+                            {% for value, label in status_choices %}
+
+                                <option
+                                    value="{{ value }}"
+                                    {% if filters.status == value %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ label }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="filter-grid-second">
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Minimum Score
+                        </label>
+
+                        <select name="score_min">
+
+                            <option value="">
+                                All Scores
+                            </option>
+
+                            <option
+                                value="7"
+                                {% if filters.score_min == "7" %}
+                                    selected
+                                {% endif %}
+                            >
+                                7+
+                            </option>
+
+                            <option
+                                value="8"
+                                {% if filters.score_min == "8" %}
+                                    selected
+                                {% endif %}
+                            >
+                                8+
+                            </option>
+
+                            <option
+                                value="9"
+                                {% if filters.score_min == "9" %}
+                                    selected
+                                {% endif %}
+                            >
+                                9+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Follow-up
+                        </label>
+
+                        <select name="followup">
+
+                            <option value="">
+                                All
+                            </option>
+
+                            <option
+                                value="with"
+                                {% if filters.followup == "with" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Has Follow-up
+                            </option>
+
+                            <option
+                                value="without"
+                                {% if filters.followup == "without" %}
+                                    selected
+                                {% endif %}
+                            >
+                                No Follow-up
+                            </option>
+
+                            <option
+                                value="due"
+                                {% if filters.followup == "due" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Due
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Sort
+                        </label>
+
+                        <select name="sort">
+
+                            <option
+                                value="newest"
+                                {% if filters.sort == "newest" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Newest
+                            </option>
+
+                            <option
+                                value="oldest"
+                                {% if filters.sort == "oldest" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Oldest
+                            </option>
+
+                            <option
+                                value="score_high"
+                                {% if filters.sort == "score_high" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Highest Score
+                            </option>
+
+                            <option
+                                value="score_low"
+                                {% if filters.sort == "score_low" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Lowest Score
+                            </option>
+
+                            <option
+                                value="company"
+                                {% if filters.sort == "company" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Company A-Z
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="filter-group">
+
+                        <label>
+                            Rows
+                        </label>
+
+                        <select name="rows">
+
+                            <option
+                                value="25"
+                                {% if filters.rows == "25" %}
+                                    selected
+                                {% endif %}
+                            >
+                                25
+                            </option>
+
+                            <option
+                                value="50"
+                                {% if filters.rows == "50" %}
+                                    selected
+                                {% endif %}
+                            >
+                                50
+                            </option>
+
+                            <option
+                                value="100"
+                                {% if filters.rows == "100" %}
+                                    selected
+                                {% endif %}
+                            >
+                                100
+                            </option>
+
+                            <option
+                                value="all"
+                                {% if filters.rows == "all" %}
+                                    selected
+                                {% endif %}
+                            >
+                                All
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="filter-footer">
+
+
+                    <div class="filter-buttons">
+
+                        <button
+                            type="submit"
+                            class="filter-submit"
+                        >
+                            Apply Filters
+                        </button>
+
+                        <a
+                            href="{% url 'applications' %}"
+                            class="filter-clear"
+                        >
+                            Clear
+                        </a>
+
+                    </div>
+
+
+                    <div class="filter-result-count">
+
+                        {% if page_obj %}
+
+                            Showing
+
+                            {{ page_obj.start_index }}
+
+                            –
+
+                            {{ page_obj.end_index }}
+
+                            of
+
+                            {{ page_obj.paginator.count }}
+
+                        {% else %}
+
+                            Showing
+                            {{ jobs|length }}
+                            applications
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         TABLE
+    =================================================== -->
+
+    <section class="table-card">
+
+
+        <div class="table-card-header">
+
+            <div class="table-icon">
+                ▦
+            </div>
+
+            <div>
+
+                <h2>
+                    Application Pipeline
+                </h2>
+
+                <p>
+                    Update status, follow-ups or correct job information directly.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if jobs %}
+
+
+            <table class="apps-table">
+
+
+                <colgroup>
+
+                    <col class="c-company">
+                    <col class="c-title">
+                    <col class="c-city">
+                    <col class="c-score">
+                    <col class="c-decision">
+                    <col class="c-applied">
+                    <col class="c-source">
+                    <col class="c-status">
+                    <col class="c-followup">
+                    <col class="c-actions">
+
+                </colgroup>
+
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>Company</th>
+
+                        <th>Job Title</th>
+
+                        <th>City</th>
+
+                        <th>Score</th>
+
+                        <th>Decision</th>
+
+                        <th>Applied</th>
+
+                        <th>Source</th>
+
+                        <th>Status</th>
+
+                        <th>Follow-up</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                    {% for job in jobs %}
+
+
+                        <!-- ==================================================
+                             MAIN ROW
+                        =================================================== -->
+
+                        <tr class="application-data-row">
+
+
+                            <!-- COMPANY -->
+
+                            <td data-label="Company">
+
+                                {% if job.company %}
+
+                                    <span class="company-name">
+                                        {{ job.company }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="missing-title">
+                                        Not detected
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- TITLE -->
+
+                            <td data-label="Job Title">
+
+                                {% if job.job_title %}
+
+                                    <a
+                                        href="{% url 'job_result' job.id %}"
+                                        class="title-link"
+                                    >
+                                        {{ job.job_title }}
+                                    </a>
+
+                                {% else %}
+
+                                    <a
+                                        href="{% url 'job_result' job.id %}"
+                                        class="missing-title"
+                                        style="text-decoration:none;"
+                                    >
+                                        Title not detected
+                                    </a>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- CITY -->
+
+                            <td data-label="City">
+
+                                <span class="city-name">
+                                    {{ job.city|default:"—" }}
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- SCORE -->
+
+                            <td data-label="Score">
+
+                                {% if job.score %}
+
+                                    <span class="score-badge">
+                                        {{ job.score }}
+                                    </span>
+
+                                {% else %}
+
+                                    —
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- DECISION -->
+
+                            <td data-label="Decision">
+
+                                {% if job.decision == "APPLY" %}
+
+                                    <span class="decision-badge decision-apply">
+                                        APPLY
+                                    </span>
+
+                                {% elif job.decision == "STRETCH" %}
+
+                                    <span class="decision-badge decision-stretch">
+                                        STRETCH
+                                    </span>
+
+                                {% elif job.decision == "SKIP" %}
+
+                                    <span class="decision-badge decision-skip">
+                                        SKIP
+                                    </span>
+
+                                {% else %}
+
+                                    —
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- APPLIED DATE -->
+
+                            <td data-label="Applied">
+
+                                {% if job.applied_date %}
+
+                                    {{ job.applied_date|date:"d.m.Y" }}
+
+                                {% else %}
+
+                                    <span style="color:#aaa4af;">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- SOURCE -->
+
+                            <td data-label="Source">
+
+                                <span class="source-badge">
+                                    {{ job.get_source_display }}
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- STATUS -->
+
+                            <td data-label="Status">
+
+                                <form
+                                    method="post"
+                                    action="{% url 'update_status' job.id %}"
+                                    class="status-form"
+                                >
+
+                                    {% csrf_token %}
+
+
+                                    <select
+                                        name="status"
+
+                                        class="
+                                            status-select
+
+                                            {% if job.status == 'not_applied' %}
+                                                status-not-applied
+
+                                            {% elif job.status == 'applied' %}
+                                                status-applied
+
+                                            {% elif job.status == 'interview' %}
+                                                status-interview
+
+                                            {% elif job.status == 'offer' %}
+                                                status-offer
+
+                                            {% elif job.status == 'rejected' %}
+                                                status-rejected
+                                            {% endif %}
+                                        "
+
+                                        onchange="this.form.submit()"
+                                    >
+
+                                        {% for value, label in job.STATUS_CHOICES %}
+
+                                            <option
+                                                value="{{ value }}"
+                                                {% if job.status == value %}
+                                                    selected
+                                                {% endif %}
+                                            >
+                                                {{ label }}
+                                            </option>
+
+                                        {% endfor %}
+
+                                    </select>
+
+                                </form>
+
+                            </td>
+
+
+
+                            <!-- FOLLOW UP -->
+
+                            <td data-label="Follow-up">
+
+                                <form
+                                    method="post"
+                                    action="{% url 'update_follow_up' job.id %}"
+                                    class="follow-form"
+                                >
+
+                                    {% csrf_token %}
+
+
+                                    <input
+                                        type="date"
+                                        name="follow_up_date"
+                                        class="follow-date"
+                                        value="{% if job.follow_up_date %}{{ job.follow_up_date|date:'Y-m-d' }}{% endif %}"
+                                    >
+
+
+                                    <button
+                                        type="submit"
+                                        class="follow-save"
+                                        title="Save Follow-up"
+                                    >
+                                        ✓
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+
+
+                            <!-- ACTIONS -->
+
+                            <td data-label="Actions">
+
+                                <div class="actions">
+
+
+                                    <a
+                                        href="{% url 'job_result' job.id %}"
+                                        class="action-view"
+                                        title="View Analysis"
+                                    >
+                                        View
+                                    </a>
+
+
+                                    <button
+                                        type="button"
+                                        class="action-edit"
+                                        onclick="toggleEditRow({{ job.id }})"
+                                    >
+                                        Edit
+                                    </button>
+
+
+                                    <form
+                                        method="post"
+                                        action="{% url 'delete_application' job.id %}"
+                                        class="delete-form"
+                                        onsubmit="return confirm('Delete this application permanently?');"
+                                    >
+
+                                        {% csrf_token %}
+
+
+                                        <button
+                                            type="submit"
+                                            class="action-delete"
+                                        >
+                                            ×
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- ==================================================
+                             EDIT ROW
+                        =================================================== -->
+
+                        <tr
+                            class="edit-row"
+                            id="edit-row-{{ job.id }}"
+                        >
+
+                            <td
+                                colspan="10"
+                                class="edit-cell"
+                            >
+
+                                <form
+                                    method="post"
+                                    action="{% url 'update_application_details' job.id %}"
+                                    class="edit-form"
+                                >
+
+                                    {% csrf_token %}
+
+
+
+                                    <div class="edit-field">
+
+                                        <label>
+                                            Company
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            value="{{ job.company }}"
+                                            maxlength="255"
+                                        >
+
+                                    </div>
+
+
+
+                                    <div class="edit-field">
+
+                                        <label>
+                                            Job Title
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="job_title"
+                                            value="{{ job.job_title }}"
+                                            maxlength="255"
+                                            placeholder="Correct job title"
+                                        >
+
+                                    </div>
+
+
+
+                                    <div class="edit-field">
+
+                                        <label>
+                                            City
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="city"
+                                            value="{{ job.city }}"
+                                            maxlength="255"
+                                        >
+
+                                    </div>
+
+
+
+                                    <div class="edit-buttons">
+
+                                        <button
+                                            type="submit"
+                                            class="edit-save"
+                                        >
+                                            Save
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            class="edit-cancel"
+                                            onclick="toggleEditRow({{ job.id }})"
+                                        >
+                                            Cancel
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+
+            <!-- ==================================================
+                 PAGINATION
+            =================================================== -->
+
+            {% if page_obj %}
+
+                <div class="pagination-bar">
+
+
+                    <div class="pagination-info">
+
+                        Page
+                        {{ page_obj.number }}
+
+                        of
+
+                        {{ page_obj.paginator.num_pages }}
+
+                        ·
+
+                        {{ page_obj.paginator.count }}
+                        applications
+
+                    </div>
+
+
+
+                    <div class="pagination-actions">
+
+
+                        {% if page_obj.has_previous %}
+
+                            <a
+                                href="?page={{ page_obj.previous_page_number }}&q={{ filters.q|urlencode }}&city={{ filters.city|urlencode }}&source={{ filters.source }}&status={{ filters.status }}&score_min={{ filters.score_min }}&followup={{ filters.followup }}&sort={{ filters.sort }}&rows={{ filters.rows }}"
+                                class="page-btn"
+                            >
+                                ← Previous
+                            </a>
+
+                        {% endif %}
+
+
+                        {% if page_obj.has_next %}
+
+                            <a
+                                href="?page={{ page_obj.next_page_number }}&q={{ filters.q|urlencode }}&city={{ filters.city|urlencode }}&source={{ filters.source }}&status={{ filters.status }}&score_min={{ filters.score_min }}&followup={{ filters.followup }}&sort={{ filters.sort }}&rows={{ filters.rows }}"
+                                class="page-btn"
+                            >
+                                Next →
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+
+        {% else %}
+
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    No applications found
+                </h3>
+
+                <p>
+                    Change the filters or analyze a new vacancy.
+                </p>
+
+                <a
+                    href="{% url 'analyze_job' %}"
+                    class="btn-main"
+                >
+                    Analyze Job
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+
+
+<script>
+
+    function toggleEditRow(jobId) {
+
+        const row =
+            document.getElementById(
+                "edit-row-" + jobId
+            );
+
+
+        if (!row) {
+            return;
+        }
+
+
+        row.classList.toggle(
+            "active"
+        );
+
+    }
+
+</script>
+
+
+{% endblock %}

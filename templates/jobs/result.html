@@ -1,0 +1,1798 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .result-page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 0 75px;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .result-hero {
+        position: relative;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 30px;
+
+        padding: 34px 40px;
+        margin-bottom: 22px;
+
+        border-radius: 22px;
+
+        background:
+            radial-gradient(
+                circle at 88% 10%,
+                rgba(128, 96, 255, 0.23),
+                transparent 34%
+            ),
+            linear-gradient(
+                135deg,
+                #17131e 0%,
+                #211933 100%
+            );
+
+        color: #ffffff;
+    }
+
+
+    .result-hero::after {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        right: -70px;
+        bottom: -120px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.035);
+    }
+
+
+    .result-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .result-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+
+        color: #b9acff;
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .result-company {
+        margin: 0 0 6px;
+
+        color: #ffffff;
+
+        font-size: 33px;
+        line-height: 1.15;
+        letter-spacing: -0.6px;
+    }
+
+
+    .result-job-title {
+        margin: 0 0 10px;
+
+        color: #d6d0dc;
+
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+
+    .result-meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+
+    .result-meta-item {
+        padding: 6px 9px;
+
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 999px;
+
+        background: rgba(255,255,255,0.055);
+
+        color: #bcb6c3;
+
+        font-size: 10px;
+    }
+
+
+    .result-hero-actions {
+        position: relative;
+        z-index: 2;
+
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+
+    .result-top-btn {
+        min-height: 41px;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0 15px;
+
+        border-radius: 9px;
+
+        color: #ffffff;
+        background: rgba(255,255,255,0.06);
+
+        border: 1px solid rgba(255,255,255,0.14);
+
+        text-decoration: none;
+
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+
+    .result-top-btn:hover {
+        color: #ffffff;
+        background: rgba(255,255,255,0.11);
+    }
+
+
+    .result-top-btn.primary {
+        background: #7558ff;
+        border-color: #7558ff;
+    }
+
+
+    .result-top-btn.primary:hover {
+        background: #6547ed;
+    }
+
+
+    /* =====================================================
+       SCORE OVERVIEW
+    ===================================================== */
+
+    .result-overview {
+        display: grid;
+        grid-template-columns: 1.25fr 0.85fr 0.85fr 0.85fr;
+
+        gap: 16px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .overview-card {
+        min-height: 115px;
+
+        padding: 20px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 16px;
+    }
+
+
+    .overview-label {
+        margin-bottom: 10px;
+
+        color: #938c98;
+
+        font-size: 10px;
+        font-weight: 750;
+
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
+    }
+
+
+    /* SCORE */
+
+    .score-card {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+
+    .score-circle {
+        flex: 0 0 78px;
+
+        width: 78px;
+        height: 78px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background:
+            linear-gradient(
+                135deg,
+                #7354ef,
+                #987fff
+            );
+
+        color: #ffffff;
+
+        box-shadow:
+            0 10px 28px rgba(103, 72, 222, 0.19);
+    }
+
+
+    .score-number {
+        font-size: 27px;
+        font-weight: 850;
+        line-height: 1;
+    }
+
+
+    .score-out-of {
+        margin-top: 3px;
+
+        font-size: 8px;
+        opacity: 0.7;
+    }
+
+
+    .score-copy strong {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #302a35;
+
+        font-size: 14px;
+    }
+
+
+    .score-copy span {
+        color: #908995;
+
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+
+    /* DECISION */
+
+    .decision-value {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 9px 13px;
+
+        border-radius: 999px;
+
+        font-size: 12px;
+        font-weight: 850;
+    }
+
+
+    .decision-apply {
+        background: #e9f8ef;
+        color: #167a46;
+    }
+
+
+    .decision-stretch {
+        background: #fff5df;
+        color: #9b6715;
+    }
+
+
+    .decision-skip {
+        background: #fff0f0;
+        color: #aa3f3f;
+    }
+
+
+    .overview-value {
+        color: #302a35;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        line-height: 1.45;
+    }
+
+
+    .overview-small {
+        margin-top: 6px;
+
+        color: #98919d;
+
+        font-size: 9px;
+        line-height: 1.45;
+    }
+
+
+    .risk-no {
+        color: #167a46;
+    }
+
+
+    .risk-yes {
+        color: #ab4141;
+    }
+
+
+    /* =====================================================
+       STATUS BAR
+    ===================================================== */
+
+    .result-status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+
+        margin-bottom: 22px;
+        padding: 14px 17px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 14px;
+    }
+
+
+    .status-info strong {
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #38313d;
+
+        font-size: 11px;
+    }
+
+
+    .status-info span {
+        color: #918a96;
+
+        font-size: 9px;
+    }
+
+
+    .status-form {
+        margin: 0;
+    }
+
+
+    .status-form select {
+        min-width: 145px;
+
+        padding: 8px 10px;
+
+        border: 1px solid #ddd7e2;
+        border-radius: 9px;
+
+        background: #ffffff;
+        color: #403945;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       GRID
+    ===================================================== */
+
+    .result-grid {
+        display: grid;
+        grid-template-columns:
+            minmax(0, 1.35fr)
+            minmax(290px, 0.65fr);
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    .result-main {
+        display: grid;
+        gap: 22px;
+    }
+
+
+    .result-side {
+        display: grid;
+        gap: 22px;
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    .result-card {
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 18px;
+
+        overflow: hidden;
+    }
+
+
+    .result-card-header {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+
+        padding: 19px 22px;
+
+        border-bottom: 1px solid #efebf1;
+    }
+
+
+    .section-icon {
+        flex: 0 0 34px;
+
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        font-size: 12px;
+        font-weight: 850;
+    }
+
+
+    .icon-good {
+        background: #eaf8ef;
+        color: #167a46;
+    }
+
+
+    .icon-gap {
+        background: #fff5e3;
+        color: #a56b13;
+    }
+
+
+    .icon-risk {
+        background: #fff0f0;
+        color: #a83d3d;
+    }
+
+
+    .icon-cv {
+        background: #f0ecff;
+        color: #6547d6;
+    }
+
+
+    .icon-lock {
+        background: #f2eff3;
+        color: #6f6874;
+    }
+
+
+    .icon-summary {
+        background: #eeeaff;
+        color: #6248ca;
+    }
+
+
+    .result-card-header h2 {
+        margin: 0 0 3px;
+
+        color: #2e2833;
+
+        font-size: 15px;
+    }
+
+
+    .result-card-header p {
+        margin: 0;
+
+        color: #96909b;
+
+        font-size: 9px;
+    }
+
+
+    .result-card-body {
+        padding: 21px 22px;
+    }
+
+
+    /* =====================================================
+       LISTS
+    ===================================================== */
+
+    .analysis-list {
+        display: grid;
+        gap: 10px;
+    }
+
+
+    .analysis-list-item {
+        position: relative;
+
+        padding: 12px 14px 12px 36px;
+
+        background: #faf9fb;
+
+        border: 1px solid #efebf1;
+        border-radius: 11px;
+
+        color: #5e5763;
+
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+
+    .analysis-list-item::before {
+        position: absolute;
+
+        left: 13px;
+        top: 13px;
+
+        width: 15px;
+        height: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        font-size: 8px;
+        font-weight: 900;
+    }
+
+
+    .good-list .analysis-list-item::before {
+        content: "✓";
+
+        background: #e6f7ed;
+        color: #187c47;
+    }
+
+
+    .gap-list .analysis-list-item::before {
+        content: "!";
+
+        background: #fff1da;
+        color: #ad7119;
+    }
+
+
+    .risk-list .analysis-list-item::before {
+        content: "!";
+
+        background: #ffecec;
+        color: #aa3e3e;
+    }
+
+
+    .claim-list .analysis-list-item::before {
+        content: "×";
+
+        background: #f0edf2;
+        color: #6e6773;
+    }
+
+
+    /* =====================================================
+       TEXT SECTIONS
+    ===================================================== */
+
+    .analysis-text {
+        color: #5c5661;
+
+        font-size: 11px;
+        line-height: 1.78;
+
+        white-space: pre-line;
+    }
+
+
+    /* =====================================================
+       FINAL ASSESSMENT
+    ===================================================== */
+
+    .summary-card {
+        background:
+            radial-gradient(
+                circle at 90% 0%,
+                rgba(128, 96, 255, 0.17),
+                transparent 30%
+            ),
+            #19151f;
+
+        border-color: #19151f;
+    }
+
+
+    .summary-card .result-card-header {
+        border-bottom:
+            1px solid rgba(255,255,255,0.08);
+    }
+
+
+    .summary-card .result-card-header h2 {
+        color: #ffffff;
+    }
+
+
+    .summary-card .result-card-header p {
+        color: #a69faa;
+    }
+
+
+    .summary-card .analysis-text {
+        color: #c7c1cc;
+    }
+
+
+    /* =====================================================
+       SIDE: QUICK SUMMARY
+    ===================================================== */
+
+    .quick-summary {
+        padding: 21px;
+    }
+
+
+    .quick-summary h3 {
+        margin: 0 0 16px;
+
+        color: #302a35;
+
+        font-size: 15px;
+    }
+
+
+    .quick-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+
+        padding: 11px 0;
+
+        border-bottom: 1px solid #f0edf2;
+    }
+
+
+    .quick-row:last-child {
+        border-bottom: 0;
+    }
+
+
+    .quick-label {
+        color: #928b97;
+
+        font-size: 10px;
+    }
+
+
+    .quick-value {
+        max-width: 170px;
+
+        color: #38313d;
+
+        text-align: right;
+
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+
+    /* =====================================================
+       NEXT STEP
+    ===================================================== */
+
+    .next-step-card {
+        padding: 22px;
+
+        border-radius: 17px;
+
+        color: #ffffff;
+
+        background:
+            radial-gradient(
+                circle at 85% 0%,
+                rgba(132, 100, 255, 0.20),
+                transparent 36%
+            ),
+            #19151f;
+    }
+
+
+    .next-step-card h3 {
+        margin: 0 0 8px;
+
+        color: #ffffff;
+
+        font-size: 15px;
+    }
+
+
+    .next-step-card p {
+        margin: 0 0 17px;
+
+        color: #bbb4c0;
+
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+
+    .next-step-actions {
+        display: grid;
+        gap: 9px;
+    }
+
+
+    .next-step-btn {
+        min-height: 39px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+
+    .next-step-primary {
+        color: #ffffff;
+
+        background: #7254ef;
+        border: 1px solid #7254ef;
+    }
+
+
+    .next-step-primary:hover {
+        color: #ffffff;
+        background: #6244df;
+    }
+
+
+    .next-step-secondary {
+        color: #ffffff;
+
+        background: rgba(255,255,255,0.06);
+
+        border: 1px solid rgba(255,255,255,0.13);
+    }
+
+
+    .next-step-secondary:hover {
+        color: #ffffff;
+        background: rgba(255,255,255,0.10);
+    }
+
+
+    /* =====================================================
+       OPEN JOB
+    ===================================================== */
+
+    .job-link-card {
+        padding: 18px;
+
+        background: #f8f6ff;
+
+        border: 1px solid #e5defb;
+        border-radius: 14px;
+    }
+
+
+    .job-link-card strong {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #50465c;
+
+        font-size: 11px;
+    }
+
+
+    .job-link-card p {
+        margin: 0 0 10px;
+
+        color: #81788b;
+
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+
+    .job-link-card a {
+        color: #6244d5;
+
+        text-decoration: none;
+
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+
+    /* =====================================================
+       EMPTY
+    ===================================================== */
+
+    .result-empty {
+        color: #a19aa6;
+
+        font-size: 11px;
+        font-style: italic;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1000px) {
+
+        .result-overview {
+            grid-template-columns: 1fr 1fr;
+        }
+
+
+        .result-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .result-page {
+            padding-top: 12px;
+        }
+
+
+        .result-hero {
+            grid-template-columns: 1fr;
+
+            padding: 28px 24px;
+        }
+
+
+        .result-company {
+            font-size: 29px;
+        }
+
+
+        .result-hero-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+
+        .result-overview {
+            grid-template-columns: 1fr;
+        }
+
+
+        .result-status-bar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+
+        .status-form,
+        .status-form select {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="result-page">
+
+
+    <!-- ==================================================
+         HERO
+    =================================================== -->
+
+    <section class="result-hero">
+
+
+        <div class="result-hero-content">
+
+            <div class="result-eyebrow">
+                ✦ Analysis Result
+            </div>
+
+
+            <h1 class="result-company">
+
+                {% if job.company %}
+                    {{ job.company }}
+                {% else %}
+                    Company not identified
+                {% endif %}
+
+            </h1>
+
+
+            <div class="result-job-title">
+
+                {% if job.job_title %}
+                    {{ job.job_title }}
+                {% else %}
+                    Job Analysis
+                {% endif %}
+
+            </div>
+
+
+            <div class="result-meta">
+
+                {% if job.city %}
+
+                    <span class="result-meta-item">
+                        ◉ {{ job.city }}
+                    </span>
+
+                {% endif %}
+
+
+                {% if job.source %}
+
+                    <span class="result-meta-item">
+                        {{ job.get_source_display }}
+                    </span>
+
+                {% endif %}
+
+
+                <span class="result-meta-item">
+                    Analyzed {{ job.created_at|date:"d.m.Y" }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="result-hero-actions">
+
+            <a
+                href="{% url 'analyze_job' %}"
+                class="result-top-btn primary"
+            >
+                + Analyze Another Job
+            </a>
+
+
+            <a
+                href="{% url 'applications' %}"
+                class="result-top-btn"
+            >
+                My Applications
+            </a>
+
+
+            {% if job.job_url %}
+
+                <a
+                    href="{{ job.job_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="result-top-btn"
+                >
+                    Open Job ↗
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         OVERVIEW
+    =================================================== -->
+
+    <section class="result-overview">
+
+
+        <!-- SCORE -->
+
+        <div class="overview-card score-card">
+
+            <div class="score-circle">
+
+                <div style="text-align:center;">
+
+                    <div class="score-number">
+                        {{ job.score }}
+                    </div>
+
+                    <div class="score-out-of">
+                        / 10
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="score-copy">
+
+                <div class="overview-label">
+                    Match Score
+                </div>
+
+                <strong>
+                    Realistic job fit
+                </strong>
+
+                <span>
+                    Based on your verified career profile.
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DECISION -->
+
+        <div class="overview-card">
+
+            <div class="overview-label">
+                Decision
+            </div>
+
+
+            {% if job.decision == "APPLY" %}
+
+                <span class="decision-value decision-apply">
+                    APPLY
+                </span>
+
+                <div class="overview-small">
+                    Worth applying for.
+                </div>
+
+
+            {% elif job.decision == "STRETCH" %}
+
+                <span class="decision-value decision-stretch">
+                    STRETCH
+                </span>
+
+                <div class="overview-small">
+                    Possible, but important gaps exist.
+                </div>
+
+
+            {% elif job.decision == "SKIP" %}
+
+                <span class="decision-value decision-skip">
+                    SKIP
+                </span>
+
+                <div class="overview-small">
+                    Major fit issues were identified.
+                </div>
+
+
+            {% else %}
+
+                <span class="overview-value">
+                    {{ job.decision|default:"-" }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- EMPLOYER -->
+
+        <div class="overview-card">
+
+            <div class="overview-label">
+                Employer Type
+            </div>
+
+            <div class="overview-value">
+                {{ job.employer_type|default:"Unclear" }}
+            </div>
+
+            <div class="overview-small">
+                Direct employer or recruitment structure.
+            </div>
+
+        </div>
+
+
+
+        <!-- ZEITARBEIT -->
+
+        <div class="overview-card">
+
+            <div class="overview-label">
+                Temporary Employment Risk
+            </div>
+
+
+            {% if job.zeitarbeit_risk %}
+
+                <div class="overview-value risk-yes">
+                    Yes
+                </div>
+
+                <div class="overview-small">
+                    Potential Zeitarbeit / Arbeitnehmerüberlassung.
+                </div>
+
+            {% else %}
+
+                <div class="overview-value risk-no">
+                    No
+                </div>
+
+                <div class="overview-small">
+                    No evidence found in the supplied vacancy.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         APPLICATION STATUS
+    =================================================== -->
+
+    <section class="result-status-bar">
+
+        <div class="status-info">
+
+            <strong>
+                Application Status
+            </strong>
+
+            <span>
+                Update this when you apply or hear back from the employer.
+            </span>
+
+        </div>
+
+
+        <form
+            method="post"
+            action="{% url 'update_status' job.id %}"
+            class="status-form"
+        >
+
+            {% csrf_token %}
+
+
+            <select
+                name="status"
+                onchange="this.form.submit()"
+            >
+
+                {% for value, label in job.STATUS_CHOICES %}
+
+                    <option
+                        value="{{ value }}"
+                        {% if job.status == value %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ label }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </form>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         CONTENT GRID
+    =================================================== -->
+
+    <div class="result-grid">
+
+
+        <!-- ==================================================
+             MAIN
+        =================================================== -->
+
+        <main class="result-main">
+
+
+            <!-- STRONG MATCHES -->
+
+            <section class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-good">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Strong Matches
+                        </h2>
+
+                        <p>
+                            Verified reasons this vacancy fits your profile.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.strong_matches %}
+
+                        <div class="analysis-list good-list">
+
+                            {% for item in job.strong_matches %}
+
+                                <div class="analysis-list-item">
+                                    {{ item }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No strong matches were identified.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- GAPS -->
+
+            <section class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-gap">
+                        !
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Important Gaps
+                        </h2>
+
+                        <p>
+                            Requirements that are missing, weaker or only partially supported.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.gaps %}
+
+                        <div class="analysis-list gap-list">
+
+                            {% for item in job.gaps %}
+
+                                <div class="analysis-list-item">
+                                    {{ item }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No important gaps were identified.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- RISKS -->
+
+            <section class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-risk">
+                        !
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Application Risks
+                        </h2>
+
+                        <p>
+                            Factors that may reduce competitiveness or need clarification.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.risks %}
+
+                        <div class="analysis-list risk-list">
+
+                            {% for item in job.risks %}
+
+                                <div class="analysis-list-item">
+                                    {{ item }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No significant risks were identified.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- CV DIRECTION -->
+
+            <section class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-cv">
+                        CV
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Recommended CV Direction
+                        </h2>
+
+                        <p>
+                            What verified experience should be emphasized for this vacancy.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.recommended_cv %}
+
+                        <div class="analysis-text">
+                            {{ job.recommended_cv }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No CV recommendation was generated.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- FINAL ASSESSMENT -->
+
+            <section class="result-card summary-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-summary">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Final Assessment
+                        </h2>
+
+                        <p>
+                            The bottom-line recommendation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.summary %}
+
+                        <div class="analysis-text">
+                            {{ job.summary }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No final summary was generated.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- ==================================================
+             SIDE
+        =================================================== -->
+
+        <aside class="result-side">
+
+
+            <!-- QUICK SUMMARY -->
+
+            <section class="result-card">
+
+                <div class="quick-summary">
+
+                    <h3>
+                        Quick Overview
+                    </h3>
+
+
+                    <div class="quick-row">
+
+                        <span class="quick-label">
+                            Match
+                        </span>
+
+                        <span class="quick-value">
+                            {{ job.score }}/10
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-row">
+
+                        <span class="quick-label">
+                            Decision
+                        </span>
+
+                        <span class="quick-value">
+                            {{ job.decision }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-row">
+
+                        <span class="quick-label">
+                            Employer
+                        </span>
+
+                        <span class="quick-value">
+                            {{ job.employer_type }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-row">
+
+                        <span class="quick-label">
+                            Zeitarbeit
+                        </span>
+
+                        <span class="quick-value">
+
+                            {% if job.zeitarbeit_risk %}
+                                Possible
+                            {% else %}
+                                No indication
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="quick-row">
+
+                        <span class="quick-label">
+                            Status
+                        </span>
+
+                        <span class="quick-value">
+                            {{ job.get_status_display }}
+                        </span>
+
+                    </div>
+
+
+                    {% if job.applied_date %}
+
+                        <div class="quick-row">
+
+                            <span class="quick-label">
+                                Applied
+                            </span>
+
+                            <span class="quick-value">
+                                {{ job.applied_date|date:"d.m.Y" }}
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- DO NOT CLAIM -->
+
+            <section class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="section-icon icon-lock">
+                        ×
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Do Not Claim
+                        </h2>
+
+                        <p>
+                            Important boundaries for an honest application.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-card-body">
+
+                    {% if job.do_not_claim %}
+
+                        <div class="analysis-list claim-list">
+
+                            {% for item in job.do_not_claim %}
+
+                                <div class="analysis-list-item">
+                                    {{ item }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="result-empty">
+                            No special claim restrictions were identified.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- NEXT STEP -->
+
+            <section class="next-step-card">
+
+                {% if job.decision == "APPLY" %}
+
+                    <h3>
+                        This one is worth considering.
+                    </h3>
+
+                    <p>
+                        Review the gaps, tailor your CV using only verified
+                        information and update the status when you apply.
+                    </p>
+
+                {% elif job.decision == "STRETCH" %}
+
+                    <h3>
+                        Review the gaps before applying.
+                    </h3>
+
+                    <p>
+                        This vacancy may still be worth an application,
+                        but the important gaps should be understood first.
+                    </p>
+
+                {% else %}
+
+                    <h3>
+                        Your time may be better spent elsewhere.
+                    </h3>
+
+                    <p>
+                        Review the reasons for the low fit before deciding
+                        whether this application is worth the effort.
+                    </p>
+
+                {% endif %}
+
+
+                <div class="next-step-actions">
+
+                    <a
+                        href="{% url 'applications' %}"
+                        class="next-step-btn next-step-primary"
+                    >
+                        My Applications
+                    </a>
+
+
+                    <a
+                        href="{% url 'analyze_job' %}"
+                        class="next-step-btn next-step-secondary"
+                    >
+                        Analyze Another Job
+                    </a>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ORIGINAL JOB -->
+
+            {% if job.job_url %}
+
+                <div class="job-link-card">
+
+                    <strong>
+                        Original Vacancy
+                    </strong>
+
+                    <p>
+                        Open the job listing you saved with this analysis.
+                    </p>
+
+                    <a
+                        href="{{ job.job_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Job ↗
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

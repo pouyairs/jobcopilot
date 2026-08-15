@@ -1,0 +1,2415 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<style>
+
+    /* =====================================================
+       GENERAL
+    ===================================================== */
+
+    .home-page {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 22px 0 0;
+    }
+
+    .home-section {
+        padding: 72px 0;
+    }
+
+    .home-section-title {
+        max-width: 720px;
+        margin: 0 auto 42px;
+        text-align: center;
+    }
+
+    .home-section-title h2 {
+        margin: 0 0 12px;
+        font-size: 38px;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        color: #19161f;
+    }
+
+    .home-section-title p {
+        margin: 0;
+        color: #74707c;
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+
+    /* =====================================================
+       HERO SLIDER
+    ===================================================== */
+
+    .hero-slider {
+        position: relative;
+        overflow: hidden;
+
+        min-height: 560px;
+
+        border-radius: 28px;
+
+        background:
+            radial-gradient(
+                circle at 80% 10%,
+                rgba(116, 83, 255, 0.32),
+                transparent 33%
+            ),
+            radial-gradient(
+                circle at 10% 90%,
+                rgba(92, 188, 255, 0.18),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #15121c 0%,
+                #211933 52%,
+                #17131f 100%
+            );
+
+        box-shadow:
+            0 30px 80px rgba(34, 22, 55, 0.17);
+    }
+
+    .hero-slide {
+        display: none;
+
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+
+        gap: 50px;
+
+        min-height: 560px;
+
+        padding: 65px;
+    }
+
+    .hero-slide.active {
+        display: grid;
+        animation: heroFade 0.45s ease;
+    }
+
+    @keyframes heroFade {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 8px 13px;
+
+        margin-bottom: 20px;
+
+        border-radius: 999px;
+
+        background: rgba(255,255,255,0.09);
+        border: 1px solid rgba(255,255,255,0.12);
+
+        color: #ded7ff;
+
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .hero-content h1 {
+        margin: 0 0 20px;
+
+        max-width: 650px;
+
+        font-size: 55px;
+        line-height: 1.06;
+        letter-spacing: -2px;
+
+        color: #ffffff;
+    }
+
+    .hero-purple {
+        color: #a999ff;
+    }
+
+    .hero-content p {
+        max-width: 640px;
+
+        margin: 0 0 28px;
+
+        color: #c7c1ce;
+
+        line-height: 1.75;
+        font-size: 17px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .home-btn-primary,
+    .home-btn-secondary {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        min-height: 46px;
+
+        padding: 0 19px;
+
+        border-radius: 11px;
+
+        font-weight: 700;
+        text-decoration: none;
+
+        transition: 0.2s ease;
+    }
+
+    .home-btn-primary {
+        background: #7255ff;
+        color: #ffffff;
+        border: 1px solid #7255ff;
+    }
+
+    .home-btn-primary:hover {
+        background: #6346ed;
+        color: #ffffff;
+        transform: translateY(-1px);
+    }
+
+    .home-btn-secondary {
+        background: rgba(255,255,255,0.06);
+        color: #ffffff;
+
+        border: 1px solid rgba(255,255,255,0.17);
+    }
+
+    .home-btn-secondary:hover {
+        background: rgba(255,255,255,0.11);
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       HERO MOCKUPS
+    ===================================================== */
+
+    .hero-preview {
+        position: relative;
+    }
+
+    .preview-card {
+        position: relative;
+
+        padding: 25px;
+
+        background: rgba(255,255,255,0.97);
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 25px 65px rgba(0,0,0,0.25);
+    }
+
+    .preview-eyebrow {
+        color: #8b8592;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+
+        margin-bottom: 6px;
+    }
+
+    .preview-title {
+        color: #1d1922;
+        font-size: 22px;
+        font-weight: 800;
+
+        margin-bottom: 5px;
+    }
+
+    .preview-subtitle {
+        color: #89838f;
+        font-size: 13px;
+
+        margin-bottom: 22px;
+    }
+
+    .preview-score {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 18px;
+
+        margin-bottom: 17px;
+
+        border-radius: 14px;
+
+        background: #f5f2ff;
+        border: 1px solid #e9e2ff;
+    }
+
+    .preview-score strong {
+        display: block;
+
+        color: #6748e7;
+
+        font-size: 36px;
+        line-height: 1;
+    }
+
+    .preview-score span {
+        display: block;
+
+        color: #86808d;
+        font-size: 12px;
+
+        margin-top: 5px;
+    }
+
+    .decision-pill {
+        padding: 8px 12px;
+
+        background: #e8f8ee;
+        color: #167943;
+
+        border-radius: 999px;
+
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .preview-line {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+
+        padding: 9px 0;
+
+        color: #514b56;
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .preview-check,
+    .preview-warning {
+        flex: 0 0 22px;
+
+        width: 22px;
+        height: 22px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+
+        font-size: 11px;
+        font-weight: 900;
+    }
+
+    .preview-check {
+        background: #e7f8ed;
+        color: #158447;
+    }
+
+    .preview-warning {
+        background: #fff2e2;
+        color: #b5660d;
+    }
+
+
+    /* PROFILE PREVIEW */
+
+    .profile-strength {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 16px 0;
+
+        border-bottom: 1px solid #eeeaf2;
+    }
+
+    .profile-strength:last-child {
+        border-bottom: 0;
+    }
+
+    .strength-name {
+        color: #3d3743;
+        font-weight: 650;
+        font-size: 14px;
+    }
+
+    .strength-pill {
+        padding: 6px 9px;
+
+        border-radius: 999px;
+
+        background: #f0ecff;
+        color: #6849da;
+
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+
+    /* APPLICATION PREVIEW */
+
+    .mini-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .mini-table td {
+        padding: 12px 5px;
+
+        border-bottom: 1px solid #eeeaf2;
+
+        font-size: 12px;
+
+        color: #55505a;
+    }
+
+    .mini-table tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .mini-company {
+        font-weight: 750;
+        color: #27222d;
+    }
+
+    .mini-status {
+        display: inline-block;
+
+        padding: 5px 8px;
+
+        border-radius: 999px;
+
+        background: #edf8f1;
+        color: #187a45;
+
+        font-weight: 700;
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       SLIDER CONTROLS
+    ===================================================== */
+
+    .slider-controls {
+        position: absolute;
+
+        left: 50%;
+        bottom: 22px;
+
+        transform: translateX(-50%);
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        z-index: 20;
+    }
+
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+
+        padding: 0;
+
+        border: 0;
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.35);
+
+        cursor: pointer;
+    }
+
+    .slider-dot.active {
+        width: 24px;
+        border-radius: 999px;
+
+        background: #9d8bff;
+    }
+
+    .slider-arrow {
+        position: absolute;
+
+        top: 50%;
+
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transform: translateY(-50%);
+
+        padding: 0;
+
+        border: 1px solid rgba(255,255,255,0.13);
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.08);
+
+        color: #ffffff;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+        z-index: 15;
+    }
+
+    .slider-arrow:hover {
+        background: rgba(255,255,255,0.14);
+    }
+
+    .slider-prev {
+        left: 17px;
+    }
+
+    .slider-next {
+        right: 17px;
+    }
+
+
+    /* =====================================================
+       TRUST BAR
+    ===================================================== */
+
+    .home-trust {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        margin-top: 35px;
+
+        border: 1px solid #ebe7ef;
+        border-radius: 16px;
+
+        background: #ffffff;
+    }
+
+    .trust-item {
+        padding: 19px 15px;
+
+        text-align: center;
+
+        color: #67616d;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        border-right: 1px solid #eeeaf1;
+    }
+
+    .trust-item:last-child {
+        border-right: 0;
+    }
+
+    .trust-icon {
+        color: #6d4cff;
+        font-weight: 900;
+
+        margin-right: 5px;
+    }
+
+
+    /* =====================================================
+       FEATURES
+    ===================================================== */
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 28px;
+
+        background: #ffffff;
+
+        border: 1px solid #e9e5ed;
+        border-radius: 18px;
+
+        transition: 0.2s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 18px 50px rgba(40, 26, 68, 0.08);
+    }
+
+    .feature-icon {
+        width: 46px;
+        height: 46px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-bottom: 18px;
+
+        border-radius: 12px;
+
+        background: #f1edff;
+        color: #6849e1;
+
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .feature-card h3 {
+        margin: 0 0 10px;
+
+        color: #242029;
+
+        font-size: 18px;
+    }
+
+    .feature-card p {
+        margin: 0;
+
+        color: #79737f;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       HOW IT WORKS
+    ===================================================== */
+
+    .workflow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+    }
+
+    .workflow-card {
+        position: relative;
+
+        padding: 25px 22px;
+
+        background: #faf9fc;
+
+        border: 1px solid #ece8ef;
+        border-radius: 17px;
+    }
+
+    .workflow-number {
+        width: 35px;
+        height: 35px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 15px;
+
+        border-radius: 50%;
+
+        background: #7254f3;
+        color: #ffffff;
+
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .workflow-card h3 {
+        margin: 0 0 8px;
+
+        color: #2a252f;
+
+        font-size: 16px;
+    }
+
+    .workflow-card p {
+        margin: 0;
+
+        color: #77717d;
+
+        line-height: 1.65;
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       PRICING
+    ===================================================== */
+
+    .pricing-section {
+        padding: 75px 0;
+    }
+
+    .pricing-shell {
+        padding: 48px;
+
+        border-radius: 26px;
+
+        background:
+            radial-gradient(
+                circle at 15% 10%,
+                rgba(118, 83, 255, 0.14),
+                transparent 25%
+            ),
+            #f8f6fc;
+
+        border: 1px solid #e9e4ee;
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        max-width: 850px;
+        margin: 0 auto;
+
+        gap: 20px;
+    }
+
+    .price-card {
+        position: relative;
+
+        padding: 30px;
+
+        background: #ffffff;
+
+        border: 1px solid #e5e0e9;
+        border-radius: 20px;
+    }
+
+    .price-card.pro {
+        border: 2px solid #7254f3;
+
+        box-shadow:
+            0 20px 55px rgba(74, 47, 150, 0.10);
+    }
+
+    .popular-tag {
+        position: absolute;
+
+        top: -13px;
+        right: 20px;
+
+        padding: 6px 11px;
+
+        background: #7254f3;
+        color: #ffffff;
+
+        border-radius: 999px;
+
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .plan-name {
+        color: #302a36;
+        font-size: 16px;
+        font-weight: 800;
+
+        margin-bottom: 13px;
+    }
+
+    .plan-price {
+        display: flex;
+        align-items: flex-end;
+        gap: 5px;
+
+        margin-bottom: 8px;
+    }
+
+    .plan-price strong {
+        color: #1f1a24;
+
+        font-size: 43px;
+        line-height: 1;
+    }
+
+    .plan-price span {
+        color: #837d88;
+
+        font-size: 13px;
+
+        padding-bottom: 5px;
+    }
+
+    .plan-description {
+        min-height: 44px;
+
+        margin-bottom: 22px;
+
+        color: #7b7580;
+
+        line-height: 1.6;
+        font-size: 13px;
+    }
+
+    .plan-features {
+        display: grid;
+        gap: 11px;
+
+        margin: 22px 0;
+    }
+
+    .plan-feature {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+
+        color: #554f5a;
+
+        font-size: 13px;
+    }
+
+    .plan-feature-check {
+        color: #6849e6;
+        font-weight: 900;
+    }
+
+    .price-button {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        min-height: 45px;
+
+        margin-top: 12px;
+
+        border-radius: 10px;
+
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .price-button.free {
+        border: 1px solid #ddd7e3;
+        color: #3a343f;
+        background: #ffffff;
+    }
+
+    .price-button.pro {
+        border: 1px solid #7254f3;
+        color: #ffffff;
+        background: #7254f3;
+    }
+
+    .price-button.pro:hover {
+        color: #ffffff;
+        background: #6244e5;
+    }
+
+    .payment-note {
+        max-width: 650px;
+
+        margin: 22px auto 0;
+
+        text-align: center;
+
+        color: #928b98;
+
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       FINAL CTA
+    ===================================================== */
+
+    .final-home-cta {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        gap: 25px;
+        align-items: center;
+
+        margin: 15px 0 75px;
+
+        padding: 38px 42px;
+
+        border-radius: 22px;
+
+        background: #17131e;
+    }
+
+    .final-home-cta h2 {
+        margin: 0 0 8px;
+
+        color: #ffffff;
+
+        font-size: 28px;
+    }
+
+    .final-home-cta p {
+        margin: 0;
+
+        color: #bdb6c4;
+
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .home-footer-wrapper {
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+
+        background: #120f17;
+        color: #ffffff;
+    }
+
+    .home-footer {
+        max-width: 1220px;
+
+        margin: 0 auto;
+
+        padding: 55px 20px 25px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+
+        gap: 45px;
+
+        padding-bottom: 40px;
+    }
+
+    .footer-brand {
+        max-width: 330px;
+    }
+
+    .footer-logo {
+        margin-bottom: 12px;
+
+        color: #ffffff;
+
+        font-size: 21px;
+        font-weight: 850;
+    }
+
+    .footer-logo span {
+        color: #8d76ff;
+    }
+
+    .footer-brand p {
+        margin: 0;
+
+        color: #aaa3b0;
+
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .footer-column h4 {
+        margin: 0 0 15px;
+
+        color: #ffffff;
+
+        font-size: 13px;
+    }
+
+    .footer-links {
+        display: grid;
+        gap: 10px;
+    }
+
+    .footer-links a,
+    .footer-links span {
+        color: #9f98a6;
+
+        text-decoration: none;
+
+        font-size: 13px;
+    }
+
+    .footer-links a:hover {
+        color: #ffffff;
+    }
+
+    .footer-soon {
+        display: inline-block;
+
+        margin-left: 5px;
+
+        color: #756e7b;
+
+        font-size: 9px;
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 15px;
+
+        padding-top: 22px;
+
+        border-top: 1px solid rgba(255,255,255,0.08);
+
+        color: #807988;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       RTL
+    ===================================================== */
+
+    html[dir="rtl"] .hero-content h1 {
+        letter-spacing: 0;
+    }
+
+    html[dir="rtl"] .trust-item {
+        border-right: 0;
+        border-left: 1px solid #eeeaf1;
+    }
+
+    html[dir="rtl"] .trust-item:last-child {
+        border-left: 0;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 950px) {
+
+        .hero-slide {
+            grid-template-columns: 1fr;
+
+            padding: 55px 55px 75px;
+        }
+
+        .hero-slider,
+        .hero-slide {
+            min-height: 770px;
+        }
+
+        .hero-content h1 {
+            font-size: 46px;
+        }
+
+        .home-trust {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .trust-item:nth-child(2) {
+            border-right: 0;
+        }
+
+        .trust-item:nth-child(1),
+        .trust-item:nth-child(2) {
+            border-bottom: 1px solid #eeeaf1;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .workflow {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+        .home-page {
+            padding-top: 8px;
+        }
+
+        .hero-slider {
+            border-radius: 18px;
+        }
+
+        .hero-slide {
+            padding: 45px 25px 75px;
+        }
+
+        .hero-slider,
+        .hero-slide {
+            min-height: 740px;
+        }
+
+        .hero-content h1 {
+            font-size: 37px;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 15px;
+        }
+
+        .hero-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .slider-arrow {
+            display: none;
+        }
+
+        .home-trust {
+            grid-template-columns: 1fr;
+        }
+
+        .trust-item {
+            border-right: 0;
+            border-bottom: 1px solid #eeeaf1;
+        }
+
+        .trust-item:last-child {
+            border-bottom: 0;
+        }
+
+        .home-section {
+            padding: 55px 0;
+        }
+
+        .home-section-title h2 {
+            font-size: 30px;
+        }
+
+        .workflow {
+            grid-template-columns: 1fr;
+        }
+
+        .pricing-shell {
+            padding: 30px 18px;
+        }
+
+        .pricing-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .final-home-cta {
+            grid-template-columns: 1fr;
+
+            padding: 30px 24px;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+
+            gap: 28px;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+    }
+
+</style>
+
+
+
+<div class="home-page">
+
+
+    <!-- ==================================================
+         HERO SLIDER
+    =================================================== -->
+
+    <section
+        class="hero-slider"
+        id="heroSlider"
+    >
+
+
+        <!-- SLIDE 1 -->
+
+        <div class="hero-slide active">
+
+            <div class="hero-content">
+
+                <div class="hero-tag">
+                    ✦ AI Job Application Copilot
+                </div>
+
+
+                <h1>
+
+                    {% if ui_lang == "fa" %}
+
+                        قبل از اپلای،
+                        <span class="hero-purple">
+                            شانس واقعی خودت
+                        </span>
+                        را بدان.
+
+                    {% else %}
+
+                        Know if a job is
+                        <span class="hero-purple">
+                            worth applying for.
+                        </span>
+
+                    {% endif %}
+
+                </h1>
+
+
+                <p>
+
+                    {% if ui_lang == "fa" %}
+
+                        رزومه را وارد کن، آگهی شغلی را Paste کن و
+                        براساس تجربه واقعی، مهارت‌ها و زبان‌های خودت
+                        Match Score و تصمیم Apply / Stretch / Skip بگیر.
+
+                    {% else %}
+
+                        Upload your CV, paste a job description and get
+                        a realistic match score based on your verified
+                        experience, skills and language level.
+
+                    {% endif %}
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="{% url 'analyze_job' %}"
+                            class="home-btn-primary"
+                        >
+                            Analyze a Job
+                        </a>
+
+                        <a
+                            href="{% url 'profile' %}"
+                            class="home-btn-secondary"
+                        >
+                            My Profile
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="home-btn-primary"
+                        >
+                            Get Started
+                        </a>
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="home-btn-secondary"
+                        >
+                            Log In
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-preview">
+
+                <div class="preview-card">
+
+                    <div class="preview-eyebrow">
+                        Analysis Result
+                    </div>
+
+                    <div class="preview-title">
+                        IT Support Specialist
+                    </div>
+
+                    <div class="preview-subtitle">
+                        Example Company · Germany
+                    </div>
+
+
+                    <div class="preview-score">
+
+                        <div>
+
+                            <strong>
+                                8.2
+                            </strong>
+
+                            <span>
+                                Match Score
+                            </span>
+
+                        </div>
+
+                        <div class="decision-pill">
+                            APPLY
+                        </div>
+
+                    </div>
+
+
+                    <div class="preview-line">
+
+                        <span class="preview-check">
+                            ✓
+                        </span>
+
+                        Professional IT support experience
+
+                    </div>
+
+
+                    <div class="preview-line">
+
+                        <span class="preview-check">
+                            ✓
+                        </span>
+
+                        Ticketing, troubleshooting & Windows
+
+                    </div>
+
+
+                    <div class="preview-line">
+
+                        <span class="preview-warning">
+                            !
+                        </span>
+
+                        One important requirement is partially matched
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SLIDE 2 -->
+
+        <div class="hero-slide">
+
+            <div class="hero-content">
+
+                <div class="hero-tag">
+                    ✓ Verified Career Profile
+                </div>
+
+
+                <h1>
+
+                    Build one profile.
+                    <span class="hero-purple">
+                        Use it for every job.
+                    </span>
+
+                </h1>
+
+
+                <p>
+                    Import your CV and keep your experience,
+                    education, skills, language levels and certifications
+                    structured in one place.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="{% url 'profile' %}"
+                            class="home-btn-primary"
+                        >
+                            Open My Profile
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="home-btn-primary"
+                        >
+                            Create Profile
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-preview">
+
+                <div class="preview-card">
+
+                    <div class="preview-eyebrow">
+                        Career Profile
+                    </div>
+
+                    <div class="preview-title">
+                        Your verified skills
+                    </div>
+
+                    <div class="preview-subtitle">
+                        Evidence matters more than keywords
+                    </div>
+
+
+                    <div class="profile-strength">
+
+                        <span class="strength-name">
+                            IT Support
+                        </span>
+
+                        <span class="strength-pill">
+                            Professional
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-strength">
+
+                        <span class="strength-name">
+                            Troubleshooting
+                        </span>
+
+                        <span class="strength-pill">
+                            Intermediate
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-strength">
+
+                        <span class="strength-name">
+                            German
+                        </span>
+
+                        <span class="strength-pill">
+                            B2
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-strength">
+
+                        <span class="strength-name">
+                            Python
+                        </span>
+
+                        <span class="strength-pill">
+                            Basic
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SLIDE 3 -->
+
+        <div class="hero-slide">
+
+            <div class="hero-content">
+
+                <div class="hero-tag">
+                    ◉ Application Tracking
+                </div>
+
+
+                <h1>
+
+                    Stop losing track of
+                    <span class="hero-purple">
+                        your applications.
+                    </span>
+
+                </h1>
+
+
+                <p>
+                    Keep job applications, match scores,
+                    statuses and follow-up dates organized
+                    in one simple dashboard.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="{% url 'applications' %}"
+                            class="home-btn-primary"
+                        >
+                            My Applications
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="home-btn-primary"
+                        >
+                            Start Tracking
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-preview">
+
+                <div class="preview-card">
+
+                    <div class="preview-eyebrow">
+                        My Applications
+                    </div>
+
+                    <div class="preview-title">
+                        Everything in one place
+                    </div>
+
+                    <div class="preview-subtitle">
+                        Track your application pipeline
+                    </div>
+
+
+                    <table class="mini-table">
+
+                        <tr>
+                            <td class="mini-company">
+                                Company A
+                            </td>
+
+                            <td>
+                                8.4
+                            </td>
+
+                            <td>
+                                <span class="mini-status">
+                                    Applied
+                                </span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="mini-company">
+                                Company B
+                            </td>
+
+                            <td>
+                                7.9
+                            </td>
+
+                            <td>
+                                <span class="mini-status">
+                                    Interview
+                                </span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="mini-company">
+                                Company C
+                            </td>
+
+                            <td>
+                                8.7
+                            </td>
+
+                            <td>
+                                <span class="mini-status">
+                                    Applied
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ARROWS -->
+
+        <button
+            type="button"
+            class="slider-arrow slider-prev"
+            onclick="changeHeroSlide(-1)"
+            aria-label="Previous slide"
+        >
+            ‹
+        </button>
+
+
+        <button
+            type="button"
+            class="slider-arrow slider-next"
+            onclick="changeHeroSlide(1)"
+            aria-label="Next slide"
+        >
+            ›
+        </button>
+
+
+
+        <!-- DOTS -->
+
+        <div class="slider-controls">
+
+            <button
+                type="button"
+                class="slider-dot active"
+                onclick="goToHeroSlide(0)"
+                aria-label="Slide 1"
+            ></button>
+
+            <button
+                type="button"
+                class="slider-dot"
+                onclick="goToHeroSlide(1)"
+                aria-label="Slide 2"
+            ></button>
+
+            <button
+                type="button"
+                class="slider-dot"
+                onclick="goToHeroSlide(2)"
+                aria-label="Slide 3"
+            ></button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         TRUST BAR
+    =================================================== -->
+
+    <div class="home-trust">
+
+        <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            Realistic job matching
+        </div>
+
+        <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            No skill exaggeration
+        </div>
+
+        <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            PDF & DOCX CV import
+        </div>
+
+        <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            Application tracking
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         FEATURES
+    =================================================== -->
+
+    <section
+        class="home-section"
+        id="features"
+    >
+
+        <div class="home-section-title">
+
+            <h2>
+                From CV to application decision
+            </h2>
+
+            <p>
+                JobCopilot evaluates your actual background,
+                not just matching keywords.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ↑
+                </div>
+
+                <h3>
+                    Smart CV Import
+                </h3>
+
+                <p>
+                    Upload your PDF or DOCX and review the extracted
+                    experience, education, skills, languages and
+                    certifications before saving.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Realistic Job Analysis
+                </h3>
+
+                <p>
+                    Get a 1–10 match score, Apply / Stretch / Skip
+                    decision, strong matches, gaps, risks and
+                    recommendations.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Application Tracker
+                </h3>
+
+                <p>
+                    Manage application status, match scores,
+                    applied dates and follow-up dates without
+                    losing track of opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         HOW IT WORKS
+    =================================================== -->
+
+    <section class="home-section">
+
+        <div class="home-section-title">
+
+            <h2>
+                Four simple steps
+            </h2>
+
+            <p>
+                Keep the process simple and focus your time on jobs
+                that are realistically worth applying for.
+            </p>
+
+        </div>
+
+
+        <div class="workflow">
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    1
+                </div>
+
+                <h3>
+                    Build your profile
+                </h3>
+
+                <p>
+                    Upload a CV or enter your career information manually.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    2
+                </div>
+
+                <h3>
+                    Paste the vacancy
+                </h3>
+
+                <p>
+                    Add the full job description you are considering.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    3
+                </div>
+
+                <h3>
+                    Review the analysis
+                </h3>
+
+                <p>
+                    Understand your strongest matches and your real gaps.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+                    4
+                </div>
+
+                <h3>
+                    Apply & track
+                </h3>
+
+                <p>
+                    Apply to worthwhile jobs and keep the process organized.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PRICING
+    =================================================== -->
+
+    <section
+        class="pricing-section"
+        id="pricing"
+    >
+
+        <div class="pricing-shell">
+
+
+            <div class="home-section-title">
+
+                <h2>
+                    Simple pricing
+                </h2>
+
+                <p>
+                    Start with the core workflow and upgrade when
+                    you need more from your job search.
+                </p>
+
+            </div>
+
+
+            <div class="pricing-grid">
+
+
+                <!-- FREE -->
+
+                <div class="price-card">
+
+                    <div class="plan-name">
+                        Free
+                    </div>
+
+
+                    <div class="plan-price">
+
+                        <strong>
+                            €0
+                        </strong>
+
+                        <span>
+                            / month
+                        </span>
+
+                    </div>
+
+
+                    <div class="plan-description">
+                        A simple way to start building your job-search profile.
+                    </div>
+
+
+                    <div class="plan-features">
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Career profile
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            CV import
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Core job matching workflow
+                        </div>
+
+                    </div>
+
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="{% url 'profile' %}"
+                            class="price-button free"
+                        >
+                            Open Profile
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="price-button free"
+                        >
+                            Get Started
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- PRO -->
+
+                <div class="price-card pro">
+
+                    <div class="popular-tag">
+                        PRO
+                    </div>
+
+
+                    <div class="plan-name">
+                        JobCopilot Pro
+                    </div>
+
+
+                    <div class="plan-price">
+
+                        <strong>
+                            €6
+                        </strong>
+
+                        <span>
+                            / month
+                        </span>
+
+                    </div>
+
+
+                    <div class="plan-description">
+                        Built for active job seekers who want the full
+                        JobCopilot workflow in one place.
+                    </div>
+
+
+                    <div class="plan-features">
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Structured career profile
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            AI job-fit analysis
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Match score & application decision
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Application tracking
+                        </div>
+
+                        <div class="plan-feature">
+                            <span class="plan-feature-check">✓</span>
+                            Follow-up management
+                        </div>
+
+                    </div>
+
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="#pricing"
+                            class="price-button pro"
+                            onclick="return false;"
+                        >
+                            Pro subscription coming soon
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="price-button pro"
+                        >
+                            Create Account
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-note">
+                Online subscription payments will be enabled when
+                the payment system is connected.
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FINAL CTA
+    =================================================== -->
+
+    <section class="final-home-cta">
+
+        <div>
+
+            <h2>
+                Apply smarter, not everywhere.
+            </h2>
+
+            <p>
+                Build your verified profile and find out which jobs
+                are really worth your time.
+            </p>
+
+        </div>
+
+
+        {% if user.is_authenticated %}
+
+            <a
+                href="{% url 'analyze_job' %}"
+                class="home-btn-primary"
+            >
+                Analyze a Job
+            </a>
+
+        {% else %}
+
+            <a
+                href="{% url 'register' %}"
+                class="home-btn-primary"
+            >
+                Get Started
+            </a>
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <div class="home-footer-wrapper">
+
+        <footer class="home-footer">
+
+
+            <div class="footer-grid">
+
+
+                <!-- BRAND -->
+
+                <div class="footer-brand">
+
+                    <div class="footer-logo">
+                        Job<span>Copilot</span>
+                    </div>
+
+                    <p>
+                        A realistic AI-powered job application assistant
+                        built to help job seekers understand fit,
+                        avoid exaggerated applications and stay organized.
+                    </p>
+
+                </div>
+
+
+
+                <!-- PRODUCT -->
+
+                <div class="footer-column">
+
+                    <h4>
+                        Product
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <a href="#features">
+                            Features
+                        </a>
+
+                        <a href="#pricing">
+                            Pricing
+                        </a>
+
+                        {% if user.is_authenticated %}
+
+                            <a href="{% url 'analyze_job' %}">
+                                Analyze Job
+                            </a>
+
+                            <a href="{% url 'applications' %}">
+                                My Applications
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COMPANY -->
+
+                <div class="footer-column">
+
+                    <h4>
+                        Company
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <span>
+                            About Us
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                        <span>
+                            Contact
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                        <span>
+                            Privacy
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                        <span>
+                            Terms
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SOCIAL -->
+
+                <div class="footer-column">
+
+                    <h4>
+                        Social
+                    </h4>
+
+                    <div class="footer-links">
+
+                        <span>
+                            LinkedIn
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                        <span>
+                            Instagram
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                        <span>
+                            X / Twitter
+                            <small class="footer-soon">
+                                SOON
+                            </small>
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © {% now "Y" %} JobCopilot. All rights reserved.
+                </span>
+
+                <span>
+                    Built for realistic job applications.
+                </span>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     HERO SLIDER JS
+===================================================== -->
+
+<script>
+
+    let heroSlideIndex = 0;
+
+    const heroSlides = document.querySelectorAll(
+        ".hero-slide"
+    );
+
+    const heroDots = document.querySelectorAll(
+        ".slider-dot"
+    );
+
+
+    function showHeroSlide(index) {
+
+        if (!heroSlides.length) {
+            return;
+        }
+
+        if (index >= heroSlides.length) {
+            heroSlideIndex = 0;
+        }
+
+        else if (index < 0) {
+            heroSlideIndex = heroSlides.length - 1;
+        }
+
+        else {
+            heroSlideIndex = index;
+        }
+
+
+        heroSlides.forEach(
+            function(slide) {
+                slide.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+
+        heroDots.forEach(
+            function(dot) {
+                dot.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+
+        heroSlides[
+            heroSlideIndex
+        ].classList.add(
+            "active"
+        );
+
+
+        if (
+            heroDots[
+                heroSlideIndex
+            ]
+        ) {
+
+            heroDots[
+                heroSlideIndex
+            ].classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    function changeHeroSlide(direction) {
+
+        showHeroSlide(
+            heroSlideIndex + direction
+        );
+
+        restartHeroTimer();
+
+    }
+
+
+    function goToHeroSlide(index) {
+
+        showHeroSlide(
+            index
+        );
+
+        restartHeroTimer();
+
+    }
+
+
+    let heroTimer = setInterval(
+        function() {
+
+            showHeroSlide(
+                heroSlideIndex + 1
+            );
+
+        },
+        6000
+    );
+
+
+    function restartHeroTimer() {
+
+        clearInterval(
+            heroTimer
+        );
+
+        heroTimer = setInterval(
+            function() {
+
+                showHeroSlide(
+                    heroSlideIndex + 1
+                );
+
+            },
+            6000
+        );
+
+    }
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,969 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+
+    <!-- HEADER -->
+
+    <div class="card">
+
+        <h1>
+            Review & Edit CV
+        </h1>
+
+        <p>
+            AI extracted this information from your CV.
+            Edit or remove anything before saving your profile.
+        </p>
+
+        <p style="
+            color:#6b7280;
+            font-size:14px;
+        ">
+            The original PDF or DOCX file is not stored.
+            Only the information you confirm will be saved.
+        </p>
+
+    </div>
+
+
+    <!-- PERSONAL -->
+
+    <div class="card">
+
+        <h2>
+            Personal Information
+        </h2>
+
+
+        <label>
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            name="full_name"
+            value="{{ cv.full_name }}"
+        >
+
+
+        <label>
+            City
+        </label>
+
+        <input
+            type="text"
+            name="city"
+            value="{{ cv.city }}"
+        >
+
+
+        <label>
+            Country
+        </label>
+
+        <input
+            type="text"
+            name="country"
+            value="{{ cv.country }}"
+        >
+
+
+        <label>
+            Professional Summary
+        </label>
+
+        <textarea
+            name="professional_summary"
+            rows="5"
+        >{{ cv.professional_summary }}</textarea>
+
+    </div>
+
+
+    <!-- EXPERIENCE -->
+
+    <div class="card">
+
+        <h2>
+            Work Experience
+        </h2>
+
+
+        <input
+            type="hidden"
+            name="experience_count"
+            value="{{ cv.experiences|length }}"
+        >
+
+
+        {% for item in cv.experiences %}
+
+            <div
+                class="cv-import-item"
+                style="
+                    border:1px solid #e5e7eb;
+                    border-radius:12px;
+                    padding:20px;
+                    margin:20px 0;
+                "
+            >
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:15px;
+                    margin-bottom:15px;
+                ">
+
+                    <label style="
+                        display:flex;
+                        align-items:center;
+                        gap:8px;
+                        margin:0;
+                    ">
+
+                        <input
+                            class="include-checkbox"
+                            type="checkbox"
+                            name="experience_{{ forloop.counter0 }}_include"
+                            value="1"
+                            checked
+                            style="
+                                width:auto;
+                                margin:0;
+                            "
+                        >
+
+                        Include this experience
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        onclick="removeCvItem(this)"
+                        style="
+                            background:#fef2f2;
+                            color:#991b1b;
+                            border:1px solid #fecaca;
+                            padding:7px 12px;
+                        "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <label>
+                    Job Title
+                </label>
+
+                <input
+                    type="text"
+                    name="experience_{{ forloop.counter0 }}_job_title"
+                    value="{{ item.job_title }}"
+                >
+
+
+                <label>
+                    Company
+                </label>
+
+                <input
+                    type="text"
+                    name="experience_{{ forloop.counter0 }}_company"
+                    value="{{ item.company }}"
+                >
+
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    name="experience_{{ forloop.counter0 }}_location"
+                    value="{{ item.location }}"
+                >
+
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:15px;
+                ">
+
+                    <div>
+
+                        <label>
+                            Start Date
+                        </label>
+
+                        <input
+                            type="text"
+                            name="experience_{{ forloop.counter0 }}_start_date"
+                            value="{{ item.start_date }}"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            End Date
+                        </label>
+
+                        <input
+                            type="text"
+                            name="experience_{{ forloop.counter0 }}_end_date"
+                            value="{{ item.end_date }}"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <label>
+                    Responsibilities
+                </label>
+
+                <p style="
+                    font-size:13px;
+                    color:#6b7280;
+                ">
+                    One responsibility per line.
+                </p>
+
+                <textarea
+                    name="experience_{{ forloop.counter0 }}_responsibilities"
+                    rows="9"
+                >{% for bullet in item.responsibilities %}• {{ bullet }}
+{% endfor %}</textarea>
+
+
+                <label>
+                    Technologies / Tools
+                </label>
+
+                <textarea
+                    name="experience_{{ forloop.counter0 }}_technologies"
+                    rows="4"
+                >{% for tech in item.technologies %}{{ tech }}
+{% endfor %}</textarea>
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No work experience found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- EDUCATION -->
+
+    <div class="card">
+
+        <h2>
+            Education
+        </h2>
+
+
+        <input
+            type="hidden"
+            name="education_count"
+            value="{{ cv.educations|length }}"
+        >
+
+
+        {% for item in cv.educations %}
+
+            <div
+                class="cv-import-item"
+                style="
+                    border:1px solid #e5e7eb;
+                    border-radius:12px;
+                    padding:20px;
+                    margin:20px 0;
+                "
+            >
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                ">
+
+                    <label style="
+                        display:flex;
+                        gap:8px;
+                        align-items:center;
+                    ">
+
+                        <input
+                            class="include-checkbox"
+                            type="checkbox"
+                            name="education_{{ forloop.counter0 }}_include"
+                            value="1"
+                            checked
+                            style="width:auto;"
+                        >
+
+                        Include
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        onclick="removeCvItem(this)"
+                        style="
+                            background:#fef2f2;
+                            color:#991b1b;
+                            border:1px solid #fecaca;
+                        "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <label>
+                    Degree
+                </label>
+
+                <input
+                    type="text"
+                    name="education_{{ forloop.counter0 }}_degree"
+                    value="{{ item.degree }}"
+                >
+
+
+                <label>
+                    Institution
+                </label>
+
+                <input
+                    type="text"
+                    name="education_{{ forloop.counter0 }}_institution"
+                    value="{{ item.institution }}"
+                >
+
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    name="education_{{ forloop.counter0 }}_location"
+                    value="{{ item.location }}"
+                >
+
+
+                <label>
+                    Start Date
+                </label>
+
+                <input
+                    type="text"
+                    name="education_{{ forloop.counter0 }}_start_date"
+                    value="{{ item.start_date }}"
+                >
+
+
+                <label>
+                    End Date
+                </label>
+
+                <input
+                    type="text"
+                    name="education_{{ forloop.counter0 }}_end_date"
+                    value="{{ item.end_date }}"
+                >
+
+
+                <label>
+                    Details
+                </label>
+
+                <textarea
+                    name="education_{{ forloop.counter0 }}_details"
+                    rows="4"
+                >{{ item.details }}</textarea>
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No education found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- SKILLS -->
+
+    <div class="card">
+
+        <h2>
+            Skills
+        </h2>
+
+
+        <input
+            type="hidden"
+            name="skill_count"
+            value="{{ cv.skills|length }}"
+        >
+
+
+        {% for item in cv.skills %}
+
+            <div
+                class="cv-import-item"
+                style="
+                    border:1px solid #e5e7eb;
+                    border-radius:12px;
+                    padding:16px;
+                    margin-bottom:14px;
+                "
+            >
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:12px;
+                ">
+
+                    <input
+                        class="include-checkbox"
+                        type="checkbox"
+                        name="skill_{{ forloop.counter0 }}_include"
+                        value="1"
+                        checked
+                        style="width:auto;"
+                    >
+
+
+                    <input
+                        type="text"
+                        name="skill_{{ forloop.counter0 }}_name"
+                        value="{{ item.name }}"
+                        style="
+                            flex:1;
+                            margin:0;
+                        "
+                    >
+
+
+                    <button
+                        type="button"
+                        onclick="removeCvItem(this)"
+                        style="
+                            background:#fef2f2;
+                            color:#991b1b;
+                            border:1px solid #fecaca;
+                        "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:15px;
+                    margin-top:15px;
+                ">
+
+                    <div>
+
+                        <label>
+                            Skill Level
+                        </label>
+
+                        <select
+                            name="skill_{{ forloop.counter0 }}_level"
+                        >
+
+                            <option
+                                value="unclassified"
+                                {% if item.level == "unclassified" %}selected{% endif %}
+                            >
+                                Not Classified
+                            </option>
+
+                            <option
+                                value="basic"
+                                {% if item.level == "basic" %}selected{% endif %}
+                            >
+                                Basic
+                            </option>
+
+                            <option
+                                value="intermediate"
+                                {% if item.level == "intermediate" %}selected{% endif %}
+                            >
+                                Intermediate
+                            </option>
+
+                            <option
+                                value="advanced"
+                                {% if item.level == "advanced" %}selected{% endif %}
+                            >
+                                Advanced
+                            </option>
+
+                            <option
+                                value="expert"
+                                {% if item.level == "expert" %}selected{% endif %}
+                            >
+                                Expert
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Evidence / Source
+                        </label>
+
+                        <select
+                            name="skill_{{ forloop.counter0 }}_source"
+                        >
+
+                            <option
+                                value="unspecified"
+                                {% if item.source == "unspecified" %}selected{% endif %}
+                            >
+                                Not Specified
+                            </option>
+
+                            <option
+                                value="professional"
+                                {% if item.source == "professional" %}selected{% endif %}
+                            >
+                                Professional Experience
+                            </option>
+
+                            <option
+                                value="education"
+                                {% if item.source == "education" %}selected{% endif %}
+                            >
+                                Education
+                            </option>
+
+                            <option
+                                value="project"
+                                {% if item.source == "project" %}selected{% endif %}
+                            >
+                                Personal Project
+                            </option>
+
+                            <option
+                                value="course"
+                                {% if item.source == "course" %}selected{% endif %}
+                            >
+                                Course / Certification
+                            </option>
+
+                            <option
+                                value="self_taught"
+                                {% if item.source == "self_taught" %}selected{% endif %}
+                            >
+                                Self-taught
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <label style="
+                    display:flex;
+                    gap:8px;
+                    align-items:center;
+                ">
+
+                    <input
+                        type="checkbox"
+                        name="skill_{{ forloop.counter0 }}_do_not_claim"
+                        value="1"
+                        style="width:auto;"
+                    >
+
+                    Do Not Claim
+
+                </label>
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No skills found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- LANGUAGES -->
+
+    <div class="card">
+
+        <h2>
+            Languages
+        </h2>
+
+
+        <input
+            type="hidden"
+            name="language_count"
+            value="{{ cv.languages|length }}"
+        >
+
+
+        {% for item in cv.languages %}
+
+            <div
+                class="cv-import-item"
+                style="
+                    border:1px solid #e5e7eb;
+                    border-radius:12px;
+                    padding:16px;
+                    margin-bottom:14px;
+                "
+            >
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:10px;
+                ">
+
+                    <label style="
+                        display:flex;
+                        align-items:center;
+                        gap:8px;
+                    ">
+
+                        <input
+                            class="include-checkbox"
+                            type="checkbox"
+                            name="language_{{ forloop.counter0 }}_include"
+                            value="1"
+                            checked
+                            style="width:auto;"
+                        >
+
+                        Include
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        onclick="removeCvItem(this)"
+                        style="
+                            background:#fef2f2;
+                            color:#991b1b;
+                            border:1px solid #fecaca;
+                        "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <label>
+                    Language
+                </label>
+
+                <input
+                    type="text"
+                    name="language_{{ forloop.counter0 }}_language"
+                    value="{{ item.language }}"
+                >
+
+
+                <label>
+                    CEFR Level
+                </label>
+
+                <select
+                    name="language_{{ forloop.counter0 }}_level"
+                >
+
+                    <option
+                        value="unspecified"
+                        {% if item.level == "unspecified" %}selected{% endif %}
+                    >
+                        Not Specified
+                    </option>
+
+                    <option value="A1" {% if item.level == "A1" %}selected{% endif %}>A1</option>
+                    <option value="A2" {% if item.level == "A2" %}selected{% endif %}>A2</option>
+                    <option value="B1" {% if item.level == "B1" %}selected{% endif %}>B1</option>
+                    <option value="B2" {% if item.level == "B2" %}selected{% endif %}>B2</option>
+                    <option value="C1" {% if item.level == "C1" %}selected{% endif %}>C1</option>
+                    <option value="C2" {% if item.level == "C2" %}selected{% endif %}>C2</option>
+
+                    <option
+                        value="native"
+                        {% if item.level == "native" %}selected{% endif %}
+                    >
+                        Native
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Original wording from CV
+                </label>
+
+                <input
+                    type="text"
+                    name="language_{{ forloop.counter0 }}_original_level"
+                    value="{{ item.original_level }}"
+                >
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No languages found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- CERTIFICATIONS -->
+
+    <div class="card">
+
+        <h2>
+            Certifications
+        </h2>
+
+
+        <input
+            type="hidden"
+            name="certification_count"
+            value="{{ cv.certifications|length }}"
+        >
+
+
+        {% for item in cv.certifications %}
+
+            <div
+                class="cv-import-item"
+                style="
+                    border:1px solid #e5e7eb;
+                    border-radius:12px;
+                    padding:16px;
+                    margin-bottom:14px;
+                "
+            >
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                ">
+
+                    <label style="
+                        display:flex;
+                        gap:8px;
+                        align-items:center;
+                    ">
+
+                        <input
+                            class="include-checkbox"
+                            type="checkbox"
+                            name="certification_{{ forloop.counter0 }}_include"
+                            value="1"
+                            checked
+                            style="width:auto;"
+                        >
+
+                        Include
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        onclick="removeCvItem(this)"
+                        style="
+                            background:#fef2f2;
+                            color:#991b1b;
+                            border:1px solid #fecaca;
+                        "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <label>
+                    Certification Name
+                </label>
+
+                <input
+                    type="text"
+                    name="certification_{{ forloop.counter0 }}_name"
+                    value="{{ item.name }}"
+                >
+
+
+                <label>
+                    Issuer
+                </label>
+
+                <input
+                    type="text"
+                    name="certification_{{ forloop.counter0 }}_issuer"
+                    value="{{ item.issuer }}"
+                >
+
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    type="text"
+                    name="certification_{{ forloop.counter0 }}_date"
+                    value="{{ item.date }}"
+                >
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No certifications found.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- CONFIRM -->
+
+    <div class="card">
+
+        <h2>
+            Ready to Import?
+        </h2>
+
+        <p>
+            Only the items still included above will be saved.
+        </p>
+
+
+        <button type="submit">
+            Confirm & Save Profile
+        </button>
+
+
+        <a
+            href="{% url 'upload_cv' %}"
+            class="btn btn-secondary"
+        >
+            Upload Another CV
+        </a>
+
+
+        <a
+            href="{% url 'profile' %}"
+            class="btn btn-secondary"
+        >
+            Cancel
+        </a>
+
+    </div>
+
+
+</form>
+
+
+<script>
+
+    function removeCvItem(button) {
+
+        const item = button.closest(
+            ".cv-import-item"
+        );
+
+        if (!item) {
+            return;
+        }
+
+        const checkbox = item.querySelector(
+            ".include-checkbox"
+        );
+
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+
+        item.style.display = "none";
+    }
+
+</script>
+
+
+<style>
+
+    @media (max-width: 700px) {
+
+        .card div[style*="grid-template-columns:1fr 1fr"] {
+            grid-template-columns:1fr !important;
+        }
+
+    }
+
+</style>
+
+
+{% endblock %}

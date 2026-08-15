@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <h1>
+
+        {% if item %}
+            Edit {{ page_title }}
+        {% else %}
+            Add {{ page_title }}
+        {% endif %}
+
+    </h1>
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+
+        <button type="submit">
+            Save
+        </button>
+
+
+        <a
+            href="{% url 'profile' %}"
+            class="btn btn-secondary"
+        >
+            Cancel
+        </a>
+
+    </form>
+
+
+    {% if item %}
+
+        <hr style="
+            margin:30px 0;
+            border:0;
+            border-top:1px solid #e5e7eb;
+        ">
+
+
+        <form
+            method="post"
+            action="{% url 'profile_item_delete' section item.id %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                style="background:#b91c1c;"
+            >
+                Delete
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

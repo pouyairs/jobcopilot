@@ -385,10 +385,9 @@ def upload_cv_view(request):
 
             except Exception as exc:
 
-                print(
-                    "CV IMPORT ERROR:",
-                    repr(exc)
-                )
+               
+                print("CV IMPORT ERROR:", repr(exc))
+                print("CV IMPORT CAUSE:", repr(exc.__cause__))
 
                 error = str(exc)
 

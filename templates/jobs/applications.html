@@ -12,13 +12,14 @@
 
     .apps-page {
         width: 100%;
-        max-width: 1280px;
+        max-width: 1440px;
         margin: 0 auto;
-        padding: 24px 14px 70px;
-        box-sizing: border-box;
+        padding: 28px 16px 70px;
     }
 
-    .apps-page * {
+    .apps-page *,
+    .apps-page *::before,
+    .apps-page *::after {
         box-sizing: border-box;
         min-width: 0;
     }
@@ -32,10 +33,27 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 20px;
+        gap: 24px;
         flex-wrap: wrap;
 
-        margin-bottom: 18px;
+        margin-bottom: 22px;
+        padding: 24px 26px;
+
+        border-radius: 19px;
+
+        background:
+            radial-gradient(
+                circle at 92% 10%,
+                rgba(139, 92, 246, 0.20),
+                transparent 28%
+            ),
+            linear-gradient(
+                135deg,
+                #211934,
+                #17131f
+            );
+
+        color: white;
     }
 
     .apps-eyebrow {
@@ -43,31 +61,32 @@
         align-items: center;
         gap: 7px;
 
-        margin-bottom: 7px;
-        padding: 6px 10px;
-
-        color: #6548d7;
-        background: #f0ecff;
+        margin-bottom: 8px;
+        padding: 5px 9px;
 
         border-radius: 999px;
 
-        font-size: 10px;
+        background: rgba(255,255,255,0.08);
+        color: #c8bbff;
+
+        font-size: 11px;
         font-weight: 800;
     }
 
     .apps-header h1 {
-        margin: 0 0 5px;
+        margin: 0 0 6px;
 
-        color: #1d1823;
+        color: #ffffff;
 
         font-size: 29px;
         line-height: 1.2;
+        letter-spacing: -0.4px;
     }
 
     .apps-header p {
         margin: 0;
 
-        color: #817a87;
+        color: #bcb5c2;
 
         font-size: 12px;
         line-height: 1.6;
@@ -79,52 +98,47 @@
         flex-wrap: wrap;
     }
 
-    .btn-main,
-    .btn-light {
+    .header-btn {
         min-height: 40px;
 
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        gap: 6px;
 
-        padding: 0 15px;
+        padding: 0 14px;
 
         border-radius: 9px;
 
         text-decoration: none;
 
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 800;
     }
 
-    .btn-main {
+    .header-btn-light {
         color: #ffffff;
 
-        background:
-            linear-gradient(
-                135deg,
-                #7557f5,
-                #6243df
-            );
+        background: rgba(255,255,255,0.07);
 
-        border: 1px solid #6748e5;
+        border: 1px solid rgba(255,255,255,0.13);
     }
 
-    .btn-main:hover {
+    .header-btn-light:hover {
         color: #ffffff;
-        background: #6042dd;
+        background: rgba(255,255,255,0.12);
     }
 
-    .btn-light {
-        color: #5940c3;
-        background: #ffffff;
+    .header-btn-primary {
+        color: #ffffff;
+        background: #7558ff;
 
-        border: 1px solid #d9d1f4;
+        border: 1px solid #7558ff;
     }
 
-    .btn-light:hover {
-        color: #4e35b5;
-        background: #faf8ff;
+    .header-btn-primary:hover {
+        color: #ffffff;
+        background: #6547ed;
     }
 
 
@@ -135,31 +149,99 @@
     .apps-summary {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
+        gap: 13px;
 
-        margin-bottom: 18px;
+        margin-bottom: 20px;
     }
 
     .summary-card {
         display: flex;
         align-items: center;
-        gap: 11px;
+        gap: 13px;
 
-        min-height: 70px;
+        min-height: 82px;
 
-        padding: 13px 15px;
+        padding: 16px 17px;
 
         background: #ffffff;
 
-        border: 1px solid #e8e4ed;
-        border-radius: 13px;
+        border: 1px solid #e7e3eb;
+        border-radius: 15px;
+
+        box-shadow:
+            0 3px 12px rgba(20, 15, 30, 0.025);
     }
 
     .summary-icon {
-        flex: 0 0 38px;
+        flex: 0 0 42px;
 
-        width: 38px;
-        height: 38px;
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 11px;
+
+        color: #6849df;
+        background: #f0ecff;
+
+        font-size: 15px;
+        font-weight: 900;
+    }
+
+    .summary-value {
+        margin-bottom: 3px;
+
+        color: #27212d;
+
+        font-size: 20px;
+        line-height: 1.1;
+        font-weight: 850;
+    }
+
+    .summary-label {
+        color: #938c98;
+
+        font-size: 9px;
+        font-weight: 750;
+
+        text-transform: uppercase;
+        letter-spacing: 0.35px;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    .filter-card {
+        margin-bottom: 20px;
+
+        background: #ffffff;
+
+        border: 1px solid #e7e3eb;
+        border-radius: 16px;
+
+        overflow: hidden;
+    }
+
+    .filter-header {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+
+        padding: 16px 19px;
+
+        border-bottom: 1px solid #efebf2;
+    }
+
+    .filter-icon {
+        flex: 0 0 36px;
+
+        width: 36px;
+        height: 36px;
 
         display: flex;
         align-items: center;
@@ -174,77 +256,12 @@
         font-weight: 900;
     }
 
-    .summary-value {
-        margin-bottom: 2px;
-
-        color: #29232e;
-
-        font-size: 19px;
-        line-height: 1.1;
-        font-weight: 850;
-    }
-
-    .summary-label {
-        color: #908995;
-
-        font-size: 8px;
-        font-weight: 750;
-
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-    }
-
-
-    /* =====================================================
-       FILTERS
-    ===================================================== */
-
-    .filter-card {
-        margin-bottom: 18px;
-
-        background: #ffffff;
-
-        border: 1px solid #e8e4ed;
-        border-radius: 15px;
-
-        overflow: hidden;
-    }
-
-    .filter-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-
-        padding: 15px 18px;
-
-        border-bottom: 1px solid #efebf2;
-    }
-
-    .filter-icon {
-        flex: 0 0 34px;
-
-        width: 34px;
-        height: 34px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        border-radius: 9px;
-
-        color: #6748df;
-        background: #f0ecff;
-
-        font-size: 13px;
-        font-weight: 900;
-    }
-
     .filter-header h2 {
-        margin: 0 0 2px;
+        margin: 0 0 3px;
 
         color: #302a35;
 
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .filter-header p {
@@ -252,39 +269,42 @@
 
         color: #958e9a;
 
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .filter-body {
-        padding: 14px 18px 16px;
+        padding: 16px 19px 18px;
     }
 
     .filter-grid {
         display: grid;
 
         grid-template-columns:
-            minmax(0, 1.45fr)
-            repeat(3, minmax(0, 0.85fr));
+            minmax(180px, 1.4fr)
+            minmax(120px, 0.8fr)
+            minmax(120px, 0.8fr)
+            minmax(120px, 0.8fr);
 
-        gap: 9px;
+        gap: 11px;
     }
 
     .filter-grid-second {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 9px;
 
-        margin-top: 9px;
+        gap: 11px;
+
+        margin-top: 11px;
     }
 
     .filter-group label {
         display: block;
 
-        margin-bottom: 5px;
+        margin-bottom: 6px;
 
-        color: #6c6572;
+        color: #716a76;
 
-        font-size: 7px;
+        font-size: 9px;
         font-weight: 800;
 
         text-transform: uppercase;
@@ -294,28 +314,28 @@
     .filter-group input,
     .filter-group select {
         width: 100%;
-        min-height: 34px;
+        height: 39px;
 
-        padding: 7px 9px;
+        padding: 8px 10px;
 
         border: 1px solid #ddd8e2;
-        border-radius: 8px;
+        border-radius: 9px;
 
         color: #49424f;
         background: #ffffff;
 
-        font-size: 9px;
+        font-size: 11px;
     }
 
     .filter-group input:focus,
     .filter-group select:focus {
         outline: none;
 
-        border-color: #8870eb;
+        border-color: #8168e7;
 
         box-shadow:
             0 0 0 3px
-            rgba(116,84,243,0.07);
+            rgba(116, 84, 243, 0.08);
     }
 
     .filter-footer {
@@ -323,31 +343,31 @@
         justify-content: space-between;
         align-items: center;
 
-        gap: 12px;
+        gap: 13px;
         flex-wrap: wrap;
 
-        margin-top: 13px;
+        margin-top: 15px;
     }
 
     .filter-buttons {
         display: flex;
-        gap: 7px;
+        gap: 8px;
         flex-wrap: wrap;
     }
 
     .filter-submit,
     .filter-clear {
-        min-height: 34px;
+        min-height: 36px;
 
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        padding: 0 12px;
+        padding: 0 13px;
 
         border-radius: 8px;
 
-        font-size: 8px;
+        font-size: 10px;
         font-weight: 800;
     }
 
@@ -375,13 +395,12 @@
 
     .filter-result-count {
         color: #918a96;
-
-        font-size: 8px;
+        font-size: 10px;
     }
 
 
     /* =====================================================
-       APPLICATIONS CARD
+       TABLE CARD
     ===================================================== */
 
     .table-card {
@@ -389,47 +408,50 @@
 
         background: #ffffff;
 
-        border: 1px solid #e8e4ed;
-        border-radius: 15px;
+        border: 1px solid #e7e3eb;
+        border-radius: 16px;
 
         overflow: hidden;
+
+        box-shadow:
+            0 4px 16px rgba(15, 20, 30, 0.025);
     }
 
     .table-card-header {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 11px;
 
-        padding: 15px 18px;
+        padding: 17px 19px;
 
         border-bottom: 1px solid #efebf2;
     }
 
     .table-icon {
-        flex: 0 0 34px;
+        flex: 0 0 36px;
 
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
 
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        border-radius: 9px;
+        border-radius: 10px;
 
         color: #6748df;
         background: #f0ecff;
 
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 900;
     }
 
     .table-card-header h2 {
-        margin: 0 0 2px;
+        margin: 0 0 3px;
 
         color: #302a35;
 
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .table-card-header p {
@@ -437,7 +459,7 @@
 
         color: #958e9a;
 
-        font-size: 8px;
+        font-size: 10px;
     }
 
 
@@ -453,38 +475,44 @@
     }
 
     .apps-table th {
-        padding: 10px 7px;
+        padding: 11px 8px;
 
         text-align: left;
 
-        color: #89828f;
+        color: #88818d;
         background: #faf9fb;
 
         border-bottom: 1px solid #ebe7ef;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 850;
 
         text-transform: uppercase;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.35px;
     }
 
     .apps-table td {
-        padding: 11px 7px;
+        padding: 13px 8px;
 
-        color: #5a535f;
+        color: #59525e;
 
         border-bottom: 1px solid #f0edf2;
 
-        font-size: 8.5px;
-        line-height: 1.4;
+        font-size: 10px;
+        line-height: 1.45;
 
         vertical-align: middle;
 
         overflow-wrap: anywhere;
     }
 
-    .apps-table tbody tr:hover {
+    .apps-table tbody tr.application-data-row {
+        transition:
+            background 0.15s ease,
+            opacity 0.15s ease;
+    }
+
+    .apps-table tbody tr.application-data-row:hover {
         background: #fcfbfe;
     }
 
@@ -502,7 +530,7 @@
     }
 
     .c-title {
-        width: 17%;
+        width: 16%;
     }
 
     .c-city {
@@ -526,38 +554,38 @@
     }
 
     .c-status {
-        width: 12%;
+        width: 11%;
     }
 
     .c-followup {
-        width: 13%;
+        width: 11%;
     }
 
     .c-actions {
-        width: 9%;
+        width: 13%;
     }
 
 
     /* =====================================================
-       COMPANY / TITLE / CITY
+       CONTENT
     ===================================================== */
 
     .company-name {
         color: #302a35;
 
-        font-size: 9px;
+        font-size: 10.5px;
         font-weight: 850;
     }
 
     .title-link {
-        color: #49414f;
+        color: #403747;
 
         text-decoration: none;
 
-        font-size: 9px;
+        font-size: 10.5px;
         font-weight: 750;
 
-        line-height: 1.4;
+        line-height: 1.45;
     }
 
     .title-link:hover {
@@ -567,14 +595,18 @@
     .missing-title {
         color: #a099a4;
 
-        font-size: 8px;
+        font-size: 9px;
         font-style: italic;
     }
 
     .city-name {
         color: #716a76;
+        font-size: 10px;
+    }
 
-        font-size: 8px;
+    .applied-date {
+        color: #655e69;
+        font-size: 9.5px;
     }
 
 
@@ -583,20 +615,20 @@
     ===================================================== */
 
     .score-badge {
-        min-width: 38px;
+        min-width: 39px;
 
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        padding: 5px 7px;
+        padding: 6px 8px;
 
         border-radius: 999px;
 
         color: #5c43c2;
         background: #eeeaff;
 
-        font-size: 8px;
+        font-size: 9px;
         font-weight: 850;
     }
 
@@ -607,14 +639,14 @@
 
     .decision-badge {
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        padding: 5px 7px;
+        padding: 6px 8px;
 
         border-radius: 999px;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 850;
 
         white-space: nowrap;
@@ -642,17 +674,17 @@
 
     .source-badge {
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        padding: 4px 6px;
+        padding: 5px 7px;
 
         border-radius: 999px;
 
         color: #4960a5;
         background: #edf1ff;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 750;
 
         text-align: center;
@@ -669,9 +701,9 @@
 
     .status-select {
         width: 100%;
-        min-height: 32px;
+        height: 35px;
 
-        padding: 5px 7px;
+        padding: 6px 8px;
 
         border: 1px solid #ddd8e2;
         border-radius: 8px;
@@ -679,16 +711,24 @@
         color: #45404a;
         background: #ffffff;
 
-        font-size: 8px;
+        font-size: 9px;
         font-weight: 700;
 
         cursor: pointer;
+
+        transition:
+            opacity 0.15s ease,
+            border-color 0.15s ease;
     }
 
     .status-select:focus {
         outline: none;
-
         border-color: #8570e8;
+    }
+
+    .status-select:disabled {
+        opacity: 0.6;
+        cursor: wait;
     }
 
     .status-not-applied {
@@ -699,34 +739,35 @@
     .status-applied {
         background: #edf3ff;
         color: #315fa7;
-
         border-color: #dce6fb;
     }
 
     .status-interview {
         background: #fff5dd;
         color: #976518;
-
         border-color: #f2e4bf;
     }
 
     .status-offer {
         background: #e9f8ef;
         color: #177947;
-
         border-color: #cfe9d9;
     }
 
     .status-rejected {
         background: #fff0f0;
         color: #a63f3f;
-
         border-color: #f2d7d7;
+    }
+
+    .status-withdrawn {
+        background: #f5f3f6;
+        color: #6e6673;
     }
 
 
     /* =====================================================
-       FOLLOW-UP
+       FOLLOW UP
     ===================================================== */
 
     .follow-form {
@@ -734,45 +775,50 @@
 
         grid-template-columns:
             minmax(0, 1fr)
-            28px;
+            32px;
 
-        gap: 4px;
+        gap: 5px;
 
         margin: 0;
     }
 
     .follow-date {
         width: 100%;
-        min-height: 30px;
+        height: 34px;
 
-        padding: 4px 5px;
+        padding: 5px 6px;
 
         border: 1px solid #ddd8e2;
-        border-radius: 7px;
+        border-radius: 8px;
 
         color: #4e4753;
         background: #ffffff;
 
-        font-size: 7px;
+        font-size: 8px;
+    }
+
+    .follow-date:focus {
+        outline: none;
+        border-color: #8570e8;
     }
 
     .follow-save {
-        width: 28px;
-        height: 30px;
+        width: 32px;
+        height: 34px;
 
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
         padding: 0;
 
         border: 0;
-        border-radius: 7px;
+        border-radius: 8px;
 
         color: #6042ce;
         background: #f0ecff;
 
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 900;
 
         cursor: pointer;
@@ -782,36 +828,43 @@
         background: #e6dfff;
     }
 
+    .follow-save:disabled {
+        opacity: 0.6;
+        cursor: wait;
+    }
+
 
     /* =====================================================
        ACTIONS
     ===================================================== */
 
     .actions {
-        display: flex;
-        gap: 4px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 5px;
     }
 
-    .action-view,
-    .action-edit,
-    .action-delete {
-        min-height: 27px;
+    .action-btn {
+        min-height: 29px;
 
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        gap: 4px;
 
-        padding: 0 7px;
+        padding: 0 6px;
 
-        border-radius: 6px;
+        border-radius: 7px;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 800;
 
         cursor: pointer;
 
         text-decoration: none;
+
+        white-space: nowrap;
     }
 
     .action-view {
@@ -819,6 +872,18 @@
         background: #f2efff;
 
         border: 1px solid #ded7f9;
+    }
+
+    .action-cover {
+        color: #ffffff;
+        background: #7052ef;
+
+        border: 1px solid #7052ef;
+    }
+
+    .action-cover:hover {
+        color: #ffffff;
+        background: #6042dd;
     }
 
     .action-edit {
@@ -829,6 +894,8 @@
     }
 
     .action-delete {
+        width: 100%;
+
         color: #a93d3d;
         background: #fff2f2;
 
@@ -846,7 +913,6 @@
 
     .edit-row {
         display: none;
-
         background: #f8f6ff;
     }
 
@@ -855,7 +921,25 @@
     }
 
     .edit-cell {
-        padding: 13px 16px !important;
+        padding: 15px 18px !important;
+    }
+
+    .edit-panel {
+        padding: 14px;
+
+        border: 1px solid #ded7f7;
+        border-radius: 11px;
+
+        background: #fbfaff;
+    }
+
+    .edit-heading {
+        margin-bottom: 11px;
+
+        color: #5940c3;
+
+        font-size: 10px;
+        font-weight: 800;
     }
 
     .edit-form {
@@ -867,18 +951,18 @@
             minmax(0, 0.8fr)
             auto;
 
-        gap: 8px;
+        gap: 10px;
         align-items: end;
     }
 
     .edit-field label {
         display: block;
 
-        margin-bottom: 4px;
+        margin-bottom: 5px;
 
         color: #736c78;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 800;
 
         text-transform: uppercase;
@@ -886,33 +970,38 @@
 
     .edit-field input {
         width: 100%;
-        min-height: 33px;
+        height: 36px;
 
-        padding: 7px 8px;
+        padding: 7px 9px;
 
         border: 1px solid #dcd6e2;
-        border-radius: 7px;
+        border-radius: 8px;
 
         color: #49424f;
         background: #ffffff;
 
-        font-size: 8px;
+        font-size: 10px;
+    }
+
+    .edit-field input:focus {
+        outline: none;
+        border-color: #8570e8;
     }
 
     .edit-buttons {
         display: flex;
-        gap: 5px;
+        gap: 6px;
     }
 
     .edit-save,
     .edit-cancel {
-        min-height: 33px;
+        height: 36px;
 
-        padding: 0 10px;
+        padding: 0 11px;
 
-        border-radius: 7px;
+        border-radius: 8px;
 
-        font-size: 8px;
+        font-size: 9px;
         font-weight: 800;
 
         cursor: pointer;
@@ -938,43 +1027,42 @@
     ===================================================== */
 
     .empty-state {
-        padding: 50px 20px;
-
+        padding: 55px 20px;
         text-align: center;
     }
 
     .empty-icon {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
-        margin: 0 auto 12px;
+        margin: 0 auto 13px;
 
-        border-radius: 13px;
+        border-radius: 14px;
 
         color: #6748db;
         background: #f1edff;
 
-        font-size: 18px;
+        font-size: 19px;
     }
 
     .empty-state h3 {
-        margin: 0 0 5px;
+        margin: 0 0 6px;
 
         color: #332d38;
 
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .empty-state p {
-        margin: 0 0 15px;
+        margin: 0 0 16px;
 
         color: #918a96;
 
-        font-size: 9px;
+        font-size: 10px;
     }
 
 
@@ -984,12 +1072,12 @@
 
     .pagination-bar {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
 
         gap: 12px;
 
-        padding: 13px 17px;
+        padding: 14px 18px;
 
         border-top: 1px solid #efebf1;
 
@@ -998,23 +1086,22 @@
 
     .pagination-info {
         color: #8f8894;
-
-        font-size: 8px;
+        font-size: 9px;
     }
 
     .pagination-actions {
         display: flex;
-        gap: 6px;
+        gap: 7px;
     }
 
     .page-btn {
-        min-height: 30px;
+        min-height: 31px;
 
         display: inline-flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        padding: 0 9px;
+        padding: 0 10px;
 
         border: 1px solid #ddd7e3;
         border-radius: 7px;
@@ -1024,48 +1111,101 @@
 
         text-decoration: none;
 
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 800;
     }
 
 
     /* =====================================================
-       MOBILE
+       TOAST
     ===================================================== */
 
-    @media (max-width: 1000px) {
+    .apps-toast {
+        position: fixed;
+
+        right: 22px;
+        bottom: 22px;
+
+        z-index: 9999;
+
+        min-width: 190px;
+        max-width: 340px;
+
+        padding: 12px 15px;
+
+        border-radius: 11px;
+
+        color: #ffffff;
+        background: #18131f;
+
+        box-shadow:
+            0 12px 35px rgba(20, 15, 30, 0.22);
+
+        font-size: 11px;
+        font-weight: 700;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transform: translateY(10px);
+
+        transition:
+            opacity 0.18s ease,
+            transform 0.18s ease;
+    }
+
+    .apps-toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .apps-toast.success {
+        background: #176c45;
+    }
+
+    .apps-toast.error {
+        background: #a63f3f;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1100px) {
 
         .filter-grid,
         .filter-grid-second {
             grid-template-columns:
-                repeat(
-                    2,
-                    minmax(0, 1fr)
-                );
+                repeat(2, minmax(0, 1fr));
         }
 
         .apps-table th,
         .apps-table td {
-            padding-left: 4px;
-            padding-right: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         .edit-form {
-            grid-template-columns:
-                1fr
-                1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .edit-buttons {
+            align-self: stretch;
+            align-items: end;
         }
 
     }
 
 
-    @media (max-width: 760px) {
+    @media (max-width: 850px) {
 
         .apps-page {
-            padding:
-                14px
-                10px
-                60px;
+            padding: 16px 10px 60px;
+        }
+
+        .apps-header {
+            padding: 21px 18px;
         }
 
         .apps-summary {
@@ -1081,15 +1221,16 @@
             border: 0;
             background: transparent;
             overflow: visible;
+            box-shadow: none;
         }
 
         .table-card-header {
-            margin-bottom: 10px;
+            margin-bottom: 11px;
 
             background: #ffffff;
 
-            border: 1px solid #e8e4ed;
-            border-radius: 13px;
+            border: 1px solid #e7e3eb;
+            border-radius: 14px;
         }
 
         .apps-table,
@@ -1107,32 +1248,35 @@
 
         .apps-table tbody {
             display: grid;
-            gap: 10px;
+            gap: 11px;
         }
 
         .apps-table tr.application-data-row {
-            padding: 10px;
+            padding: 11px 13px;
 
             background: #ffffff;
 
-            border: 1px solid #e8e4ed;
-            border-radius: 12px;
+            border: 1px solid #e7e3eb;
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 12px rgba(20,15,30,0.025);
         }
 
         .apps-table td {
             display: grid;
 
             grid-template-columns:
-                95px
+                110px
                 minmax(0, 1fr);
 
-            gap: 8px;
+            gap: 10px;
 
-            padding: 7px 2px;
+            padding: 8px 2px;
 
             border-bottom: 1px solid #f0edf2;
 
-            font-size: 9px;
+            font-size: 10px;
         }
 
         .apps-table td:last-child {
@@ -1144,10 +1288,22 @@
 
             color: #928b97;
 
-            font-size: 7px;
+            font-size: 8px;
             font-weight: 800;
 
             text-transform: uppercase;
+        }
+
+        .actions {
+            max-width: 260px;
+        }
+
+        .status-select {
+            max-width: 220px;
+        }
+
+        .follow-form {
+            max-width: 220px;
         }
 
         .edit-row {
@@ -1157,10 +1313,10 @@
         .edit-row.active {
             display: block !important;
 
-            padding: 10px;
+            padding: 11px;
 
             border: 1px solid #ded6f9;
-            border-radius: 12px;
+            border-radius: 14px;
 
             background: #f8f6ff;
         }
@@ -1177,12 +1333,52 @@
             grid-template-columns: 1fr;
         }
 
-        .status-select {
-            max-width: 190px;
+        .edit-buttons {
+            align-items: center;
         }
 
-        .follow-form {
-            max-width: 190px;
+    }
+
+
+    @media (max-width: 520px) {
+
+        .apps-header h1 {
+            font-size: 25px;
+        }
+
+        .header-actions {
+            width: 100%;
+        }
+
+        .header-btn {
+            flex: 1;
+        }
+
+        .filter-footer {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .filter-buttons {
+            width: 100%;
+        }
+
+        .filter-submit,
+        .filter-clear {
+            flex: 1;
+        }
+
+        .pagination-bar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .apps-toast {
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+
+            max-width: none;
         }
 
     }
@@ -1198,7 +1394,7 @@
          HEADER
     =================================================== -->
 
-    <div class="apps-header">
+    <section class="apps-header">
 
         <div>
 
@@ -1211,7 +1407,7 @@
             </h1>
 
             <p>
-                Track analyzed jobs, status, follow-ups and application progress.
+                Manage analyzed jobs, application status, follow-ups and cover letters.
             </p>
 
         </div>
@@ -1221,21 +1417,21 @@
 
             <a
                 href="{% url 'profile' %}"
-                class="btn-light"
+                class="header-btn header-btn-light"
             >
                 My Profile
             </a>
 
             <a
                 href="{% url 'analyze_job' %}"
-                class="btn-main"
+                class="header-btn header-btn-primary"
             >
                 ✦ Analyze Job
             </a>
 
         </div>
 
-    </div>
+    </section>
 
 
 
@@ -1243,8 +1439,7 @@
          SUMMARY
     =================================================== -->
 
-    <div class="apps-summary">
-
+    <section class="apps-summary">
 
         <div class="summary-card">
 
@@ -1254,7 +1449,10 @@
 
             <div>
 
-                <div class="summary-value">
+                <div
+                    class="summary-value"
+                    id="applicationsTotal"
+                >
 
                     {% if page_obj %}
                         {{ page_obj.paginator.count }}
@@ -1271,7 +1469,6 @@
             </div>
 
         </div>
-
 
 
         <div class="summary-card">
@@ -1293,13 +1490,12 @@
                 </div>
 
                 <div class="summary-label">
-                    Rows
+                    Rows per page
                 </div>
 
             </div>
 
         </div>
-
 
 
         <div class="summary-card">
@@ -1312,7 +1508,7 @@
 
                 <div
                     class="summary-value"
-                    style="font-size:13px;"
+                    style="font-size:14px;"
                 >
 
                     {% if filters.sort == "score_high" %}
@@ -1325,7 +1521,7 @@
                         Oldest
 
                     {% elif filters.sort == "company" %}
-                        Company A-Z
+                        Company A–Z
 
                     {% else %}
                         Newest
@@ -1335,14 +1531,14 @@
                 </div>
 
                 <div class="summary-label">
-                    Sort
+                    Current sorting
                 </div>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
 
 
@@ -1351,7 +1547,6 @@
     =================================================== -->
 
     <section class="filter-card">
-
 
         <div class="filter-header">
 
@@ -1366,7 +1561,7 @@
                 </h2>
 
                 <p>
-                    Search and narrow down your application history.
+                    Find a specific application quickly.
                 </p>
 
             </div>
@@ -1374,14 +1569,11 @@
         </div>
 
 
-
         <div class="filter-body">
 
             <form method="get">
 
-
                 <div class="filter-grid">
-
 
                     <div class="filter-group">
 
@@ -1399,7 +1591,6 @@
                     </div>
 
 
-
                     <div class="filter-group">
 
                         <label>
@@ -1414,7 +1605,6 @@
                         >
 
                     </div>
-
 
 
                     <div class="filter-group">
@@ -1445,7 +1635,6 @@
                         </select>
 
                     </div>
-
 
 
                     <div class="filter-group">
@@ -1480,9 +1669,7 @@
                 </div>
 
 
-
                 <div class="filter-grid-second">
-
 
                     <div class="filter-group">
 
@@ -1528,7 +1715,6 @@
                     </div>
 
 
-
                     <div class="filter-group">
 
                         <label>
@@ -1571,7 +1757,6 @@
                         </select>
 
                     </div>
-
 
 
                     <div class="filter-group">
@@ -1632,7 +1817,6 @@
                     </div>
 
 
-
                     <div class="filter-group">
 
                         <label>
@@ -1684,9 +1868,7 @@
                 </div>
 
 
-
                 <div class="filter-footer">
-
 
                     <div class="filter-buttons">
 
@@ -1712,15 +1894,10 @@
                         {% if page_obj %}
 
                             Showing
-
                             {{ page_obj.start_index }}
-
                             –
-
                             {{ page_obj.end_index }}
-
                             of
-
                             {{ page_obj.paginator.count }}
 
                         {% else %}
@@ -1744,11 +1921,10 @@
 
 
     <!-- ==================================================
-         TABLE
+         APPLICATION TABLE
     =================================================== -->
 
     <section class="table-card">
-
 
         <div class="table-card-header">
 
@@ -1763,7 +1939,7 @@
                 </h2>
 
                 <p>
-                    Update status, follow-ups or correct job information directly.
+                    Changes are saved without reloading the page.
                 </p>
 
             </div>
@@ -1771,12 +1947,9 @@
         </div>
 
 
-
         {% if jobs %}
 
-
             <table class="apps-table">
-
 
                 <colgroup>
 
@@ -1794,29 +1967,19 @@
                 </colgroup>
 
 
-
                 <thead>
 
                     <tr>
 
                         <th>Company</th>
-
                         <th>Job Title</th>
-
                         <th>City</th>
-
                         <th>Score</th>
-
                         <th>Decision</th>
-
                         <th>Applied</th>
-
                         <th>Source</th>
-
                         <th>Status</th>
-
                         <th>Follow-up</th>
-
                         <th>Actions</th>
 
                     </tr>
@@ -1824,19 +1987,18 @@
                 </thead>
 
 
-
-                <tbody>
-
+                <tbody id="applicationsBody">
 
                     {% for job in jobs %}
 
-
-                        <!-- ==================================================
+                        <!-- ==========================================
                              MAIN ROW
-                        =================================================== -->
+                        =========================================== -->
 
-                        <tr class="application-data-row">
-
+                        <tr
+                            class="application-data-row"
+                            id="job-row-{{ job.id }}"
+                        >
 
                             <!-- COMPANY -->
 
@@ -1844,13 +2006,19 @@
 
                                 {% if job.company %}
 
-                                    <span class="company-name">
+                                    <span
+                                        class="company-name"
+                                        id="company-{{ job.id }}"
+                                    >
                                         {{ job.company }}
                                     </span>
 
                                 {% else %}
 
-                                    <span class="missing-title">
+                                    <span
+                                        class="missing-title"
+                                        id="company-{{ job.id }}"
+                                    >
                                         Not detected
                                     </span>
 
@@ -1859,46 +2027,40 @@
                             </td>
 
 
-
-                            <!-- TITLE -->
+                            <!-- JOB TITLE -->
 
                             <td data-label="Job Title">
 
-                                {% if job.job_title %}
+                                <a
+                                    href="{% url 'job_result' job.id %}"
+                                    class="{% if job.job_title %}title-link{% else %}missing-title{% endif %}"
+                                    id="title-{{ job.id }}"
+                                    style="text-decoration:none;"
+                                >
 
-                                    <a
-                                        href="{% url 'job_result' job.id %}"
-                                        class="title-link"
-                                    >
+                                    {% if job.job_title %}
                                         {{ job.job_title }}
-                                    </a>
-
-                                {% else %}
-
-                                    <a
-                                        href="{% url 'job_result' job.id %}"
-                                        class="missing-title"
-                                        style="text-decoration:none;"
-                                    >
+                                    {% else %}
                                         Title not detected
-                                    </a>
+                                    {% endif %}
 
-                                {% endif %}
+                                </a>
 
                             </td>
-
 
 
                             <!-- CITY -->
 
                             <td data-label="City">
 
-                                <span class="city-name">
+                                <span
+                                    class="city-name"
+                                    id="city-{{ job.id }}"
+                                >
                                     {{ job.city|default:"—" }}
                                 </span>
 
                             </td>
-
 
 
                             <!-- SCORE -->
@@ -1912,13 +2074,10 @@
                                     </span>
 
                                 {% else %}
-
                                     —
-
                                 {% endif %}
 
                             </td>
-
 
 
                             <!-- DECISION -->
@@ -1944,33 +2103,30 @@
                                     </span>
 
                                 {% else %}
-
                                     —
-
                                 {% endif %}
 
                             </td>
-
 
 
                             <!-- APPLIED DATE -->
 
                             <td data-label="Applied">
 
-                                {% if job.applied_date %}
+                                <span
+                                    class="applied-date"
+                                    id="applied-date-{{ job.id }}"
+                                >
 
-                                    {{ job.applied_date|date:"d.m.Y" }}
-
-                                {% else %}
-
-                                    <span style="color:#aaa4af;">
+                                    {% if job.applied_date %}
+                                        {{ job.applied_date|date:"d.m.Y" }}
+                                    {% else %}
                                         —
-                                    </span>
+                                    {% endif %}
 
-                                {% endif %}
+                                </span>
 
                             </td>
-
 
 
                             <!-- SOURCE -->
@@ -1984,7 +2140,6 @@
                             </td>
 
 
-
                             <!-- STATUS -->
 
                             <td data-label="Status">
@@ -1992,15 +2147,14 @@
                                 <form
                                     method="post"
                                     action="{% url 'update_status' job.id %}"
-                                    class="status-form"
+                                    class="status-form js-status-form"
+                                    data-job-id="{{ job.id }}"
                                 >
 
                                     {% csrf_token %}
 
-
                                     <select
                                         name="status"
-
                                         class="
                                             status-select
 
@@ -2018,10 +2172,11 @@
 
                                             {% elif job.status == 'rejected' %}
                                                 status-rejected
+
+                                            {% elif job.status == 'withdrawn' %}
+                                                status-withdrawn
                                             {% endif %}
                                         "
-
-                                        onchange="this.form.submit()"
                                     >
 
                                         {% for value, label in job.STATUS_CHOICES %}
@@ -2044,19 +2199,18 @@
                             </td>
 
 
-
-                            <!-- FOLLOW UP -->
+                            <!-- FOLLOW-UP -->
 
                             <td data-label="Follow-up">
 
                                 <form
                                     method="post"
                                     action="{% url 'update_follow_up' job.id %}"
-                                    class="follow-form"
+                                    class="follow-form js-follow-form"
+                                    data-job-id="{{ job.id }}"
                                 >
 
                                     {% csrf_token %}
-
 
                                     <input
                                         type="date"
@@ -2064,7 +2218,6 @@
                                         class="follow-date"
                                         value="{% if job.follow_up_date %}{{ job.follow_up_date|date:'Y-m-d' }}{% endif %}"
                                     >
-
 
                                     <button
                                         type="submit"
@@ -2079,26 +2232,33 @@
                             </td>
 
 
-
                             <!-- ACTIONS -->
 
                             <td data-label="Actions">
 
                                 <div class="actions">
 
-
                                     <a
                                         href="{% url 'job_result' job.id %}"
-                                        class="action-view"
+                                        class="action-btn action-view"
                                         title="View Analysis"
                                     >
                                         View
                                     </a>
 
 
+                                    <a
+                                        href="{% url 'cover_letter' job.id %}"
+                                        class="action-btn action-cover"
+                                        title="Cover Letter"
+                                    >
+                                        ✍ Letter
+                                    </a>
+
+
                                     <button
                                         type="button"
-                                        class="action-edit"
+                                        class="action-btn action-edit"
                                         onclick="toggleEditRow({{ job.id }})"
                                     >
                                         Edit
@@ -2108,18 +2268,17 @@
                                     <form
                                         method="post"
                                         action="{% url 'delete_application' job.id %}"
-                                        class="delete-form"
-                                        onsubmit="return confirm('Delete this application permanently?');"
+                                        class="delete-form js-delete-form"
+                                        data-job-id="{{ job.id }}"
                                     >
 
                                         {% csrf_token %}
 
-
                                         <button
                                             type="submit"
-                                            class="action-delete"
+                                            class="action-btn action-delete"
                                         >
-                                            ×
+                                            Delete
                                         </button>
 
                                     </form>
@@ -2131,10 +2290,9 @@
                         </tr>
 
 
-
-                        <!-- ==================================================
+                        <!-- ==========================================
                              EDIT ROW
-                        =================================================== -->
+                        =========================================== -->
 
                         <tr
                             class="edit-row"
@@ -2146,101 +2304,103 @@
                                 class="edit-cell"
                             >
 
-                                <form
-                                    method="post"
-                                    action="{% url 'update_application_details' job.id %}"
-                                    class="edit-form"
-                                >
+                                <div class="edit-panel">
 
-                                    {% csrf_token %}
-
-
-
-                                    <div class="edit-field">
-
-                                        <label>
-                                            Company
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                            name="company"
-                                            value="{{ job.company }}"
-                                            maxlength="255"
-                                        >
-
+                                    <div class="edit-heading">
+                                        Edit application details
                                     </div>
 
+                                    <form
+                                        method="post"
+                                        action="{% url 'update_application_details' job.id %}"
+                                        class="edit-form js-edit-form"
+                                        data-job-id="{{ job.id }}"
+                                    >
+
+                                        {% csrf_token %}
 
 
-                                    <div class="edit-field">
+                                        <div class="edit-field">
 
-                                        <label>
-                                            Job Title
-                                        </label>
+                                            <label>
+                                                Company
+                                            </label>
 
-                                        <input
-                                            type="text"
-                                            name="job_title"
-                                            value="{{ job.job_title }}"
-                                            maxlength="255"
-                                            placeholder="Correct job title"
-                                        >
+                                            <input
+                                                type="text"
+                                                name="company"
+                                                value="{{ job.company }}"
+                                                maxlength="255"
+                                            >
 
-                                    </div>
-
+                                        </div>
 
 
-                                    <div class="edit-field">
+                                        <div class="edit-field">
 
-                                        <label>
-                                            City
-                                        </label>
+                                            <label>
+                                                Job Title
+                                            </label>
 
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            value="{{ job.city }}"
-                                            maxlength="255"
-                                        >
+                                            <input
+                                                type="text"
+                                                name="job_title"
+                                                value="{{ job.job_title }}"
+                                                maxlength="255"
+                                                placeholder="Correct job title"
+                                            >
 
-                                    </div>
-
-
-
-                                    <div class="edit-buttons">
-
-                                        <button
-                                            type="submit"
-                                            class="edit-save"
-                                        >
-                                            Save
-                                        </button>
+                                        </div>
 
 
-                                        <button
-                                            type="button"
-                                            class="edit-cancel"
-                                            onclick="toggleEditRow({{ job.id }})"
-                                        >
-                                            Cancel
-                                        </button>
+                                        <div class="edit-field">
 
-                                    </div>
+                                            <label>
+                                                City
+                                            </label>
 
-                                </form>
+                                            <input
+                                                type="text"
+                                                name="city"
+                                                value="{{ job.city }}"
+                                                maxlength="255"
+                                            >
+
+                                        </div>
+
+
+                                        <div class="edit-buttons">
+
+                                            <button
+                                                type="submit"
+                                                class="edit-save"
+                                            >
+                                                Save
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                class="edit-cancel"
+                                                onclick="toggleEditRow({{ job.id }})"
+                                            >
+                                                Cancel
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
 
                             </td>
 
                         </tr>
-
 
                     {% endfor %}
 
                 </tbody>
 
             </table>
-
 
 
             <!-- ==================================================
@@ -2251,27 +2411,22 @@
 
                 <div class="pagination-bar">
 
-
                     <div class="pagination-info">
 
                         Page
                         {{ page_obj.number }}
 
                         of
-
                         {{ page_obj.paginator.num_pages }}
 
                         ·
-
                         {{ page_obj.paginator.count }}
                         applications
 
                     </div>
 
 
-
                     <div class="pagination-actions">
-
 
                         {% if page_obj.has_previous %}
 
@@ -2303,9 +2458,7 @@
             {% endif %}
 
 
-
         {% else %}
-
 
             <div class="empty-state">
 
@@ -2323,7 +2476,7 @@
 
                 <a
                     href="{% url 'analyze_job' %}"
-                    class="btn-main"
+                    class="header-btn header-btn-primary"
                 >
                     Analyze Job
                 </a>
@@ -2337,10 +2490,100 @@
 </div>
 
 
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="apps-toast"
+    id="appsToast"
+></div>
+
+
 
 <script>
 
-    function toggleEditRow(jobId) {
+    // =====================================================
+    // TOAST
+    // =====================================================
+
+    let toastTimer = null;
+
+
+    function showToast(
+        message,
+        type = "success"
+    ) {
+
+        const toast =
+            document.getElementById(
+                "appsToast"
+            );
+
+
+        if (!toast) {
+            return;
+        }
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.remove(
+            "success",
+            "error",
+            "show"
+        );
+
+
+        toast.classList.add(
+            type
+        );
+
+
+        requestAnimationFrame(
+            function () {
+
+                toast.classList.add(
+                    "show"
+                );
+
+            }
+        );
+
+
+        if (toastTimer) {
+
+            clearTimeout(
+                toastTimer
+            );
+
+        }
+
+
+        toastTimer =
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+    }
+
+
+    // =====================================================
+    // EDIT ROW
+    // =====================================================
+
+    function toggleEditRow(
+        jobId
+    ) {
 
         const row =
             document.getElementById(
@@ -2358,6 +2601,636 @@
         );
 
     }
+
+
+    // =====================================================
+    // STATUS CLASS
+    // =====================================================
+
+    function applyStatusClass(
+        select,
+        status
+    ) {
+
+        select.classList.remove(
+            "status-not-applied",
+            "status-applied",
+            "status-interview",
+            "status-offer",
+            "status-rejected",
+            "status-withdrawn"
+        );
+
+
+        if (
+            status === "not_applied"
+        ) {
+
+            select.classList.add(
+                "status-not-applied"
+            );
+
+        } else if (
+            status === "applied"
+        ) {
+
+            select.classList.add(
+                "status-applied"
+            );
+
+        } else if (
+            status === "interview"
+        ) {
+
+            select.classList.add(
+                "status-interview"
+            );
+
+        } else if (
+            status === "offer"
+        ) {
+
+            select.classList.add(
+                "status-offer"
+            );
+
+        } else if (
+            status === "rejected"
+        ) {
+
+            select.classList.add(
+                "status-rejected"
+            );
+
+        } else if (
+            status === "withdrawn"
+        ) {
+
+            select.classList.add(
+                "status-withdrawn"
+            );
+
+        }
+
+    }
+
+
+    // =====================================================
+    // STATUS AJAX
+    // =====================================================
+
+    document
+        .querySelectorAll(
+            ".js-status-form"
+        )
+        .forEach(
+            function (form) {
+
+                const select =
+                    form.querySelector(
+                        ".status-select"
+                    );
+
+
+                if (!select) {
+                    return;
+                }
+
+
+                select.addEventListener(
+                    "change",
+                    async function () {
+
+                        const jobId =
+                            form.dataset.jobId;
+
+                        const previousValue =
+                            select.dataset.previousValue
+                            || "";
+
+                        select.disabled =
+                            true;
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    form.action,
+                                    {
+                                        method: "POST",
+
+                                        body:
+                                            new FormData(
+                                                form
+                                            ),
+
+                                        headers: {
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+                                        },
+
+                                        credentials:
+                                            "same-origin",
+                                    }
+                                );
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Status update failed."
+                                );
+
+                            }
+
+
+                            const data =
+                                await response.json();
+
+
+                            if (!data.ok) {
+
+                                throw new Error(
+                                    data.error
+                                    || "Status update failed."
+                                );
+
+                            }
+
+
+                            applyStatusClass(
+                                select,
+                                data.status
+                            );
+
+
+                            select.dataset.previousValue =
+                                data.status;
+
+
+                            const appliedDate =
+                                document.getElementById(
+                                    "applied-date-"
+                                    + jobId
+                                );
+
+
+                            if (appliedDate) {
+
+                                appliedDate.textContent =
+                                    data.applied_date
+                                    || "—";
+
+                            }
+
+
+                            showToast(
+                                "Status saved."
+                            );
+
+                        } catch (error) {
+
+                            if (previousValue) {
+
+                                select.value =
+                                    previousValue;
+
+                                applyStatusClass(
+                                    select,
+                                    previousValue
+                                );
+
+                            }
+
+
+                            showToast(
+                                "Could not save status.",
+                                "error"
+                            );
+
+                        } finally {
+
+                            select.disabled =
+                                false;
+
+                        }
+
+                    }
+                );
+
+
+                select.dataset.previousValue =
+                    select.value;
+
+            }
+        );
+
+
+    // =====================================================
+    // FOLLOW-UP AJAX
+    // =====================================================
+
+    document
+        .querySelectorAll(
+            ".js-follow-form"
+        )
+        .forEach(
+            function (form) {
+
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const button =
+                            form.querySelector(
+                                ".follow-save"
+                            );
+
+
+                        if (button) {
+
+                            button.disabled =
+                                true;
+
+                        }
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    form.action,
+                                    {
+                                        method: "POST",
+
+                                        body:
+                                            new FormData(
+                                                form
+                                            ),
+
+                                        credentials:
+                                            "same-origin",
+                                    }
+                                );
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Follow-up update failed."
+                                );
+
+                            }
+
+
+                            showToast(
+                                "Follow-up saved."
+                            );
+
+                        } catch (error) {
+
+                            showToast(
+                                "Could not save follow-up.",
+                                "error"
+                            );
+
+                        } finally {
+
+                            if (button) {
+
+                                button.disabled =
+                                    false;
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    // =====================================================
+    // EDIT DETAILS AJAX
+    // =====================================================
+
+    document
+        .querySelectorAll(
+            ".js-edit-form"
+        )
+        .forEach(
+            function (form) {
+
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const jobId =
+                            form.dataset.jobId;
+
+                        const saveButton =
+                            form.querySelector(
+                                ".edit-save"
+                            );
+
+
+                        if (saveButton) {
+
+                            saveButton.disabled =
+                                true;
+
+                        }
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    form.action,
+                                    {
+                                        method: "POST",
+
+                                        body:
+                                            new FormData(
+                                                form
+                                            ),
+
+                                        headers: {
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+                                        },
+
+                                        credentials:
+                                            "same-origin",
+                                    }
+                                );
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Edit failed."
+                                );
+
+                            }
+
+
+                            const data =
+                                await response.json();
+
+
+                            if (!data.ok) {
+
+                                throw new Error(
+                                    "Edit failed."
+                                );
+
+                            }
+
+
+                            const company =
+                                document.getElementById(
+                                    "company-"
+                                    + jobId
+                                );
+
+
+                            const title =
+                                document.getElementById(
+                                    "title-"
+                                    + jobId
+                                );
+
+
+                            const city =
+                                document.getElementById(
+                                    "city-"
+                                    + jobId
+                                );
+
+
+                            if (company) {
+
+                                company.textContent =
+                                    data.company
+                                    || "Not detected";
+
+                            }
+
+
+                            if (title) {
+
+                                title.textContent =
+                                    data.job_title
+                                    || "Title not detected";
+
+
+                                title.classList.toggle(
+                                    "title-link",
+                                    Boolean(
+                                        data.job_title
+                                    )
+                                );
+
+
+                                title.classList.toggle(
+                                    "missing-title",
+                                    !data.job_title
+                                );
+
+                            }
+
+
+                            if (city) {
+
+                                city.textContent =
+                                    data.city
+                                    || "—";
+
+                            }
+
+
+                            toggleEditRow(
+                                jobId
+                            );
+
+
+                            showToast(
+                                "Application updated."
+                            );
+
+                        } catch (error) {
+
+                            showToast(
+                                "Could not update application.",
+                                "error"
+                            );
+
+                        } finally {
+
+                            if (saveButton) {
+
+                                saveButton.disabled =
+                                    false;
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    // =====================================================
+    // DELETE WITHOUT PAGE RELOAD
+    // =====================================================
+
+    document
+        .querySelectorAll(
+            ".js-delete-form"
+        )
+        .forEach(
+            function (form) {
+
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const confirmed =
+                            confirm(
+                                "Delete this application permanently?"
+                            );
+
+
+                        if (!confirmed) {
+                            return;
+                        }
+
+
+                        const jobId =
+                            form.dataset.jobId;
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    form.action,
+                                    {
+                                        method: "POST",
+
+                                        body:
+                                            new FormData(
+                                                form
+                                            ),
+
+                                        credentials:
+                                            "same-origin",
+                                    }
+                                );
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Delete failed."
+                                );
+
+                            }
+
+
+                            const mainRow =
+                                document.getElementById(
+                                    "job-row-"
+                                    + jobId
+                                );
+
+
+                            const editRow =
+                                document.getElementById(
+                                    "edit-row-"
+                                    + jobId
+                                );
+
+
+                            if (mainRow) {
+
+                                mainRow.remove();
+
+                            }
+
+
+                            if (editRow) {
+
+                                editRow.remove();
+
+                            }
+
+
+                            const totalElement =
+                                document.getElementById(
+                                    "applicationsTotal"
+                                );
+
+
+                            if (
+                                totalElement
+                                &&
+                                !Number.isNaN(
+                                    Number(
+                                        totalElement.textContent.trim()
+                                    )
+                                )
+                            ) {
+
+                                const current =
+                                    Number(
+                                        totalElement.textContent.trim()
+                                    );
+
+
+                                totalElement.textContent =
+                                    Math.max(
+                                        0,
+                                        current - 1
+                                    );
+
+                            }
+
+
+                            showToast(
+                                "Application deleted."
+                            );
+
+                        } catch (error) {
+
+                            showToast(
+                                "Could not delete application.",
+                                "error"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
 
 </script>
 

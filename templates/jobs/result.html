@@ -137,6 +137,9 @@
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
+
+        max-width: 420px;
+        justify-content: flex-end;
     }
 
 
@@ -146,6 +149,7 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        gap: 6px;
 
         padding: 0 15px;
 
@@ -177,6 +181,19 @@
 
     .result-top-btn.primary:hover {
         background: #6547ed;
+    }
+
+
+    .result-top-btn.cover-letter {
+        background: #ffffff;
+        border-color: #ffffff;
+        color: #5b3fd0;
+    }
+
+
+    .result-top-btn.cover-letter:hover {
+        background: #f0edff;
+        color: #5036bd;
     }
 
 
@@ -620,7 +637,7 @@
 
 
     /* =====================================================
-       TEXT SECTIONS
+       TEXT
     ===================================================== */
 
     .analysis-text {
@@ -672,7 +689,7 @@
 
 
     /* =====================================================
-       SIDE: QUICK SUMMARY
+       QUICK SUMMARY
     ===================================================== */
 
     .quick-summary {
@@ -778,6 +795,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 6px;
 
         border-radius: 9px;
 
@@ -788,26 +806,40 @@
     }
 
 
+    .next-step-cover-letter {
+        color: #ffffff;
+
+        background: #7558ff;
+        border: 1px solid #7558ff;
+    }
+
+
+    .next-step-cover-letter:hover {
+        color: #ffffff;
+        background: #6547ed;
+    }
+
+
     .next-step-primary {
         color: #ffffff;
 
-        background: #7254ef;
-        border: 1px solid #7254ef;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.14);
     }
 
 
     .next-step-primary:hover {
         color: #ffffff;
-        background: #6244df;
+        background: rgba(255,255,255,0.13);
     }
 
 
     .next-step-secondary {
         color: #ffffff;
 
-        background: rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.04);
 
-        border: 1px solid rgba(255,255,255,0.13);
+        border: 1px solid rgba(255,255,255,0.10);
     }
 
 
@@ -914,6 +946,7 @@
         .result-hero-actions {
             display: grid;
             grid-template-columns: 1fr;
+            max-width: none;
         }
 
 
@@ -1009,6 +1042,16 @@
 
 
         <div class="result-hero-actions">
+
+            <!-- COVER LETTER FOR THIS EXACT JOB -->
+
+            <a
+                href="{% url 'cover_letter' job.id %}"
+                class="result-top-btn cover-letter"
+            >
+                ✍ Generate Cover Letter
+            </a>
+
 
             <a
                 href="{% url 'analyze_job' %}"
@@ -1710,8 +1753,8 @@
                     </h3>
 
                     <p>
-                        Review the gaps, tailor your CV using only verified
-                        information and update the status when you apply.
+                        Your next step can be creating a tailored cover letter
+                        for this exact position.
                     </p>
 
                 {% elif job.decision == "STRETCH" %}
@@ -1721,8 +1764,8 @@
                     </h3>
 
                     <p>
-                        This vacancy may still be worth an application,
-                        but the important gaps should be understood first.
+                        If you decide to apply, JobCopilot can create a
+                        realistic cover letter without hiding the important gaps.
                     </p>
 
                 {% else %}
@@ -1732,14 +1775,22 @@
                     </h3>
 
                     <p>
-                        Review the reasons for the low fit before deciding
-                        whether this application is worth the effort.
+                        You can still prepare a cover letter if you decide
+                        this position is worth pursuing.
                     </p>
 
                 {% endif %}
 
 
                 <div class="next-step-actions">
+
+                    <a
+                        href="{% url 'cover_letter' job.id %}"
+                        class="next-step-btn next-step-cover-letter"
+                    >
+                        ✍ Create Cover Letter
+                    </a>
+
 
                     <a
                         href="{% url 'applications' %}"

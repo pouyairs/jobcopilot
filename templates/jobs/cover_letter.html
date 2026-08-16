@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Cover Letter | JobCopilot
+    </title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            background: #f6f7fb;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 22px 16px 60px;
+        }
+
+        /* =================================================
+           TOP
+        ================================================= */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 850;
+            color: #5b21b6;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 13px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4b5563;
+        }
+
+        .back-link:hover {
+            color: #6d28d9;
+            border-color: #c4b5fd;
+        }
+
+        /* =================================================
+           HERO
+        ================================================= */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #4c1d95 0%,
+                    #6d28d9 55%,
+                    #7c3aed 100%
+                );
+
+            color: white;
+            border-radius: 20px;
+            padding: 23px 25px;
+            margin-bottom: 17px;
+
+            box-shadow:
+                0 12px 28px
+                rgba(76, 29, 149, 0.16);
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.14);
+            font-size: 11px;
+            font-weight: 750;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 27px;
+            line-height: 1.2;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 17px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.84);
+        }
+
+        /* =================================================
+           MESSAGE
+        ================================================= */
+
+        .message {
+            padding: 12px 14px;
+            border-radius: 11px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .message.success {
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+        }
+
+        .message.error {
+            color: #b91c1c;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        /* =================================================
+           LANGUAGE
+        ================================================= */
+
+        .toolbar {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 13px 15px;
+            margin-bottom: 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .language-form {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .toolbar-label {
+            font-size: 12px;
+            font-weight: 750;
+            color: #6b7280;
+        }
+
+        .language-select {
+            padding: 9px 30px 9px 10px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            outline: none;
+            font-weight: 650;
+        }
+
+        .language-select:focus {
+            border-color: #7c3aed;
+            box-shadow:
+                0 0 0 3px
+                rgba(124,58,237,0.10);
+        }
+
+        .toolbar-note {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        /* =================================================
+           WORKSPACE
+        ================================================= */
+
+        .workspace {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(390px, 0.82fr);
+
+            gap: 18px;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 17px;
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 16px
+                rgba(15,23,42,0.04);
+        }
+
+        .card + .card {
+            margin-top: 16px;
+        }
+
+        .card-header {
+            padding: 16px 18px;
+            border-bottom: 1px solid #f0f1f4;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 850;
+        }
+
+        .card-subtitle {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .card-body {
+            padding: 18px;
+        }
+
+        /* =================================================
+           FORM
+        ================================================= */
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+
+            font-size: 12px;
+            font-weight: 750;
+            color: #374151;
+        }
+
+        .text-input,
+        .textarea {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 10px 11px;
+            outline: none;
+            color: #111827;
+            background: white;
+            transition: 0.15s ease;
+        }
+
+        .text-input:focus,
+        .textarea:focus {
+            border-color: #7c3aed;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(124,58,237,0.09);
+        }
+
+        .textarea {
+            min-height: 350px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .small-textarea {
+            min-height: 90px;
+        }
+
+        /* =================================================
+           RECIPIENT
+        ================================================= */
+
+        .recipient-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    #faf9ff,
+                    #ffffff
+                );
+        }
+
+        .recipient-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .recipient-grid .wide {
+            grid-column: 1 / -1;
+        }
+
+        .info-note {
+            padding: 10px 11px;
+            margin-bottom: 15px;
+
+            background: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 10px;
+
+            font-size: 11px;
+            line-height: 1.45;
+            color: #6d28d9;
+        }
+
+        /* =================================================
+           AI IMPROVE
+        ================================================= */
+
+        .ai-box {
+            margin-top: 19px;
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f3ff,
+                    #faf5ff
+                );
+
+            border: 1px solid #ddd6fe;
+            border-radius: 13px;
+        }
+
+        .ai-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0 0 5px;
+            color: #5b21b6;
+            font-size: 14px;
+            font-weight: 850;
+        }
+
+        .ai-description {
+            margin-bottom: 11px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: #7c3aed;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 9px 0 11px;
+        }
+
+        .quick-btn {
+            padding: 7px 10px;
+            border: 1px solid #ddd6fe;
+            border-radius: 999px;
+            background: white;
+            color: #6d28d9;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .quick-btn:hover {
+            background: #ede9fe;
+        }
+
+        /* =================================================
+           SIGNATURE SETTINGS
+        ================================================= */
+
+        .signature-box {
+            margin-top: 18px;
+            padding: 15px;
+            background: #faf9ff;
+            border: 1px solid #ede9fe;
+            border-radius: 13px;
+        }
+
+        .signature-title {
+            margin: 0 0 11px;
+            font-size: 13px;
+            font-weight: 850;
+            color: #4c1d95;
+        }
+
+        .radio-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 17px;
+            margin-bottom: 13px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 650;
+            cursor: pointer;
+        }
+
+        .signature-upload input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px dashed #c4b5fd;
+            border-radius: 9px;
+            background: white;
+        }
+
+        .file-note {
+            margin-top: 5px;
+            color: #9ca3af;
+            font-size: 10px;
+        }
+
+        .current-signature {
+            margin-top: 11px;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+        }
+
+        .current-signature img {
+            max-width: 190px;
+            max-height: 70px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 19px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 12px;
+            font-weight: 800;
+            transition: 0.15s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: white;
+            background: #6d28d9;
+        }
+
+        .btn-primary:hover {
+            background: #5b21b6;
+        }
+
+        .btn-ai {
+            color: white;
+            background: #7c3aed;
+        }
+
+        .btn-save {
+            color: white;
+            background: #111827;
+        }
+
+        .btn-pdf {
+            color: white;
+            background: #059669;
+        }
+
+        .btn-danger-soft {
+            margin-top: 8px;
+            color: #be123c;
+            background: #fff1f2;
+            padding: 7px 10px;
+            font-size: 11px;
+        }
+
+        /* =================================================
+           PREVIEW
+        ================================================= */
+
+        .preview-wrap {
+            position: sticky;
+            top: 16px;
+        }
+
+        .paper {
+            min-height: 720px;
+            padding: 42px 40px;
+            background: white;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: #222;
+        }
+
+        .sender {
+            margin-bottom: 29px;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .sender-name {
+            font-weight: 700;
+        }
+
+        .recipient-preview {
+            min-height: 68px;
+            margin-bottom: 19px;
+            line-height: 1.45;
+        }
+
+        .recipient-company-preview {
+            font-weight: 700;
+        }
+
+        .letter-date {
+            text-align: right;
+            margin-bottom: 24px;
+            font-size: 11px;
+        }
+
+        .preview-subject {
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .preview-content {
+            white-space: pre-line;
+        }
+
+        .preview-placeholder {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        /* =================================================
+           CLOSING + NAME + SIGNATURE
+        ================================================= */
+
+        .closing {
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .printed-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 11px;
+        }
+
+        .signature-preview {
+            min-height: 70px;
+        }
+
+        .signature-preview img {
+            display: block;
+            max-width: 180px;
+            max-height: 65px;
+            object-fit: contain;
+        }
+
+        .typed-signature {
+            font-family:
+                "Segoe Script",
+                "Bradley Hand",
+                "Brush Script MT",
+                cursive;
+
+            font-size: 21px;
+            font-style: italic;
+            line-height: 1.15;
+        }
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 980px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-wrap {
+                position: static;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .page {
+                padding: 13px 10px 40px;
+            }
+
+            .hero {
+                border-radius: 15px;
+                padding: 18px;
+            }
+
+            .hero h1 {
+                font-size: 22px;
+            }
+
+            .recipient-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recipient-grid .wide {
+                grid-column: auto;
+            }
+
+            .paper {
+                min-height: auto;
+                padding: 28px 22px;
+            }
+
+            .actions {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- =================================================
+         TOP BAR
+    ================================================== -->
+
+    <div class="topbar">
+
+        <a
+            href="{% url 'applications' %}"
+            class="back-link"
+        >
+            ← My Applications
+        </a>
+
+        <div class="brand">
+            JobCopilot
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            ✦ Cover Letter
+        </div>
+
+        <h1>
+            {% if job.job_title %}
+                {{ job.job_title }}
+            {% else %}
+                Your Application
+            {% endif %}
+        </h1>
+
+        <div class="hero-meta">
+
+            {% if job.company %}
+                <span>
+                    🏢 {{ job.company }}
+                </span>
+            {% endif %}
+
+            {% if job.city %}
+                <span>
+                    📍 {{ job.city }}
+                </span>
+            {% endif %}
+
+            {% if job.score %}
+                <span>
+                    🎯 {{ job.score }}/10
+                </span>
+            {% endif %}
+
+            {% if job.decision %}
+                <span>
+                    ✓ {{ job.decision }}
+                </span>
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MESSAGES
+    ================================================== -->
+
+    {% if success %}
+        <div class="message success">
+            {{ success }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="message error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+
+    <!-- =================================================
+         LANGUAGE
+    ================================================== -->
+
+    <div class="toolbar">
+
+        <form
+            method="get"
+            class="language-form"
+        >
+
+            <span class="toolbar-label">
+                Letter language
+            </span>
+
+            <select
+                name="language"
+                class="language-select"
+                onchange="this.form.submit()"
+            >
+
+                <option
+                    value="de"
+                    {% if language == "de" %}
+                        selected
+                    {% endif %}
+                >
+                    🇩🇪 German
+                </option>
+
+                <option
+                    value="en"
+                    {% if language == "en" %}
+                        selected
+                    {% endif %}
+                >
+                    🇬🇧 English
+                </option>
+
+            </select>
+
+        </form>
+
+        <div class="toolbar-note">
+            German and English versions are stored separately.
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         WORKSPACE
+    ================================================== -->
+
+    <div class="workspace">
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================== -->
+
+        <div>
+
+            <form
+                method="post"
+                enctype="multipart/form-data"
+                id="letterForm"
+            >
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="language"
+                    value="{{ language }}"
+                >
+
+
+                <!-- =========================================
+                     RECIPIENT
+                ========================================== -->
+
+                <div class="card recipient-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2 class="card-title">
+                                Recipient Details
+                            </h2>
+
+                            <div class="card-subtitle">
+                                Company information used in the PDF.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="info-note">
+                            Address details are only filled automatically
+                            when they are clearly present in the vacancy.
+                            You can always correct or complete them manually.
+                        </div>
+
+
+                        <div class="recipient-grid">
+
+                            <div class="field wide">
+
+                                <label for="recipient_company">
+                                    Company
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipient_company"
+                                    name="recipient_company"
+                                    class="text-input"
+                                    maxlength="200"
+                                    value="{{ letter.recipient_company }}"
+                                >
+
+                            </div>
+
+
+                            <div class="field wide">
+
+                                <label for="recipient_contact">
+                                    Contact Person
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipient_contact"
+                                    name="recipient_contact"
+                                    class="text-input"
+                                    maxlength="200"
+                                    value="{{ letter.recipient_contact }}"
+                                    placeholder="Optional"
+                                >
+
+                            </div>
+
+
+                            <div class="field wide">
+
+                                <label for="recipient_street">
+                                    Street / Address
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipient_street"
+                                    name="recipient_street"
+                                    class="text-input"
+                                    maxlength="250"
+                                    value="{{ letter.recipient_street }}"
+                                    placeholder="Optional"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label for="recipient_postal_code">
+                                    Postal Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipient_postal_code"
+                                    name="recipient_postal_code"
+                                    class="text-input"
+                                    maxlength="30"
+                                    value="{{ letter.recipient_postal_code }}"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label for="recipient_city">
+                                    City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipient_city"
+                                    name="recipient_city"
+                                    class="text-input"
+                                    maxlength="150"
+                                    value="{{ letter.recipient_city }}"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     EDITOR
+                ========================================== -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2 class="card-title">
+                                Write & Edit
+                            </h2>
+
+                            <div class="card-subtitle">
+                                Generate with AI, then edit anything you want.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        <!-- SUBJECT -->
+
+                        <div class="field">
+
+                            <label for="subject">
+
+                                {% if language == "de" %}
+                                    Betreff
+                                {% else %}
+                                    Subject
+                                {% endif %}
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                class="text-input"
+                                maxlength="300"
+                                value="{{ letter.subject }}"
+                                placeholder="{% if language == 'de' %}Bewerbung als ...{% else %}Application for ...{% endif %}"
+                            >
+
+                        </div>
+
+
+                        <!-- CONTENT -->
+
+                        <div class="field">
+
+                            <label for="content">
+
+                                {% if language == "de" %}
+                                    Anschreiben
+                                {% else %}
+                                    Cover Letter
+                                {% endif %}
+
+                            </label>
+
+                            <textarea
+                                id="content"
+                                name="content"
+                                class="textarea"
+                                placeholder="Generate a cover letter or start writing here..."
+                            >{{ letter.content }}</textarea>
+
+                        </div>
+
+
+                        <!-- =================================
+                             AI IMPROVE
+                        ================================== -->
+
+                        <div class="ai-box">
+
+                            <h3 class="ai-title">
+                                ✨ Ask AI to improve this letter
+                            </h3>
+
+                            <div class="ai-description">
+                                Tell JobCopilot what you want changed.
+                                The current letter will be edited without
+                                inventing new experience or skills.
+                            </div>
+
+
+                            <div class="quick-actions">
+
+                                <button
+                                    type="button"
+                                    class="quick-btn"
+                                    data-prompt="Make the cover letter shorter and more concise."
+                                >
+                                    Shorter
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="quick-btn"
+                                    data-prompt="Make the cover letter sound more natural and human."
+                                >
+                                    More natural
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="quick-btn"
+                                    data-prompt="Improve the opening paragraph and make it more specific to this vacancy."
+                                >
+                                    Stronger opening
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="quick-btn"
+                                    data-prompt="Make the cover letter more professional while keeping the tone realistic."
+                                >
+                                    More professional
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="quick-btn"
+                                    data-prompt="Focus more on the candidate's strongest relevant professional experience."
+                                >
+                                    Focus on experience
+                                </button>
+
+                            </div>
+
+
+                            <textarea
+                                id="ai_instruction"
+                                name="ai_instruction"
+                                class="textarea small-textarea"
+                                placeholder="Example: Make it shorter and focus more on my IT support experience."
+                            >{{ ai_instruction }}</textarea>
+
+
+                            <div style="margin-top: 10px;">
+
+                                <button
+                                    type="submit"
+                                    name="action"
+                                    value="improve"
+                                    class="btn btn-ai"
+                                >
+                                    ✨ Improve with AI
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             SIGNATURE SETTINGS
+                        ================================== -->
+
+                        <div class="signature-box">
+
+                            <h3 class="signature-title">
+                                Signature
+                            </h3>
+
+
+                            <div class="radio-row">
+
+                                <label class="radio-option">
+
+                                    <input
+                                        type="radio"
+                                        name="signature_type"
+                                        value="typed"
+                                        {% if letter.signature_type != "uploaded" %}
+                                            checked
+                                        {% endif %}
+                                    >
+
+                                    Typed signature
+
+                                </label>
+
+
+                                <label class="radio-option">
+
+                                    <input
+                                        type="radio"
+                                        name="signature_type"
+                                        value="uploaded"
+                                        {% if letter.signature_type == "uploaded" %}
+                                            checked
+                                        {% endif %}
+                                    >
+
+                                    PNG signature
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label for="signature_name">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="signature_name"
+                                    name="signature_name"
+                                    class="text-input"
+                                    maxlength="200"
+                                    value="{{ letter.signature_name }}"
+                                >
+
+                            </div>
+
+
+                            <div class="signature-upload">
+
+                                <label
+                                    style="
+                                        display:block;
+                                        margin-bottom:6px;
+                                        font-size:12px;
+                                        font-weight:750;
+                                    "
+                                >
+                                    Upload Signature
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="signature_image"
+                                    name="signature_image"
+                                    accept="image/png"
+                                >
+
+                                <div class="file-note">
+                                    PNG only · max 2 MB · transparent background recommended
+                                </div>
+
+                            </div>
+
+
+                            {% if letter.signature_image %}
+
+                                <div class="current-signature">
+
+                                    <div
+                                        style="
+                                            font-size:10px;
+                                            color:#6b7280;
+                                            margin-bottom:7px;
+                                        "
+                                    >
+                                        Current uploaded signature
+                                    </div>
+
+                                    <img
+                                        src="{{ letter.signature_image.url }}"
+                                        alt="Uploaded signature"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        name="action"
+                                        value="remove_signature"
+                                        class="btn btn-danger-soft"
+                                    >
+                                        Remove uploaded signature
+                                    </button>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- =================================
+                             ACTIONS
+                        ================================== -->
+
+                        <div class="actions">
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="generate"
+                                class="btn btn-primary"
+                            >
+                                ✨ Generate with AI
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="save"
+                                class="btn btn-save"
+                            >
+                                Save Changes
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="download_pdf"
+                                class="btn btn-pdf"
+                            >
+                                ↓ Download PDF
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- =================================================
+             PREVIEW
+        ================================================== -->
+
+        <div class="preview-wrap">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2 class="card-title">
+                            Live Preview
+                        </h2>
+
+                        <div class="card-subtitle">
+                            Application letter layout
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="paper">
+
+                    <!-- =====================================
+                         SENDER
+                    ====================================== -->
+
+                    <div class="sender">
+
+                        <div class="sender-name">
+
+                            {% if profile.full_name %}
+                                {{ profile.full_name }}
+                            {% else %}
+                                {{ request.user.username }}
+                            {% endif %}
+
+                        </div>
+
+                        {% if profile.city %}
+                            <div>
+                                {{ profile.city }}
+                            </div>
+                        {% endif %}
+
+                        {% if profile.country %}
+                            <div>
+                                {{ profile.country }}
+                            </div>
+                        {% endif %}
+
+                        {% if request.user.email %}
+                            <div>
+                                {{ request.user.email }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         RECIPIENT
+                    ====================================== -->
+
+                    <div class="recipient-preview">
+
+                        <div
+                            id="previewRecipientCompany"
+                            class="recipient-company-preview"
+                        >
+                            {{ letter.recipient_company }}
+                        </div>
+
+                        <div id="previewRecipientContact">
+                            {{ letter.recipient_contact }}
+                        </div>
+
+                        <div id="previewRecipientStreet">
+                            {{ letter.recipient_street }}
+                        </div>
+
+                        <div id="previewRecipientCityLine">
+
+                            {% if letter.recipient_postal_code %}
+                                {{ letter.recipient_postal_code }}
+                            {% endif %}
+
+                            {% if letter.recipient_city %}
+                                {{ letter.recipient_city }}
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         DATE
+                    ====================================== -->
+
+                    <div class="letter-date">
+
+                        {% if profile.city %}
+                            {{ profile.city }},
+                        {% endif %}
+
+                        {% now "d.m.Y" %}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         SUBJECT
+                    ====================================== -->
+
+                    <div
+                        class="preview-subject"
+                        id="previewSubject"
+                    >
+
+                        {% if letter.subject %}
+
+                            {{ letter.subject }}
+
+                        {% else %}
+
+                            {% if language == "de" %}
+                                Bewerbung als ...
+                            {% else %}
+                                Application for ...
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         BODY
+                    ====================================== -->
+
+                    <div
+                        class="preview-content"
+                        id="previewContent"
+                    >
+
+                        {% if letter.content %}
+
+                            {{ letter.content }}
+
+                        {% else %}
+
+                            <span class="preview-placeholder">
+                                Generate a cover letter or start writing in the editor.
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         CLOSING
+                    ====================================== -->
+
+                    <div class="closing">
+
+                        {% if language == "de" %}
+                            Mit freundlichen Grüßen
+                        {% else %}
+                            Kind regards,
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =====================================
+                         NAME - ALWAYS VISIBLE
+                    ====================================== -->
+
+                    <div
+                        id="printedName"
+                        class="printed-name"
+                    >
+                        {{ letter.signature_name }}
+                    </div>
+
+
+                    <!-- =====================================
+                         SIGNATURE
+                    ====================================== -->
+
+                    <div class="signature-preview">
+
+                        {% if letter.signature_image and letter.signature_type == "uploaded" %}
+
+                            <img
+                                id="storedSignatureImage"
+                                src="{{ letter.signature_image.url }}"
+                                alt="Signature"
+                            >
+
+                        {% endif %}
+
+
+                        <img
+                            id="newSignaturePreview"
+                            alt="Signature preview"
+                            style="display:none;"
+                        >
+
+
+                        <div
+                            id="typedSignature"
+                            class="typed-signature"
+                            {% if letter.signature_type == "uploaded" %}
+                                style="display:none;"
+                            {% endif %}
+                        >
+                            {{ letter.signature_name }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    // =====================================================
+    // ELEMENTS
+    // =====================================================
+
+    const subjectInput =
+        document.getElementById("subject");
+
+    const contentInput =
+        document.getElementById("content");
+
+    const aiInstruction =
+        document.getElementById("ai_instruction");
+
+    const signatureNameInput =
+        document.getElementById("signature_name");
+
+    const signatureImageInput =
+        document.getElementById("signature_image");
+
+
+    const recipientCompanyInput =
+        document.getElementById("recipient_company");
+
+    const recipientContactInput =
+        document.getElementById("recipient_contact");
+
+    const recipientStreetInput =
+        document.getElementById("recipient_street");
+
+    const recipientPostalCodeInput =
+        document.getElementById("recipient_postal_code");
+
+    const recipientCityInput =
+        document.getElementById("recipient_city");
+
+
+    const previewSubject =
+        document.getElementById("previewSubject");
+
+    const previewContent =
+        document.getElementById("previewContent");
+
+
+    const previewRecipientCompany =
+        document.getElementById("previewRecipientCompany");
+
+    const previewRecipientContact =
+        document.getElementById("previewRecipientContact");
+
+    const previewRecipientStreet =
+        document.getElementById("previewRecipientStreet");
+
+    const previewRecipientCityLine =
+        document.getElementById("previewRecipientCityLine");
+
+
+    const printedName =
+        document.getElementById("printedName");
+
+    const typedSignature =
+        document.getElementById("typedSignature");
+
+    const newSignaturePreview =
+        document.getElementById("newSignaturePreview");
+
+    const storedSignatureImage =
+        document.getElementById("storedSignatureImage");
+
+
+    const signatureRadios =
+        document.querySelectorAll(
+            'input[name="signature_type"]'
+        );
+
+
+    // =====================================================
+    // LETTER PREVIEW
+    // =====================================================
+
+    function updateLetterPreview() {
+
+        const subject =
+            subjectInput.value.trim();
+
+        const content =
+            contentInput.value.trim();
+
+
+        previewSubject.textContent =
+            subject ||
+            (
+                "{{ language }}" === "de"
+                    ? "Bewerbung als ..."
+                    : "Application for ..."
+            );
+
+
+        if (content) {
+
+            previewContent.textContent =
+                content;
+
+        } else {
+
+            previewContent.innerHTML =
+                '<span class="preview-placeholder">' +
+                'Generate a cover letter or start writing in the editor.' +
+                '</span>';
+
+        }
+
+    }
+
+
+    // =====================================================
+    // RECIPIENT PREVIEW
+    // =====================================================
+
+    function updateRecipientPreview() {
+
+        previewRecipientCompany.textContent =
+            recipientCompanyInput.value.trim();
+
+        previewRecipientContact.textContent =
+            recipientContactInput.value.trim();
+
+        previewRecipientStreet.textContent =
+            recipientStreetInput.value.trim();
+
+
+        const postalCode =
+            recipientPostalCodeInput.value.trim();
+
+        const city =
+            recipientCityInput.value.trim();
+
+
+        previewRecipientCityLine.textContent =
+            [postalCode, city]
+                .filter(Boolean)
+                .join(" ");
+
+    }
+
+
+    // =====================================================
+    // NAME
+    // =====================================================
+
+    function updateNamePreview() {
+
+        const name =
+            signatureNameInput.value.trim();
+
+        /*
+         * The normal full name is ALWAYS visible.
+         */
+        printedName.textContent =
+            name;
+
+        /*
+         * Typed signature uses the same name,
+         * but with the handwritten-style font.
+         */
+        typedSignature.textContent =
+            name;
+
+    }
+
+
+    // =====================================================
+    // SIGNATURE MODE
+    // =====================================================
+
+    function selectedSignatureType() {
+
+        const selected =
+            document.querySelector(
+                'input[name="signature_type"]:checked'
+            );
+
+        return selected
+            ? selected.value
+            : "typed";
+
+    }
+
+
+    function updateSignatureMode() {
+
+        const mode =
+            selectedSignatureType();
+
+        /*
+         * Printed full name is ALWAYS visible.
+         */
+        printedName.style.display =
+            "block";
+
+
+        if (mode === "typed") {
+
+            /*
+             * Show handwritten text signature.
+             */
+            typedSignature.style.display =
+                "block";
+
+            newSignaturePreview.style.display =
+                "none";
+
+
+            if (storedSignatureImage) {
+
+                storedSignatureImage.style.display =
+                    "none";
+
+            }
+
+        } else {
+
+            /*
+             * Show uploaded PNG signature.
+             */
+            typedSignature.style.display =
+                "none";
+
+
+            if (
+                newSignaturePreview.src
+                &&
+                newSignaturePreview.src.startsWith(
+                    "blob:"
+                )
+            ) {
+
+                newSignaturePreview.style.display =
+                    "block";
+
+            } else if (
+                storedSignatureImage
+            ) {
+
+                storedSignatureImage.style.display =
+                    "block";
+
+            }
+
+        }
+
+    }
+
+
+    // =====================================================
+    // QUICK AI PROMPTS
+    // =====================================================
+
+    document
+        .querySelectorAll(".quick-btn")
+        .forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        const prompt =
+                            this.dataset.prompt || "";
+
+                        aiInstruction.value =
+                            prompt;
+
+                        aiInstruction.focus();
+
+                    }
+                );
+
+            }
+        );
+
+
+    // =====================================================
+    // EVENTS
+    // =====================================================
+
+    subjectInput.addEventListener(
+        "input",
+        updateLetterPreview
+    );
+
+    contentInput.addEventListener(
+        "input",
+        updateLetterPreview
+    );
+
+
+    recipientCompanyInput.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+    recipientContactInput.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+    recipientStreetInput.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+    recipientPostalCodeInput.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+    recipientCityInput.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+
+    signatureNameInput.addEventListener(
+        "input",
+        updateNamePreview
+    );
+
+
+    signatureRadios.forEach(
+        function(radio) {
+
+            radio.addEventListener(
+                "change",
+                updateSignatureMode
+            );
+
+        }
+    );
+
+
+    // =====================================================
+    // NEW PNG PREVIEW
+    // =====================================================
+
+    signatureImageInput.addEventListener(
+        "change",
+        function() {
+
+            const file =
+                this.files[0];
+
+            if (!file) {
+                return;
+            }
+
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            newSignaturePreview.src =
+                url;
+
+            newSignaturePreview.style.display =
+                "block";
+
+
+            if (storedSignatureImage) {
+
+                storedSignatureImage.style.display =
+                    "none";
+
+            }
+
+
+            const uploadRadio =
+                document.querySelector(
+                    'input[name="signature_type"][value="uploaded"]'
+                );
+
+
+            if (uploadRadio) {
+
+                uploadRadio.checked =
+                    true;
+
+            }
+
+
+            updateSignatureMode();
+
+        }
+    );
+
+
+    // =====================================================
+    // INITIAL STATE
+    // =====================================================
+
+    updateLetterPreview();
+    updateRecipientPreview();
+    updateNamePreview();
+    updateSignatureMode();
+</script>
+
+</body>
+</html>

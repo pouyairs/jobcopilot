@@ -1,0 +1,1472 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .discover-page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 18px 60px;
+    }
+
+    .discover-hero {
+        background:
+            linear-gradient(
+                135deg,
+                #151225 0%,
+                #271b46 55%,
+                #4f2d8f 100%
+            );
+        color: white;
+        border-radius: 24px;
+        padding: 32px;
+        margin-bottom: 24px;
+        box-shadow: 0 18px 45px rgba(31, 22, 55, 0.18);
+    }
+
+    .discover-hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .discover-hero h1 {
+        margin: 0 0 10px;
+        font-size: 34px;
+        line-height: 1.15;
+        font-weight: 800;
+        letter-spacing: -0.6px;
+    }
+
+    .discover-hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 700px;
+    }
+
+    .hero-count {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 18px;
+        padding: 15px 20px;
+        min-width: 130px;
+        text-align: center;
+        backdrop-filter: blur(8px);
+    }
+
+    .hero-count-number {
+        display: block;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+
+    .hero-count-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.72);
+    }
+
+    .targets-box {
+        background: #ffffff;
+        border: 1px solid #ebe7f4;
+        border-radius: 20px;
+        padding: 20px 22px;
+        margin-bottom: 24px;
+        box-shadow: 0 7px 24px rgba(34, 25, 59, 0.05);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
+    .section-title {
+        margin: 0;
+        color: #201b2c;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .section-subtitle {
+        margin: 4px 0 0;
+        color: #777080;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .manage-targets-btn {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 9px 14px;
+        border-radius: 11px;
+        background: #f4effd;
+        border: 1px solid #dfd2f4;
+        color: #5c3d8c;
+        font-size: 13px;
+        font-weight: 800;
+        transition:
+            transform 0.15s ease,
+            background 0.15s ease;
+    }
+
+    .manage-targets-btn:hover {
+        transform: translateY(-1px);
+        background: #ece4f8;
+    }
+
+    .target-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .target-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: #f4effd;
+        border: 1px solid #e2d6f8;
+        color: #57348b;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .target-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #7c4dbe;
+    }
+
+    .results-section {
+        margin-bottom: 30px;
+    }
+
+    .jobs-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .job-card {
+        background: #ffffff;
+        border: 1px solid #ebe7f4;
+        border-radius: 20px;
+        padding: 21px;
+        box-shadow: 0 6px 22px rgba(33, 25, 55, 0.05);
+        transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease,
+            border-color 0.18s ease,
+            opacity 0.2s ease;
+    }
+
+    .job-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(33, 25, 55, 0.09);
+        border-color: #d9caef;
+    }
+
+    .job-card.removing {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    .job-card-top {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .job-title {
+        margin: 0 0 7px;
+        color: #1d1828;
+        font-size: 19px;
+        font-weight: 800;
+        line-height: 1.35;
+    }
+
+    .job-company {
+        color: #625b6b;
+        font-size: 14px;
+        font-weight: 650;
+        margin-bottom: 12px;
+    }
+
+    .score-box {
+        min-width: 118px;
+        text-align: center;
+        background: #f4effd;
+        border: 1px solid #dfd2f4;
+        color: #57348b;
+        border-radius: 16px;
+        padding: 12px 14px;
+    }
+
+    .score-caption {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #89769f;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .score-number {
+        display: block;
+        font-size: 24px;
+        font-weight: 850;
+        line-height: 1;
+    }
+
+    .score-label {
+        display: block;
+        font-size: 11px;
+        margin-top: 5px;
+        color: #78668f;
+        font-weight: 700;
+    }
+
+    .fit-badge {
+        display: inline-flex;
+        margin-top: 8px;
+        border-radius: 999px;
+        padding: 5px 8px;
+        font-size: 10px;
+        font-weight: 850;
+    }
+
+    .fit-badge.good {
+        background: #e9f7ef;
+        color: #247047;
+    }
+
+    .fit-badge.possible {
+        background: #fff5df;
+        color: #8d6215;
+    }
+
+    .fit-badge.weak {
+        background: #fcebec;
+        color: #9b3d46;
+    }
+
+    .job-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f7f6f9;
+        border: 1px solid #ece9ef;
+        color: #625c69;
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .meta-chip.remote {
+        background: #edf8f2;
+        border-color: #d5eee0;
+        color: #25724a;
+    }
+
+    .meta-chip.source {
+        background: #f4f3fc;
+        border-color: #e3e0f8;
+        color: #554c91;
+    }
+
+    .meta-chip.analyzed {
+        background: #eef5ff;
+        border-color: #d6e4fb;
+        color: #355b98;
+    }
+
+    .match-reason {
+        margin-top: 13px;
+        background: #faf9fc;
+        border: 1px solid #efecf3;
+        border-radius: 14px;
+        padding: 12px 14px;
+        color: #625b68;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .match-target {
+        display: inline-block;
+        margin-top: 10px;
+        color: #7a6f84;
+        font-size: 12px;
+    }
+
+    .job-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 17px;
+    }
+
+    .analyze-form {
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+    }
+
+    .job-btn {
+        appearance: none;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 40px;
+        padding: 9px 14px;
+        border-radius: 11px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+    .job-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.65;
+    }
+
+    .job-btn.primary {
+        background: #6942a5;
+        color: white;
+    }
+
+    .job-btn.secondary {
+        background: #ffffff;
+        color: #49356b;
+        border: 1px solid #ddd4e9;
+    }
+
+    .job-btn.saved {
+        background: #edf8f2;
+        border: 1px solid #cae8d7;
+        color: #217049;
+    }
+
+    .job-btn.muted {
+        background: #f5f4f6;
+        color: #77717d;
+        border: 1px solid #e6e3e8;
+    }
+
+    .empty-state {
+        background: #ffffff;
+        border: 1px dashed #d9d1e5;
+        border-radius: 20px;
+        padding: 34px 22px;
+        text-align: center;
+        color: #6d6674;
+    }
+
+    .empty-state h3 {
+        margin: 0 0 8px;
+        color: #30283c;
+        font-size: 18px;
+    }
+
+    .empty-state p {
+        margin: 0 0 16px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .external-section {
+        margin-top: 28px;
+    }
+
+    .external-wrapper {
+        background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fbf9ff 100%
+        );
+        border: 1px solid #e7e0f1;
+        border-radius: 22px;
+        padding: 24px;
+        box-shadow: 0 8px 26px rgba(34, 25, 59, 0.05);
+    }
+
+    .external-intro {
+        margin-bottom: 20px;
+    }
+
+    .external-intro h2 {
+        margin: 0 0 6px;
+        color: #211a2e;
+        font-size: 22px;
+        font-weight: 850;
+    }
+
+    .external-intro p {
+        margin: 0;
+        color: #766e7e;
+        font-size: 13px;
+    }
+
+    .external-targets {
+        display: grid;
+        gap: 15px;
+    }
+
+    .external-target-card {
+        background: #ffffff;
+        border: 1px solid #ebe6f2;
+        border-radius: 17px;
+        padding: 18px;
+    }
+
+    .external-target-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 13px;
+    }
+
+    .external-target-name {
+        color: #292132;
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .external-target-location {
+        color: #817789;
+        font-size: 12px;
+    }
+
+    .external-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+    }
+
+    .external-link {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 9px 13px;
+        border-radius: 11px;
+        font-size: 13px;
+        font-weight: 750;
+        background: #ffffff;
+        color: #4f3a6e;
+        border: 1px solid #ddd3eb;
+    }
+
+    .external-icon {
+        width: 22px;
+        height: 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        background: #f2ecfa;
+        font-size: 11px;
+        font-weight: 900;
+        color: #6942a5;
+    }
+
+    .toast-container {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 9999;
+        display: grid;
+        gap: 10px;
+        pointer-events: none;
+    }
+
+    .toast {
+        min-width: 260px;
+        max-width: 360px;
+        background: #211a2e;
+        color: #ffffff;
+        padding: 13px 16px;
+        border-radius: 12px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: 0.2s ease;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .toast.success {
+        background: #256b49;
+    }
+
+    .toast.error {
+        background: #9b3131;
+    }
+
+    @media (max-width: 720px) {
+        .discover-page {
+            padding: 18px 12px 45px;
+        }
+
+        .discover-hero {
+            padding: 24px 20px;
+        }
+
+        .discover-hero h1 {
+            font-size: 27px;
+        }
+
+        .hero-count {
+            width: 100%;
+        }
+
+        .section-header {
+            align-items: stretch;
+        }
+
+        .manage-targets-btn {
+            width: 100%;
+        }
+
+        .job-card-top {
+            grid-template-columns: 1fr;
+        }
+
+        .score-box {
+            width: fit-content;
+        }
+
+        .job-actions,
+        .external-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .analyze-form,
+        .job-btn,
+        .external-link {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 460px) {
+        .job-actions,
+        .external-links {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+<div class="discover-page">
+
+    <section class="discover-hero">
+
+        <div class="discover-hero-top">
+
+            <div>
+
+                <h1>
+                    🔎 Today's Job Matches
+                </h1>
+
+                <p>
+                    Jobs are shortlisted using your search targets,
+                    then ranked against your verified profile.
+                </p>
+
+            </div>
+
+
+            <div class="hero-count">
+
+                <span
+                    class="hero-count-number"
+                    id="recommendation-count"
+                >
+                    {{ recommendation_count }}
+                </span>
+
+                <span class="hero-count-label">
+                    profile matches
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         TARGETS
+    =================================================== -->
+
+    <section class="targets-box">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2 class="section-title">
+                    🎯 Active Search Targets
+                </h2>
+
+                <p class="section-subtitle">
+                    Choose up to three roles JobCopilot should
+                    search for.
+                </p>
+
+            </div>
+
+
+            <div style="
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+">
+
+    <form
+    method="post"
+    action="{% url 'refresh_discovery' %}"
+    style="margin: 0;"
+    id="refresh-discover-form"
+>
+    {% csrf_token %}
+
+    <button
+        type="submit"
+        class="manage-targets-btn"
+        id="refresh-discover-btn"
+        style="cursor: pointer;"
+    >
+        ↻ Refresh Jobs
+    </button>
+</form>
+
+    <a
+        href="{% url 'discovery_targets' %}"
+        class="manage-targets-btn"
+    >
+        ⚙ Manage Job Targets
+    </a>
+
+</div>
+
+        </div>
+
+
+        {% if targets %}
+
+            <div class="target-chips">
+
+                {% for target in targets %}
+
+                    <div class="target-chip">
+
+                        <span class="target-dot"></span>
+
+                        <span>
+
+                            {{ target.title }}
+
+                            {% if target.location %}
+                                · {{ target.location }}
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No active job targets
+                </h3>
+
+                <p>
+                    Add your preferred job titles before using Discovery.
+                </p>
+
+
+                <a
+                    href="{% url 'add_discovery_target' %}"
+                    class="manage-targets-btn"
+                >
+                    + Add Job Target
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- ==================================================
+         PROFILE MATCHES
+    =================================================== -->
+
+    <section class="results-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2 class="section-title">
+                    ✨ Profile Matches
+                </h2>
+
+                <p class="section-subtitle">
+                    Scores are based on your verified profile and
+                    the vacancy requirements.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="jobs-container">
+
+            {% if recommendations %}
+
+                <div
+                    class="jobs-list"
+                    id="jobs-list"
+                >
+
+                    {% for recommendation in recommendations %}
+
+                        <article
+                            class="job-card"
+                            id="recommendation-{{ recommendation.id }}"
+                        >
+
+                            <div class="job-card-top">
+
+                                <div>
+
+                                    <h3 class="job-title">
+                                        {{ recommendation.job.title }}
+                                    </h3>
+
+
+                                    <div class="job-company">
+
+                                        {% if recommendation.job.company %}
+
+                                            {{ recommendation.job.company }}
+
+                                        {% else %}
+
+                                            Company not specified
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="score-box">
+
+                                    <span class="score-caption">
+                                        Profile Match
+                                    </span>
+
+                                    <span class="score-number">
+                                        {{ recommendation.match_score }}
+                                    </span>
+
+                                    <span class="score-label">
+                                        / 10
+                                    </span>
+
+
+                                    {% if recommendation.profile_fit == "GOOD" %}
+
+                                        <span class="fit-badge good">
+                                            GOOD
+                                        </span>
+
+                                    {% elif recommendation.profile_fit == "POSSIBLE" %}
+
+                                        <span class="fit-badge possible">
+                                            POSSIBLE
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="fit-badge weak">
+                                            WEAK
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="job-meta">
+
+                                {% if recommendation.job.location %}
+
+                                    <span class="meta-chip">
+                                        📍 {{ recommendation.job.location }}
+                                    </span>
+
+                                {% endif %}
+
+
+                                {% if recommendation.job.remote %}
+
+                                    <span class="meta-chip remote">
+                                        🏠 Remote
+                                    </span>
+
+                                {% endif %}
+
+
+                                <span class="meta-chip source">
+                                    🔗 {{ recommendation.job.get_source_display }}
+                                </span>
+
+
+                                {% if recommendation.status == "analyzed" %}
+
+                                    <span class="meta-chip analyzed">
+                                        ✓ Full analysis completed
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if recommendation.display_match_reason %}
+
+                                <div class="match-reason">
+                                    💡 {{ recommendation.display_match_reason }}
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if recommendation.target %}
+
+                                <span class="match-target">
+
+                                    Found through:
+
+                                    <strong>
+                                        {{ recommendation.target.title }}
+                                    </strong>
+
+                                </span>
+
+                            {% endif %}
+
+
+                            <div class="job-actions">
+
+                                <a
+                                    href="{{ recommendation.job.url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="job-btn secondary"
+                                >
+                                    ↗ Open Job
+                                </a>
+
+
+                                <form
+                                    method="post"
+                                    action="{% url 'analyze_recommendation' recommendation.id %}"
+                                    class="analyze-form"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="job-btn primary analyze-job-btn"
+                                    >
+                                        ✨ Full Analyze
+                                    </button>
+
+                                </form>
+
+
+                                <button
+                                    type="button"
+                                    class="job-btn {% if recommendation.status == 'saved' %}saved{% else %}secondary{% endif %} save-job-btn"
+                                    data-url="{% url 'save_recommendation' recommendation.id %}"
+                                >
+
+                                    {% if recommendation.status == "saved" %}
+                                        ✓ Saved
+                                    {% else %}
+                                        ☆ Save
+                                    {% endif %}
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="job-btn muted not-interested-btn"
+                                    data-url="{% url 'not_interested' recommendation.id %}"
+                                >
+                                    ✕ Not Interested
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <h3>
+                        No profile matches yet
+                    </h3>
+
+                    <p>
+                        No current vacancies have completed
+                        profile-based ranking.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         EXTERNAL SEARCH
+    =================================================== -->
+
+    {% if external_searches %}
+
+        <section class="external-section">
+
+            <div class="external-wrapper">
+
+                <div class="external-intro">
+
+                    <h2>
+                        🌐 Search More Jobs
+                    </h2>
+
+                    <p>
+                        Continue the same target search on major job boards.
+                    </p>
+
+                </div>
+
+
+                <div class="external-targets">
+
+                    {% for search in external_searches %}
+
+                        <div class="external-target-card">
+
+                            <div class="external-target-title">
+
+                                <div class="external-target-name">
+                                    🎯 {{ search.target.title }}
+                                </div>
+
+
+                                <div class="external-target-location">
+
+                                    {% if search.target.location %}
+
+                                        📍 {{ search.target.location }}
+
+                                        {% if search.target.radius_km %}
+                                            · {{ search.target.radius_km }} km
+                                        {% endif %}
+
+                                    {% else %}
+
+                                        Germany / No specific city
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="external-links">
+
+                                {% for link in search.links %}
+
+                                    <a
+                                        href="{{ link.url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="external-link"
+                                    >
+
+                                        <span class="external-icon">
+
+                                            {% if link.key == "linkedin" %}
+                                                in
+                                            {% elif link.key == "indeed" %}
+                                                i
+                                            {% elif link.key == "stepstone" %}
+                                                S
+                                            {% elif link.key == "xing" %}
+                                                X
+                                            {% elif link.key == "arbeitsagentur" %}
+                                                A
+                                            {% else %}
+                                                ↗
+                                            {% endif %}
+
+                                        </span>
+
+                                        {{ link.name }}
+
+                                    </a>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    {% endif %}
+
+</div>
+
+
+<div
+    class="toast-container"
+    id="toast-container"
+></div>
+
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            function getCookie(name) {
+
+                let cookieValue = null;
+
+                if (
+                    document.cookie
+                    && document.cookie !== ""
+                ) {
+
+                    const cookies = document.cookie.split(";");
+
+                    for (
+                        let i = 0;
+                        i < cookies.length;
+                        i++
+                    ) {
+
+                        const cookie = cookies[i].trim();
+
+                        if (
+                            cookie.substring(
+                                0,
+                                name.length + 1
+                            ) === (
+                                name + "="
+                            )
+                        ) {
+
+                            cookieValue = decodeURIComponent(
+                                cookie.substring(
+                                    name.length + 1
+                                )
+                            );
+
+                            break;
+                        }
+                    }
+                }
+
+                return cookieValue;
+            }
+
+
+            const csrfToken = getCookie(
+                "csrftoken"
+            );
+
+
+            function showToast(
+                message,
+                type = "success"
+            ) {
+
+                const container = document.getElementById(
+                    "toast-container"
+                );
+
+                if (!container) {
+                    return;
+                }
+
+
+                const toast = document.createElement(
+                    "div"
+                );
+
+                toast.className = (
+                    "toast " + type
+                );
+
+                toast.textContent = message;
+
+                container.appendChild(
+                    toast
+                );
+
+
+                requestAnimationFrame(
+                    function () {
+
+                        toast.classList.add(
+                            "show"
+                        );
+
+                    }
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                        setTimeout(
+                            function () {
+                                toast.remove();
+                            },
+                            250
+                        );
+
+                    },
+                    2600
+                );
+            }
+
+
+            async function postAction(url) {
+
+                const response = await fetch(
+                    url,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "X-CSRFToken": csrfToken,
+                            "X-Requested-With": "XMLHttpRequest",
+                        },
+
+                        credentials: "same-origin",
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message
+                        || "Request failed."
+                    );
+
+                }
+
+
+                return data;
+            }
+
+
+            document
+                .querySelectorAll(
+                    ".analyze-form"
+                )
+                .forEach(
+                    function (form) {
+
+                        form.addEventListener(
+                            "submit",
+                            function () {
+
+                                const button = form.querySelector(
+                                    ".analyze-job-btn"
+                                );
+
+                                if (!button) {
+                                    return;
+                                }
+
+                                button.disabled = true;
+
+                                button.textContent = (
+                                    "⏳ Full analysis..."
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".save-job-btn"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            async function () {
+
+                                const url = button.dataset.url;
+
+                                if (!url) {
+                                    return;
+                                }
+
+                                button.disabled = true;
+
+                                try {
+
+                                    const data = await postAction(
+                                        url
+                                    );
+
+                                    button.classList.remove(
+                                        "secondary"
+                                    );
+
+                                    button.classList.add(
+                                        "saved"
+                                    );
+
+                                    button.textContent = (
+                                        "✓ Saved"
+                                    );
+
+                                    showToast(
+                                        data.message
+                                        || "Job saved."
+                                    );
+
+                                } catch (error) {
+
+                                    showToast(
+                                        error.message,
+                                        "error"
+                                    );
+
+                                } finally {
+
+                                    button.disabled = false;
+
+                                }
+                            }
+                        );
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".not-interested-btn"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            async function () {
+
+                                const url = button.dataset.url;
+
+                                const card = button.closest(
+                                    ".job-card"
+                                );
+
+                                if (
+                                    !url
+                                    || !card
+                                ) {
+                                    return;
+                                }
+
+                                button.disabled = true;
+
+                                try {
+
+                                    const data = await postAction(
+                                        url
+                                    );
+
+                                    card.classList.add(
+                                        "removing"
+                                    );
+
+                                    setTimeout(
+                                        function () {
+
+                                            card.remove();
+
+                                            const cards = (
+                                                document.querySelectorAll(
+                                                    ".job-card"
+                                                )
+                                            );
+
+                                            const count = (
+                                                document.getElementById(
+                                                    "recommendation-count"
+                                                )
+                                            );
+
+                                            if (count) {
+                                                count.textContent = (
+                                                    cards.length
+                                                );
+                                            }
+
+                                        },
+                                        220
+                                    );
+
+                                    showToast(
+                                        data.message
+                                        || "Job removed."
+                                    );
+
+                                } catch (error) {
+
+                                    button.disabled = false;
+
+                                    showToast(
+                                        error.message,
+                                        "error"
+                                    );
+
+                                }
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+const refreshForm = document.getElementById(
+    "refresh-discover-form"
+);
+
+const refreshButton = document.getElementById(
+    "refresh-discover-btn"
+);
+
+if (
+    refreshForm
+    && refreshButton
+) {
+
+    refreshForm.addEventListener(
+        "submit",
+        function () {
+
+            refreshButton.disabled = true;
+
+            refreshButton.textContent = (
+                "⏳ Fetching new jobs..."
+            );
+
+        }
+    );
+}
+</script>
+
+
+{% endblock %}

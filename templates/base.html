@@ -27,190 +27,691 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            background: #f5f7fb;
-            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
             color: #1f2937;
         }
 
+
+        /* =================================================
+           NAVBAR
+        ================================================= */
+
         nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background:
+                rgba(255, 255, 255, 0.96);
+
+            border-bottom:
+                1px solid #e8eaf0;
+
+            box-shadow:
+                0 4px 18px rgba(
+                    17,
+                    24,
+                    39,
+                    0.04
+                );
+
+            backdrop-filter:
+                blur(12px);
         }
 
+
         .nav-container {
-            max-width: 1100px;
+            width: 100%;
+            max-width: 1180px;
+
             margin: auto;
-            min-height: 68px;
+
+            min-height: 72px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            padding: 0 20px;
+            gap: 24px;
+
+            padding:
+                0 24px;
         }
 
+
+        /* =================================================
+           BRAND
+        ================================================= */
+
         .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            flex-shrink: 0;
+
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 800;
+
+            letter-spacing: -0.4px;
+
             text-decoration: none;
             color: #111827;
         }
 
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 11px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #5b21b6
+                );
+
+            color: #ffffff;
+
+            font-size: 17px;
+            font-weight: 800;
+
+            box-shadow:
+                0 6px 16px rgba(
+                    124,
+                    58,
+                    237,
+                    0.22
+                );
+        }
+
+
+        .brand-text {
+            white-space: nowrap;
+        }
+
+
+        /* =================================================
+           NAV LINKS
+        ================================================= */
+
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: flex-end;
+
+            gap: 5px;
+
+            min-width: 0;
         }
 
-        .nav-links a {
-            color: #374151;
+
+        .nav-link {
+            position: relative;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 40px;
+
+            padding:
+                9px 12px;
+
+            border-radius: 9px;
+
+            color: #4b5563;
+
+            font-size: 14px;
+            font-weight: 600;
+
             text-decoration: none;
+
+            white-space: nowrap;
+
+            transition:
+                background 0.18s ease,
+                color 0.18s ease,
+                transform 0.18s ease;
         }
+
+
+        .nav-link:hover {
+            background: #f3f0ff;
+            color: #6d28d9;
+        }
+
+
+        .nav-link.active {
+            background: #f0eaff;
+            color: #6d28d9;
+        }
+
+
+        /* =================================================
+           DISCOVER LINK
+        ================================================= */
+
+        .discover-link {
+            color: #5b21b6;
+        }
+
+
+        .discover-link::before {
+            content: "✦";
+
+            margin-inline-end: 6px;
+
+            font-size: 12px;
+        }
+
+
+        /* =================================================
+           PRIMARY CTA
+        ================================================= */
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 40px;
+
+            padding:
+                9px 15px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #6d28d9
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 5px 14px rgba(
+                    124,
+                    58,
+                    237,
+                    0.2
+                );
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px rgba(
+                    124,
+                    58,
+                    237,
+                    0.28
+                );
+        }
+
+
+        /* =================================================
+           LANGUAGE SWITCHER
+        ================================================= */
+
+        .language-links {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 3px;
+
+            margin-inline-start: 5px;
+
+            padding: 3px;
+
+            background: #f3f4f6;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+        }
+
+
+        .language-links a {
+            min-width: 31px;
+
+            padding:
+                6px 7px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: #6b7280;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            transition:
+                background 0.18s ease,
+                color 0.18s ease;
+        }
+
+
+        .language-links a:hover {
+            background: white;
+            color: #6d28d9;
+        }
+
+
+        .language-links a.active-language {
+            background: white;
+
+            color: #6d28d9;
+
+            box-shadow:
+                0 1px 4px rgba(
+                    17,
+                    24,
+                    39,
+                    0.08
+                );
+        }
+
+
+        /* =================================================
+           LOGOUT
+        ================================================= */
+
+        .logout-form {
+            display: inline-flex;
+            margin: 0;
+        }
+
+
+        .logout-form button {
+            min-height: 40px;
+
+            padding:
+                9px 12px;
+
+            border: 0;
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: #6b7280;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.18s ease,
+                color 0.18s ease;
+        }
+
+
+        .logout-form button:hover {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+
+        /* =================================================
+           PAGE CONTAINER
+        ================================================= */
 
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1040px;
 
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 38px auto;
+
+            padding:
+                0 20px 48px;
         }
 
-        .card {
-            background: white;
 
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
+        /* =================================================
+           CARD
+        ================================================= */
+
+        .card {
+            background: #ffffff;
+
+            border:
+                1px solid #e7e9ef;
+
+            border-radius: 16px;
 
             padding: 28px;
 
             margin-bottom: 20px;
 
             box-shadow:
-                0 4px 14px rgba(0, 0, 0, 0.04);
+                0 8px 24px rgba(
+                    17,
+                    24,
+                    39,
+                    0.045
+                );
         }
+
 
         h1,
         h2,
         h3 {
             margin-top: 0;
+            color: #111827;
         }
+
+
+        /* =================================================
+           FORMS
+        ================================================= */
 
         label {
             display: block;
+
             margin-bottom: 7px;
-            font-weight: bold;
+
+            font-weight: 700;
         }
+
 
         input,
         textarea,
         select {
-
             width: 100%;
 
-            padding: 11px 12px;
+            padding:
+                11px 12px;
 
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 9px;
 
             font-size: 15px;
 
             margin-bottom: 17px;
 
             background: white;
+
+            color: #1f2937;
+
+            outline: none;
+
+            transition:
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
         }
+
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #8b5cf6;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    139,
+                    92,
+                    246,
+                    0.12
+                );
+        }
+
 
         input[type="checkbox"] {
             width: auto;
-            margin: 0 8px;
+            margin:
+                0 8px;
         }
+
 
         textarea {
             resize: vertical;
         }
 
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
         button,
         .btn {
-
             display: inline-block;
 
             border: 0;
-            border-radius: 8px;
 
-            padding: 11px 18px;
+            border-radius: 9px;
+
+            padding:
+                11px 18px;
 
             background: #111827;
             color: white;
 
             font-size: 15px;
+            font-weight: 600;
 
             cursor: pointer;
 
             text-decoration: none;
+
+            transition:
+                transform 0.18s ease,
+                opacity 0.18s ease;
         }
+
+
+        button:hover,
+        .btn:hover {
+            opacity: 0.92;
+        }
+
 
         .btn-secondary {
             background: #e5e7eb;
             color: #111827;
         }
 
-        .language-links a {
-            text-decoration: none;
-            font-weight: bold;
 
-            color: #4b5563;
-
-            margin: 0 4px;
-        }
+        /* =================================================
+           MESSAGES
+        ================================================= */
 
         .success {
-            padding: 12px;
+            padding: 13px 15px;
 
-            border-radius: 8px;
+            border:
+                1px solid #bbf7d0;
+
+            border-radius: 10px;
 
             background: #ecfdf5;
 
+            color: #166534;
+
             margin-bottom: 20px;
         }
+
 
         .errorlist {
             color: #b91c1c;
         }
 
+
         .auth-box {
             max-width: 500px;
-            margin: 60px auto;
+
+            margin:
+                60px auto;
         }
 
-        .logout-form {
-            display: inline;
-        }
 
-        .logout-form button {
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
 
-            background: none;
-            color: #374151;
-
-            padding: 0;
-        }
-
-        @media (max-width: 700px) {
+        @media (
+            max-width: 900px
+        ) {
 
             .nav-container {
-                flex-direction: column;
-                padding: 15px;
-                gap: 12px;
+                padding:
+                    12px 18px;
+
+                align-items:
+                    flex-start;
             }
+
 
             .nav-links {
                 flex-wrap: wrap;
+
+                justify-content:
+                    flex-end;
+            }
+
+        }
+
+
+        @media (
+            max-width: 720px
+        ) {
+
+            nav {
+                position: static;
+            }
+
+
+            .nav-container {
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 12px;
+
+                padding:
+                    14px 16px;
+            }
+
+
+            .brand {
                 justify-content: center;
             }
 
-            .container {
-                margin-top: 25px;
+
+            .nav-links {
+                width: 100%;
+
+                justify-content: center;
+
+                gap: 5px;
             }
+
+
+            .nav-link,
+            .logout-form button {
+                min-height: 38px;
+
+                padding:
+                    8px 10px;
+            }
+
+
+            .nav-cta {
+                min-height: 38px;
+
+                padding:
+                    8px 13px;
+            }
+
+
+            .language-links {
+                margin-inline-start: 0;
+            }
+
+
+            .container {
+                margin-top: 24px;
+
+                padding:
+                    0 15px 38px;
+            }
+
+
+            .card {
+                padding: 21px;
+
+                border-radius: 14px;
+            }
+
+        }
+
+
+        @media (
+            max-width: 460px
+        ) {
+
+            .brand-text {
+                font-size: 18px;
+            }
+
+
+            .nav-links {
+                gap: 4px;
+            }
+
+
+            .nav-link {
+                font-size: 13px;
+
+                padding:
+                    8px 9px;
+            }
+
+
+            .nav-cta {
+                font-size: 13px;
+            }
+
+
+            .logout-form button {
+                font-size: 13px;
+            }
+
         }
 
     </style>
@@ -229,7 +730,15 @@
             class="brand"
             href="{% url 'home' %}"
         >
-            {{ t.app_name }}
+
+            <span class="brand-mark">
+                J
+            </span>
+
+            <span class="brand-text">
+                {{ t.app_name }}
+            </span>
+
         </a>
 
 
@@ -237,20 +746,66 @@
 
             {% if user.is_authenticated %}
 
-                <a href="{% url 'dashboard' %}">
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="
+                        nav-link
+                        {% if request.resolver_match.url_name == 'dashboard' %}
+                            active
+                        {% endif %}
+                    "
+                >
                     {{ t.dashboard }}
                 </a>
 
-                <a href="{% url 'profile' %}">
+
+                <a
+                    href="{% url 'discover_jobs' %}"
+                    class="
+                        nav-link
+                        discover-link
+                        {% if request.resolver_match.url_name == 'discover_jobs' %}
+                            active
+                        {% endif %}
+                    "
+                >
+                    Discover Jobs
+                </a>
+
+
+                <a
+                    href="{% url 'applications' %}"
+                    class="
+                        nav-link
+                        {% if request.resolver_match.url_name == 'applications' %}
+                            active
+                        {% endif %}
+                    "
+                >
+                    {{ t.applications }}
+                </a>
+
+
+                <a
+                    href="{% url 'profile' %}"
+                    class="
+                        nav-link
+                        {% if request.resolver_match.url_name == 'profile' %}
+                            active
+                        {% endif %}
+                    "
+                >
                     {{ t.profile }}
                 </a>
-                <a href="{% url 'analyze_job' %}">
-    {{ t.analyze_job }}
-</a>
 
-<a href="{% url 'applications' %}">
-    {{ t.applications }}
-</a>
+
+                <a
+                    href="{% url 'analyze_job' %}"
+                    class="nav-cta"
+                >
+                    + {{ t.analyze_job }}
+                </a>
+
 
                 <form
                     method="post"
@@ -266,13 +821,26 @@
 
                 </form>
 
+
             {% else %}
 
-                <a href="{% url 'login' %}">
+                <a
+                    href="{% url 'login' %}"
+                    class="
+                        nav-link
+                        {% if request.resolver_match.url_name == 'login' %}
+                            active
+                        {% endif %}
+                    "
+                >
                     {{ t.login }}
                 </a>
 
-                <a href="{% url 'register' %}">
+
+                <a
+                    href="{% url 'register' %}"
+                    class="nav-cta"
+                >
                     {{ t.register }}
                 </a>
 
@@ -281,13 +849,26 @@
 
             <div class="language-links">
 
-                <a href="{% url 'set_language' 'en' %}">
+                <a
+                    href="{% url 'set_language' 'en' %}"
+                    class="
+                        {% if ui_lang == 'en' %}
+                            active-language
+                        {% endif %}
+                    "
+                >
                     EN
                 </a>
 
-                |
 
-                <a href="{% url 'set_language' 'fa' %}">
+                <a
+                    href="{% url 'set_language' 'fa' %}"
+                    class="
+                        {% if ui_lang == 'fa' %}
+                            active-language
+                        {% endif %}
+                    "
+                >
                     FA
                 </a>
 
@@ -301,6 +882,27 @@
 
 
 <main class="container">
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="
+                    {% if message.tags == 'error' %}
+                        success
+                    {% else %}
+                        success
+                    {% endif %}
+                "
+            >
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
 
     {% block content %}
     {% endblock %}

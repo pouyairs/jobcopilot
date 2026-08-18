@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     
     "accounts",
     "jobs",
+    "discovery",
 ]
 
 MIDDLEWARE = [
@@ -149,4 +150,18 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_MODEL = os.getenv(
     "OPENAI_MODEL",
     "gpt-5.6-luna"
+)
+JOOBLE_API_KEY = os.getenv(
+    "JOOBLE_API_KEY",
+    "",
+)
+
+ADZUNA_APP_ID = os.getenv(
+    "ADZUNA_APP_ID",
+    "",
+)
+
+ADZUNA_APP_KEY = os.getenv(
+    "ADZUNA_APP_KEY",
+    "",
 )

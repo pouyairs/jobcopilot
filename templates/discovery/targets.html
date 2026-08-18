@@ -1,0 +1,1167 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .targets-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 18px 60px;
+    }
+
+    .targets-hero {
+        background:
+            linear-gradient(
+                135deg,
+                #171226 0%,
+                #2c1d4c 55%,
+                #5b3798 100%
+            );
+        color: #ffffff;
+        border-radius: 24px;
+        padding: 30px;
+        margin-bottom: 24px;
+        box-shadow: 0 18px 45px rgba(31, 22, 55, 0.16);
+    }
+
+    .targets-hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+
+    .targets-hero h1 {
+        margin: 0 0 8px;
+        font-size: 31px;
+        font-weight: 850;
+        line-height: 1.2;
+    }
+
+    .targets-hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 680px;
+    }
+
+    .hero-counter {
+        min-width: 130px;
+        padding: 14px 18px;
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        text-align: center;
+    }
+
+    .hero-counter strong {
+        display: block;
+        font-size: 26px;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+
+    .hero-counter span {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.72);
+    }
+
+    .top-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .back-link {
+        text-decoration: none;
+        color: #5b4781;
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+    .add-btn {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 42px;
+        padding: 10px 16px;
+        border-radius: 12px;
+        background: #6942a5;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .add-btn.disabled {
+        background: #d8d2df;
+        color: #817989;
+        pointer-events: none;
+    }
+
+    .limit-note {
+        background: #faf8fd;
+        border: 1px solid #e9e2f2;
+        border-radius: 15px;
+        padding: 13px 15px;
+        margin-bottom: 20px;
+        color: #6f6678;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .targets-list {
+        display: grid;
+        gap: 14px;
+    }
+
+    .target-card {
+        background: #ffffff;
+        border: 1px solid #ebe6f2;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 7px 24px rgba(34, 25, 59, 0.05);
+        transition:
+            transform 0.16s ease,
+            box-shadow 0.16s ease,
+            opacity 0.16s ease;
+    }
+
+    .target-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(34, 25, 59, 0.08);
+    }
+
+    .target-card.removing {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    .target-card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .target-name {
+        margin: 0 0 8px;
+        color: #241d30;
+        font-size: 19px;
+        font-weight: 850;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .status-badge.active {
+        background: #eaf7ef;
+        color: #267248;
+        border: 1px solid #d2eadb;
+    }
+
+    .status-badge.paused {
+        background: #f3f1f5;
+        color: #746c7b;
+        border: 1px solid #e4e0e7;
+    }
+
+    .target-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 13px;
+    }
+
+    .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: #f7f5f9;
+        border: 1px solid #ebe7ef;
+        color: #625b69;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .target-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 17px;
+    }
+
+    .target-btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 39px;
+        padding: 9px 13px;
+        border-radius: 11px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .target-btn.edit {
+        background: #f4effd;
+        border: 1px solid #dfd2f4;
+        color: #5c3d8c;
+    }
+
+    .target-btn.toggle {
+        background: #f7f6f8;
+        border: 1px solid #e7e3ea;
+        color: #69616f;
+    }
+
+    .target-btn.delete {
+        background: #fff1f2;
+        border: 1px solid #f1d3d6;
+        color: #9a3e47;
+    }
+
+    .target-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .empty-state {
+        background: #ffffff;
+        border: 1px dashed #d9d1e5;
+        border-radius: 20px;
+        padding: 38px 22px;
+        text-align: center;
+        color: #6d6674;
+    }
+
+    .empty-state h3 {
+        margin: 0 0 8px;
+        color: #30283c;
+        font-size: 18px;
+    }
+
+    .empty-state p {
+        margin: 0 0 18px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .toast-container {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 9999;
+        display: grid;
+        gap: 10px;
+        pointer-events: none;
+    }
+
+    .toast {
+        min-width: 260px;
+        max-width: 360px;
+        background: #211a2e;
+        color: #ffffff;
+        padding: 13px 16px;
+        border-radius: 12px;
+        box-shadow: 0 12px 30px rgba(20, 14, 30, 0.25);
+        font-size: 13px;
+        font-weight: 650;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: 0.2s ease;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .toast.success {
+        background: #256b49;
+    }
+
+    .toast.error {
+        background: #9b3131;
+    }
+
+    @media (max-width: 680px) {
+        .targets-page {
+            padding: 18px 12px 45px;
+        }
+
+        .targets-hero {
+            padding: 24px 20px;
+        }
+
+        .targets-hero h1 {
+            font-size: 26px;
+        }
+
+        .hero-counter {
+            width: 100%;
+        }
+
+        .target-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .target-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div
+    class="targets-page"
+    data-max-targets="{{ max_job_targets }}"
+    data-add-url="{% url 'add_discovery_target' %}"
+>
+
+    <section class="targets-hero">
+
+        <div class="targets-hero-top">
+
+            <div>
+
+                <h1>
+                    🎯 My Job Targets
+                </h1>
+
+                <p>
+                    Choose up to three job roles you want JobCopilot
+                    to search for. Changes are applied immediately.
+                </p>
+
+            </div>
+
+
+            <div class="hero-counter">
+
+                <strong id="target-counter">
+                    {{ target_count }} / {{ max_job_targets }}
+                </strong>
+
+                <span>
+                    targets used
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="top-actions">
+
+        <a
+            href="{% url 'discover_jobs' %}"
+            class="back-link"
+        >
+            ← Back to Discover
+        </a>
+
+
+        <div id="add-target-container">
+
+            {% if target_count < max_job_targets %}
+
+                <a
+                    href="{% url 'add_discovery_target' %}"
+                    class="add-btn"
+                >
+                    + Add Job Target
+                </a>
+
+            {% else %}
+
+                <span class="add-btn disabled">
+                    Maximum 3 Targets
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="limit-note">
+
+        You can keep up to
+        <strong>{{ max_job_targets }}</strong>
+        job targets.
+
+        Pause a target if you temporarily do not want it used
+        for Discovery, or delete it to create a different target.
+
+    </div>
+
+
+    <div id="target-content">
+
+        {% if targets %}
+
+            <div
+                class="targets-list"
+                id="targets-list"
+            >
+
+                {% for target in targets %}
+
+                    <article
+                        class="target-card"
+                        id="target-{{ target.id }}"
+                    >
+
+                        <div class="target-card-top">
+
+                            <div>
+
+                                <h2 class="target-name">
+                                    {{ target.title }}
+                                </h2>
+
+
+                                {% if target.active %}
+
+                                    <span
+                                        class="status-badge active"
+                                        id="status-{{ target.id }}"
+                                    >
+                                        ● Active
+                                    </span>
+
+                                {% else %}
+
+                                    <span
+                                        class="status-badge paused"
+                                        id="status-{{ target.id }}"
+                                    >
+                                        ● Paused
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="target-meta">
+
+                            <span class="meta-chip">
+                                📍
+                                {% if target.location %}
+                                    {{ target.location }}
+                                {% else %}
+                                    No specific location
+                                {% endif %}
+                            </span>
+
+
+                            <span class="meta-chip">
+                                📏 {{ target.radius_km }} km
+                            </span>
+
+
+                            <span class="meta-chip">
+
+                                {% if target.remote %}
+                                    🏠 Remote allowed
+                                {% else %}
+                                    🏢 On-site preferred
+                                {% endif %}
+
+                            </span>
+
+
+                            <span class="meta-chip">
+                                🎯 Min {{ target.minimum_match_score }}/10
+                            </span>
+
+
+                            {% if target.exclude_zeitarbeit %}
+
+                                <span class="meta-chip">
+                                    🚫 Exclude Zeitarbeit
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="target-actions">
+
+                            <a
+                                href="{% url 'edit_discovery_target' target.id %}"
+                                class="target-btn edit"
+                            >
+                                ✏ Edit
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="target-btn toggle toggle-btn"
+                                data-url="{% url 'toggle_discovery_target' target.id %}"
+                                data-target-id="{{ target.id }}"
+                            >
+
+                                {% if target.active %}
+                                    ⏸ Pause
+                                {% else %}
+                                    ▶ Activate
+                                {% endif %}
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="target-btn delete delete-btn"
+                                data-url="{% url 'delete_discovery_target' target.id %}"
+                                data-target-id="{{ target.id }}"
+                                data-target-title="{{ target.title }}"
+                            >
+                                🗑 Delete
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div
+                class="empty-state"
+                id="empty-state"
+            >
+
+                <h3>
+                    No job targets yet
+                </h3>
+
+                <p>
+                    Add your first role to start discovering matching jobs.
+                </p>
+
+                <a
+                    href="{% url 'add_discovery_target' %}"
+                    class="add-btn"
+                >
+                    + Add First Target
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast-container"
+    id="toast-container"
+></div>
+
+
+<script>
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const page = document.querySelector(
+                ".targets-page"
+            );
+
+            const maxTargets = parseInt(
+                page.dataset.maxTargets || "3",
+                10
+            );
+
+            const addUrl = (
+                page.dataset.addUrl
+            );
+
+
+            // =================================================
+            // CSRF
+            // =================================================
+
+            function getCookie(name) {
+
+                let cookieValue = null;
+
+                if (
+                    document.cookie
+                    && document.cookie !== ""
+                ) {
+
+                    const cookies = (
+                        document.cookie.split(";")
+                    );
+
+                    for (
+                        let i = 0;
+                        i < cookies.length;
+                        i++
+                    ) {
+
+                        const cookie = (
+                            cookies[i].trim()
+                        );
+
+                        if (
+                            cookie.substring(
+                                0,
+                                name.length + 1
+                            ) === (
+                                name + "="
+                            )
+                        ) {
+
+                            cookieValue = decodeURIComponent(
+                                cookie.substring(
+                                    name.length + 1
+                                )
+                            );
+
+                            break;
+                        }
+                    }
+                }
+
+                return cookieValue;
+            }
+
+
+            const csrfToken = (
+                getCookie("csrftoken")
+            );
+
+
+            // =================================================
+            // TOAST
+            // =================================================
+
+            function showToast(
+                message,
+                type = "success"
+            ) {
+
+                const container = (
+                    document.getElementById(
+                        "toast-container"
+                    )
+                );
+
+                if (!container) {
+                    return;
+                }
+
+
+                const toast = (
+                    document.createElement(
+                        "div"
+                    )
+                );
+
+                toast.className = (
+                    "toast " + type
+                );
+
+                toast.textContent = message;
+
+
+                container.appendChild(
+                    toast
+                );
+
+
+                requestAnimationFrame(
+                    function () {
+
+                        toast.classList.add(
+                            "show"
+                        );
+
+                    }
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                toast.remove();
+
+                            },
+                            250
+                        );
+
+                    },
+                    2400
+                );
+            }
+
+
+            // =================================================
+            // AJAX POST
+            // =================================================
+
+            async function postAction(url) {
+
+                const response = await fetch(
+                    url,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "X-CSRFToken": csrfToken,
+                            "X-Requested-With": "XMLHttpRequest",
+                        },
+
+                        credentials: "same-origin",
+                    }
+                );
+
+
+                const data = (
+                    await response.json()
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message
+                        || "Request failed."
+                    );
+
+                }
+
+
+                return data;
+            }
+
+
+            // =================================================
+            // CURRENT COUNT
+            // =================================================
+
+            function getCurrentTargetCount() {
+
+                return document.querySelectorAll(
+                    ".target-card"
+                ).length;
+            }
+
+
+            // =================================================
+            // UPDATE COUNTER
+            // =================================================
+
+            function updateCounter() {
+
+                const count = (
+                    getCurrentTargetCount()
+                );
+
+
+                const counter = (
+                    document.getElementById(
+                        "target-counter"
+                    )
+                );
+
+
+                if (counter) {
+
+                    counter.textContent = (
+                        count
+                        + " / "
+                        + maxTargets
+                    );
+
+                }
+
+
+                updateAddButton(
+                    count
+                );
+
+
+                updateEmptyState(
+                    count
+                );
+            }
+
+
+            // =================================================
+            // ADD BUTTON
+            // =================================================
+
+            function updateAddButton(count) {
+
+                const container = (
+                    document.getElementById(
+                        "add-target-container"
+                    )
+                );
+
+
+                if (!container) {
+                    return;
+                }
+
+
+                if (
+                    count >= maxTargets
+                ) {
+
+                    container.innerHTML = `
+                        <span class="add-btn disabled">
+                            Maximum ${maxTargets} Targets
+                        </span>
+                    `;
+
+                } else {
+
+                    container.innerHTML = `
+                        <a
+                            href="${addUrl}"
+                            class="add-btn"
+                        >
+                            + Add Job Target
+                        </a>
+                    `;
+
+                }
+            }
+
+
+            // =================================================
+            // EMPTY STATE
+            // =================================================
+
+            function updateEmptyState(count) {
+
+                if (
+                    count > 0
+                ) {
+                    return;
+                }
+
+
+                const content = (
+                    document.getElementById(
+                        "target-content"
+                    )
+                );
+
+
+                if (!content) {
+                    return;
+                }
+
+
+                content.innerHTML = `
+                    <div
+                        class="empty-state"
+                        id="empty-state"
+                    >
+
+                        <h3>
+                            No job targets yet
+                        </h3>
+
+                        <p>
+                            Add your first role to start
+                            discovering matching jobs.
+                        </p>
+
+                        <a
+                            href="${addUrl}"
+                            class="add-btn"
+                        >
+                            + Add First Target
+                        </a>
+
+                    </div>
+                `;
+            }
+
+
+            // =================================================
+            // TOGGLE
+            // =================================================
+
+            document
+                .querySelectorAll(
+                    ".toggle-btn"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            async function () {
+
+                                const url = (
+                                    button.dataset.url
+                                );
+
+
+                                const targetId = (
+                                    button.dataset.targetId
+                                );
+
+
+                                const statusBadge = (
+                                    document.getElementById(
+                                        "status-" + targetId
+                                    )
+                                );
+
+
+                                if (
+                                    !url
+                                    || !statusBadge
+                                ) {
+                                    return;
+                                }
+
+
+                                button.disabled = true;
+
+
+                                try {
+
+                                    const data = (
+                                        await postAction(
+                                            url
+                                        )
+                                    );
+
+
+                                    if (
+                                        data.active
+                                    ) {
+
+                                        statusBadge.className = (
+                                            "status-badge active"
+                                        );
+
+                                        statusBadge.textContent = (
+                                            "● Active"
+                                        );
+
+                                        button.textContent = (
+                                            "⏸ Pause"
+                                        );
+
+                                    } else {
+
+                                        statusBadge.className = (
+                                            "status-badge paused"
+                                        );
+
+                                        statusBadge.textContent = (
+                                            "● Paused"
+                                        );
+
+                                        button.textContent = (
+                                            "▶ Activate"
+                                        );
+
+                                    }
+
+
+                                    showToast(
+                                        data.message
+                                        || "Target updated."
+                                    );
+
+
+                                } catch (error) {
+
+                                    showToast(
+                                        error.message,
+                                        "error"
+                                    );
+
+
+                                } finally {
+
+                                    button.disabled = false;
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            // =================================================
+            // DELETE
+            // =================================================
+
+            document
+                .querySelectorAll(
+                    ".delete-btn"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            async function () {
+
+                                const title = (
+                                    button.dataset.targetTitle
+                                    || "this target"
+                                );
+
+
+                                const confirmed = (
+                                    window.confirm(
+                                        'Delete "'
+                                        + title
+                                        + '"?'
+                                    )
+                                );
+
+
+                                if (!confirmed) {
+                                    return;
+                                }
+
+
+                                const url = (
+                                    button.dataset.url
+                                );
+
+
+                                const targetId = (
+                                    button.dataset.targetId
+                                );
+
+
+                                const card = (
+                                    document.getElementById(
+                                        "target-" + targetId
+                                    )
+                                );
+
+
+                                if (
+                                    !url
+                                    || !card
+                                ) {
+                                    return;
+                                }
+
+
+                                button.disabled = true;
+
+
+                                try {
+
+                                    const data = (
+                                        await postAction(
+                                            url
+                                        )
+                                    );
+
+
+                                    card.classList.add(
+                                        "removing"
+                                    );
+
+
+                                    setTimeout(
+                                        function () {
+
+                                            card.remove();
+
+                                            updateCounter();
+
+                                        },
+                                        180
+                                    );
+
+
+                                    showToast(
+                                        data.message
+                                        || "Target deleted."
+                                    );
+
+
+                                } catch (error) {
+
+                                    button.disabled = false;
+
+
+                                    showToast(
+                                        error.message,
+                                        "error"
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+</script>
+
+{% endblock %}

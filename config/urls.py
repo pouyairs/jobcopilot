@@ -50,5 +50,9 @@ urlpatterns = [
         "jobs/",
         include("jobs.urls")
     ),
+    path(
+    "discover/",
+    include("discovery.urls"),
+),
 
 ]
